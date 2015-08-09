@@ -132,7 +132,6 @@ jQuery.extend({
 			newhash = '#' + hash;
 			location.hash = newhash;
 		}
-                imgcom(newhash);
 		jQuery.historyCurrentHash = newhash;
 		
 		// if ((jQuery.browser.msie) && (jQuery.browser.version < 8)) {

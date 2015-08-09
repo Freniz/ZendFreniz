@@ -112,7 +112,6 @@ _bsn.AutoSuggest.prototype.onKeyUp = function(ev)
 	var key = (window.event) ? window.event.keyCode : ev.keyCode;
 	
 
-
 	// set responses to keydown events in the field
 	// this allows the user to use the arrow keys to scroll through the results
 	// ESCAPE clears the list
@@ -217,14 +216,14 @@ _bsn.AutoSuggest.prototype.doAjaxRequest = function ()
 {
 	
 	var pointer = this;
-	
+	var id=this.fld.id;
+	$('#'+id+'-load').css('display','block');
 	// create ajax request
 	var url = this.oP.script+this.oP.varname+"="+this.fld.value+"&ref=widget";
 	var meth = this.oP.meth;
-	var onSuccessFunc = function (req) {pointer.setSuggestions(req)};
+	var onSuccessFunc = function (req) {$('#'+id+'-load').css('display','none'); pointer.setSuggestions(req)};
 	var onErrorFunc = function (status) {alert("AJAX error: "+status);};
         var myAjax = new _bsn.Ajax();
-		
         myAjax.makeRequest( url, meth, onSuccessFunc, onErrorFunc );
 }
 
@@ -238,10 +237,11 @@ _bsn.AutoSuggest.prototype.setSuggestions = function (req)
 	
 	
 		var xml = req.responseXML;
+		
 	
 		// traverse xml
 		//
-		        if(this.oP.type=='pages'){
+		        if(this.oP.type=='page'){
                     var pageid=xml.getElementsByTagName('pageid');
                     var pagename=xml.getElementsByTagName('pagename');
                     var pagepic=xml.getElementsByTagName('pagepic');
@@ -251,7 +251,7 @@ _bsn.AutoSuggest.prototype.setSuggestions = function (req)
                     var url=xml.getElementsByTagName('url');
                     for (var i=0;i<pageid.length;i++)
                     {
-                            this.aSuggestions.push(  {'pageid':pageid[i].childNodes[0].nodeValue, 'pagename':pagename[i].childNodes[0].nodeValue, 'pagepic':pagepic[i].childNodes[0].nodeValue, 'category':category[i].childNodes[0].nodeValue, 'vote':vote[i].childNodes[0].nodeValue,'votecount':votecount[i].childNodes[0].nodeValue,'url':url[i].childNodes[0].nodeValue} );
+                            this.aSuggestions.push(  {'id':pageid[i].childNodes[0].nodeValue, 'name':pagename[i].childNodes[0].nodeValue,type:'User', 'pic':pagepic[i].childNodes[0].nodeValue, 'category':category[i].childNodes[0].nodeValue, 'vote':vote[i].childNodes[0].nodeValue,'votecount':votecount[i].childNodes[0].nodeValue,'url':url[i].childNodes[0].nodeValue} );
                     }
                 }
                 else if(this.oP.type=='users' || this.oP.type=='friends')
@@ -264,7 +264,8 @@ _bsn.AutoSuggest.prototype.setSuggestions = function (req)
                         var url=xml.getElementsByTagName('url');
                         for(var i=0;i<userid.length;i++)
                             {
-                                this.aSuggestions.push(  {'userid':userid[i].childNodes[0].nodeValue, 'username':username[i].childNodes[0].nodeValue, 'propic':propic[i].childNodes[0].nodeValue, 'vote':votes[i].childNodes[0].nodeValue,'votecount':votecount[i].childNodes[0].nodeValue,'url':url[i].childNodes[0].nodeValue} );
+                        	
+                                this.aSuggestions.push(  {'id':userid[i].childNodes[0].nodeValue, 'name':username[i].childNodes[0].nodeValue,type:'Leaf', 'pic':propic[i].childNodes[0].nodeValue, 'vote':votes[i].childNodes[0].nodeValue,'votecount':votecount[i].childNodes[0].nodeValue,'url':url[i].childNodes[0].nodeValue} );
                             }
                     }
                     else if(this.oP.type=="places"){
@@ -278,7 +279,7 @@ _bsn.AutoSuggest.prototype.setSuggestions = function (req)
                         var url=xml.getElementsByTagName('url');
                         for(var i=0;i<id.length;i++)
                             {
-                                this.aSuggestions.push(  {'id':id[i].childNodes[0].nodeValue, 'name':name[i].childNodes[0].nodeValue, 'country':country[i].childNodes[0].nodeValue, 'province':province[i].childNodes[0].nodeValue, 'placepic':placepic[i].childNodes[0].nodeValue, 'vote':votes[i].childNodes[0].nodeValue,'votecount':votecount[i].childNodes[0].nodeValue,'url':url[i].childNodes[0].nodeValue} );
+                                this.aSuggestions.push(  {'id':id[i].childNodes[0].nodeValue, 'name':name[i].childNodes[0].nodeValue+','+province[i].childNodes[0].nodeValue+',' +country[i].childNodes[0].nodeValue ,type:'place', 'pic':placepic[i].childNodes[0].nodeValue, 'vote':votes[i].childNodes[0].nodeValue,'votecount':votecount[i].childNodes[0].nodeValue,'url':url[i].childNodes[0].nodeValue} );
                             }
                             
                     }
@@ -328,11 +329,9 @@ _bsn.AutoSuggest.prototype.createList = function(arr)
 	_bsn.DOM.removeElement(this.idAs);
 	this.killTimeout();
 	
-	
 	// create holding div
 	//
 	var div = _bsn.DOM.createElement("div", {id:this.idAs, className:this.oP.className});	
-	
 	var hcorner = _bsn.DOM.createElement("div", {className:"as_corner"});
 	var hbar = _bsn.DOM.createElement("div", {className:"as_bar"});
 	var header = _bsn.DOM.createElement("div", {className:"as_header"});
@@ -358,13 +357,13 @@ _bsn.AutoSuggest.prototype.createList = function(arr)
 		// format output with the input enclosed in a EM element
 		// (as HTML, not DOM)
 		//
-                if(this.oP.type=='pages'){
+             /*   if(this.oP.type=='page'){
 		
                 var pagename = arr[i].pagename;
 		var st = pagename.toLowerCase().indexOf( this.sInput.toLowerCase() );
 		var output = pagename.substring(0,st) + "<em>" + pagename.substring(st, st+this.sInput.length) + "</em>" + pagename.substring(st+this.sInput.length);
 		var pagepic=arr[i].pagepic;
-		var image="<img src='images/32/32_"+pagepic+"' height='32' width='32' />"
+		var image="<img src='http://images.freniz.com/32/32_"+pagepic+"' height='32' width='32' />"
 		var span2 		= _bsn.DOM.createElement("div", {style:"width:50px; float:left; height:50px;"}, output, true);
 		var span1 		= _bsn.DOM.createElement("div", {style:"float:left"},image , true);
 		var span 		= _bsn.DOM.createElement("span", {style:"float:left"} );
@@ -381,7 +380,7 @@ _bsn.AutoSuggest.prototype.createList = function(arr)
 		var st = placename.toLowerCase().indexOf( this.sInput.toLowerCase() );
 		var output = placename.substring(0,st) + "<em>" + placename.substring(st, st+this.sInput.length) + "</em>" + placename.substring(st+this.sInput.length);
 		var placepic=arr[i].placepic;
-		var image="<img src='images/32/32_"+placepic+"' height='32' width='32' />"
+		var image="<img src='http://images.freniz.com/32/32_"+placepic+"' height='32' width='32' />"
 		var span2 		= _bsn.DOM.createElement("div", {style:"width:50px; float:left; height:50px;"}, output, true);
 		var span1 		= _bsn.DOM.createElement("div", {style:"float:left"},image , true);
 		var span 		= _bsn.DOM.createElement("span", {style:"float:left"} );
@@ -397,7 +396,7 @@ _bsn.AutoSuggest.prototype.createList = function(arr)
                     var st = username.toLowerCase().indexOf( this.sInput.toLowerCase() );
                     var output = username.substring(0,st) + "<em>" + username.substring(st, st+this.sInput.length) + "</em>" + username.substring(st+this.sInput.length);
                     var propic=arr[i].propic;
-                    var image="<img src='images/32/32_"+propic+"' height='32' width='32' />"
+                    var image="<img src='http://images.freniz.com/32/32_"+propic+"' height='32' width='32' />"
                     var span2 		= _bsn.DOM.createElement("div", {style:"width:50px; float:left; height:50px;"}, output, true);
                     var span1 		= _bsn.DOM.createElement("div", {style:"float:left"},image , true);
                     var span 		= _bsn.DOM.createElement("span", {style:"float:left"} );
@@ -408,24 +407,25 @@ _bsn.AutoSuggest.prototype.createList = function(arr)
                             span2.appendChild(small);
                             span.appendChild(span1);
                             span.appendChild(span2);
-                }
-                else if(this.oP.type=='all'){
+                }*/
+                //else if(this.oP.type=='all'){
                     var name=arr[i].name;
                     var st = name.toLowerCase().indexOf( this.sInput.toLowerCase() );
                     var output = name.substring(0,st) + "<em>" + name.substring(st, st+this.sInput.length) + "</em>" + name.substring(st+this.sInput.length);
                     var propic=arr[i].pic;
-                    var image="<img src='images/32/32_"+propic+"' height='32' width='32' />"
-                    var span2 		= _bsn.DOM.createElement("div", {style:"width:50px; float:left; height:50px;"}, output, true);
-                    var span1 		= _bsn.DOM.createElement("div", {style:"float:left"},image , true);
-                    var span 		= _bsn.DOM.createElement("span", {style:"float:left"} );
-
+                    var image="<img src='http://images.freniz.com/32/32_"+propic+"' height='32' width='32' />"
+                    var span2 		= _bsn.DOM.createElement("div", {style:""}, output, true);
+                    $(span2).css({'font-size':'14px','margin-top':'-30px','margin-left':'37px','width':'200px'});
+                    var span1 		= _bsn.DOM.createElement("div", {style:""},image , true);
+                    var span 		= _bsn.DOM.createElement("div", {style:"width:100px;"} );
+                    $(span).css({'font-size':'16px','padding':'3px'});
                             var br			= _bsn.DOM.createElement("br", {});
                             span2.appendChild(br);
-                            var small		= _bsn.DOM.createElement("small", {},"Type : "+arr[i].type+"; votes :"+arr[i].votecount);
+                            var small		= _bsn.DOM.createElement("div", {},arr[i].type+"- winks :"+arr[i].votecount);
                             span2.appendChild(small);
                             span.appendChild(span1);
                             span.appendChild(span2);
-                }
+                //}
 		var a 			= _bsn.DOM.createElement("a", {href: window.location.hash});
 		
 		var tl 		= _bsn.DOM.createElement("span", {className:"tl"}, " ");
@@ -447,7 +447,7 @@ _bsn.AutoSuggest.prototype.createList = function(arr)
 	
 	// no results
 	//
-	if (this.oP.type!='pages' && arr.length == 0)
+	if (this.oP.type!='page' && arr.length == 0)
 	{
 		var li 			= _bsn.DOM.createElement(  "li", {className:"as_warning"}, this.oP.noresults  );
 		
@@ -503,7 +503,6 @@ _bsn.AutoSuggest.prototype.createList = function(arr)
 	{
 	this.iHighlighted=0;
 	}
-	
 	
 	
 	
@@ -588,7 +587,11 @@ _bsn.AutoSuggest.prototype.setHighlightedValue = function ()
 {
 	if (this.iHighlighted)
 	{
-            if(this.oP.type=='pages'){
+        if (typeof(this.oP.callback) == "function"){
+			this.clearSuggestions();
+			this.oP.callback( this.aSuggestions[this.iHighlighted-1],this.fld);
+		}
+         /*if(this.oP.type=='page'){
                 if(this.oP.category=='books')
                     addfavbooks(this.aSuggestions[ this.iHighlighted-1 ].pageid);
                 else if(this.oP.category=='musics')
@@ -616,9 +619,7 @@ _bsn.AutoSuggest.prototype.setHighlightedValue = function ()
 		
 		// pass selected object to callback function, if exists
 		//
-		if (typeof(this.oP.callback) == "function")
-			this.oP.callback( this.aSuggestions[this.iHighlighted-1] );
-            }
+		     }
             else if(this.oP.type=='places'){
             this.fld.value=this.aSuggestions[this.iHighlighted-1].name;
             this.clearSuggestions();
@@ -680,32 +681,24 @@ _bsn.AutoSuggest.prototype.setHighlightedValue = function ()
                 this.fld.value='';
                 window.location.href=this.aSuggestions[ this.iHighlighted-1 ].url;
             }
+            */
             
 	} else{
-            if(this.oP.type=='pages'){
-            	if(this.fld.value!=''){
-				
-                if(this.oP.category=='books')
-                    createpage(this.fld.value,this.oP.category,'Book');
-                else if(this.oP.category=='musics')
-                    createpage(this.fld.value,this.oP.category,'Music');
-                else if(this.oP.category=='movies')
-                    createpage(this.fld.value,this.oP.category,'Movie');
-                else if(this.oP.category=='celebrities')
-                    createpage(this.fld.value,this.oP.category,'Public figure');
-                else if(this.oP.category=='games')
-                    createpage(this.fld.value,this.oP.category,'Game');
-                else if(this.oP.category=='sports')
-                    createpage(this.fld.value,this.oP.category,'Sport');
-                else if(this.oP.category=='school')
-            		createpage(this.fld.value,'Organisations','School/University');
-            	else if(this.oP.category=='college')
-            		createpage(this.fld.value,'Organisations','School/University');
-            	else if(this.oP.category=='work')
-            		createpage(this.fld.value,'Organisations','Comapny');
+            if(this.oP.type=='page'){
+				if(this.fld.value!=''){
+					var field=this.fld;
+					var org_callback=this.oP.callback;
+					var option={
+						callback:function(json){
+							var suggestion={id:json.leafid,name:json.name,pic:'default.jpg',url:json.leafid,votecount:1};
+							org_callback(suggestion,field);
+						}
+						};
+					createpage(this.fld.value,this.oP.category,this.oP.subcategory,'default',this.oP.fav,option);
                 }
             }
         }
+        
         
 }
 
@@ -779,8 +772,8 @@ _bsn.Ajax = function ()
 
 _bsn.Ajax.prototype.makeRequest = function (url, meth, onComp, onErr)
 {
-    document.getElementById('search-top-loading').style.display='block';
-    	if (meth != "POST")
+	//document.getElementById('search-top-loading').style.display='block';
+	if (meth != "POST")
 		meth = "GET";
 	
 	this.onComplete = onComp;
@@ -793,6 +786,7 @@ _bsn.Ajax.prototype.makeRequest = function (url, meth, onComp, onErr)
 	{
 		this.req = new XMLHttpRequest();
 		this.req.onreadystatechange = function () {pointer.processReqChange()};
+		
 		this.req.open("GET", url, true); //
 		this.req.send(null);
 	// branch for IE/Windows ActiveX version
@@ -823,6 +817,7 @@ _bsn.Ajax.prototype.processReqChange = function()
 			this.onError( this.req.status );
 		}
 	}
+	
 }
 
 

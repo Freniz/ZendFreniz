@@ -1,0 +1,19 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+?>
+<albums>
+<album>
+<albumname><?php echo $this->results['albumname'];?></albumname>
+<images>
+<?php foreach ($this->results['albumurl'] as $id=>$row){?>
+<image>
+<imagename><?php echo $id?></imagename>
+<imageurl><?php echo $row?></imageurl>
+</image>
+<?php }?>
+</images>
+</album>
+</albums>
+

@@ -1,0 +1,473 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$session=(array)$this->mydetails;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Freniz-diary</title>
+
+<style>
+#dairy-div{
+	box-shadow: 3px 3px 6px rgba(0,0,0,2.5);
+	-moz-box-shadow: 3px 3px 6px rgba(0,0,0,2.5);
+	-webkit-box-shadow: 3px 3px 6px rgba(0,0,0,2.5);
+	font-size:20px;
+	
+}
+#modify,#span-update{
+	  cursor: pointer;
+			  font-weight: bold;
+			  padding: 6px 20px;
+			  text-decoration: none;
+			  color: #000;
+			  -moz-border-radius: 6px;
+			  -webkit-border-radius: 6px;
+			  border-radius: 6px;
+	                  background-color: #eee;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-ms-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-o-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	
+}
+
+</style>
+ 	
+	<script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+	   <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script>
+	<script type="text/javascript" src="http://js.freniz.com/calendar.rc4.js"></script>
+	<link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+        <script type="text/javascript" src="http://js.freniz.com/datepicker.js"></script>
+        <link href="http://css.freniz.com/datepicker.css" rel="stylesheet" type="text/css" />
+   <script type="text/javascript" src="http://www.freniz.com/keyboard/vk_loader.js?vk_layout=IN%20Tamil&vk_skin=flat_gray" ></script>
+ <link rel="stylesheet" href="http://css.freniz.com/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+	       <script type="text/javascript" src="http://js.freniz.com/bsn.AutoSuggest_c_2.0.js"></script>
+        
+   <script type="text/javascript">
+
+datePickerController.setGlobalVars({"split":["-dd","-mm"]});
+            
+function disableEasterMonday(argObj) { 
+       
+        var y = argObj.yyyy,
+            a=y%4,
+            b=y%7,
+            c=y%19,
+            d=(19*c+15)%30,
+            e=(2*a+4*b-d+34)%7,
+            m=Math.floor((d+e+114)/31),
+            g=(d+e+114)%31+1,            
+            yyyymmdd = y + "0" + m + String(g < 10 ? "0" + g : g);         
+        
+        datePickerController.addDisabledDates(argObj.id, yyyymmdd); 
+       
+        return {};
+};
+
+
+function createSpanElement(argObj) {
+       
+        if(document.getElementById("EnglishDate-" + argObj.id)) return;
+
+        
+        var spn = document.createElement('span');
+            p   = document.getElementById(argObj.id).parentNode;
+            
+        spn.id = "EnglishDate-" + argObj.id;
+        p.parentNode.appendChild(spn);
+        
+        p.style.marginBottom = "0";
+        
+        spn.appendChild(document.createTextNode(String.fromCharCode(160)));
+};
+
+function showEnglishDate(argObj) {
+        
+        var spn = document.getElementById("EnglishDate-" + argObj.id),
+            formattedDate = datePickerController.printFormattedDate(argObj.date, "l-cc-sp-d-S-sp-F-sp-Y", false);
+       
+        if(!spn) {
+                createSpanElement(argObj); 
+                spn = document.getElementById("EnglishDate-" + argObj.id);
+        };
+        
+      
+        while(spn.firstChild) spn.removeChild(spn.firstChild);
+        
+      
+        spn.appendChild(document.createTextNode(formattedDate));
+};
+
+
+            
+datePickerController.addEvent(window, "load", function() {
+      var opts = {
+        
+        id:"date2",
+       
+        format:"Y-ds-m-ds-d",
+        // Days to highlight (starts on Monday)
+        highlightDays:[0,0,0,0,0,1,1],
+        // Days of the week to disable (starts on Monday)
+        disabledDays:[0,0,0,0,0,0,0],
+        // Dates to disable (YYYYMMDD format, "*" wildcards excepted)
+        disabledDates:{
+                "20090601":"20090612", // Range of dates
+                "20090622":"1",        // Single date
+                "****1225":"1"         // Wildcard example 
+                },
+        // Date to always enable
+        enabledDates:{},
+        // Don't fade in the datepicker
+        // NOTE: Only relevant if "staticPos" is set to false
+        noFadeEffect:false,
+        // Is it inline or popup
+        staticPos:false,
+        // Do we hide the associated form element on create
+        hideInput:false,
+        // Do we hide the today button
+        noToday:false,
+        // Do we show weeks along the left hand side
+        showWeeks:true,
+        
+        dragDisabled:true,
+       
+        positioned:"",
+        
+        fillGrid:true,
+        
+        constrainSelection:true,
+       
+        callbacks:{"create":[], "dateselect":[function(){updatediarydiv($('#date2').val())}]},
+        
+        buttonWrapper:"",
+        
+        cursorDate:""      
+      };
+      datePickerController.createDatePicker(opts);
+});
+
+// ]]>
+</script>
+        <script type="text/javascript">
+            
+            
+        
+            
+            function updatediarydiv(date)
+            {
+           	 $.ajax({
+      		    url:'http://www.freniz.com/diary/?date='+date+'&format=xml',
+      		    cache:false,
+      		    dataType:"xml",
+      		    success:function(xml){
+          		   updtdiary(xml);
+      		    }
+   		    } );
+               
+            }
+            function updtdiary(xml)
+            {
+                $(xml).find('diary').each(function(){
+                    
+                    var value=$(this).find('notes').text();
+                    /*value=value.replace(/""/g, "%20");
+                   value = value.replace(/&/g, "&amp;");
+                   value = value.replace('\n', "%0A");
+                   alert(value);  */
+                    $('#diary-div').text(value);
+                    $('#diary-text').val(value);
+                 //  	 document.getElementById('diary-div').innerHTML=value;
+                    });
+             
+            }
+
+            function next(date){
+            	var joindate = new Date(date);
+            	joindate.setDate(joindate.getDate() + 1);
+            	var currentdate=joindate.getFullYear()+ "-" +("0" + (joindate.getMonth() + 1)).slice(-2) + "-" + ("0" + joindate.getDate()).slice(-2);
+    	
+            	updatediarydiv(currentdate);
+            	document.getElementById('date2').value=currentdate;
+        		
+            }
+            function previous(date){
+            	var joindate = new Date(date);
+            	joindate.setDate(joindate.getDate() - 1);
+            	var currentdate=joindate.getFullYear()+ "-" +("0" + (joindate.getMonth() + 1)).slice(-2) + "-" + ("0" + joindate.getDate()).slice(-2);
+    	
+            	updatediarydiv(currentdate);
+            	document.getElementById('date2').value=currentdate;
+        		
+            }
+            function writediary(date,value)
+            {
+                 var notes=value;
+                var parameters="date="+date+"&notes="+notes;
+                 $.ajax({
+              	  type: 'POST',
+              	  url: 'http://www.freniz.com/updatediary',
+              	  data: parameters,
+              	  success: function(json){alert(json.status);},
+              	  dataType: "json"
+              	});
+               
+            }
+                     
+            
+    $(document).ready(function(){
+            $('#date2').data('oldVal', $('#date2').val());
+            
+   // Look for changes in the value
+   $('#date2').bind("propertychange keyup input paste", function(event){
+      // If value has changed...
+      if ($('#date2').data('oldVal') != $('#date2').val()) {
+       // Updated stored value
+       $('#date2').data('oldVal', $('#date2').val());
+       updatediarydiv($('#date2').val());
+       // Do action
+     }
+   });
+
+   $('#diary-text').bind('keyup', function() {
+	   $('#diary-div').text($('#diary-text').val());
+      });
+
+   $('#modify').toggle(function(){
+		$('#diary-div').css('height','395px');
+	   	$('#keyboard').css('display','block');
+	    $('#diary-text').val($('#diary-div').text());
+	   	$('#modify').val('Done');
+	   },
+	   function(){
+		   $('#diary-div').css('height','475px');
+		   	$('#keyboard').css('display','none');
+		   	$('#modify').val('create or Modify');
+		   });
+ 
+           });
+           
+        </script>
+	<link rel="stylesheet" type="text/css" href="css/iframe.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="css/dashboard.css" media="screen" />
+	
+</head>
+
+<body>
+ <img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+    <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+<?php if(isset($session['userid']) && $session['type']!='none' && $session['type']!='leaf'){ ?>
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+<?php } ?>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    <?php if(isset($session['userid']) && $session['type']=='user'){ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://www.freniz.com/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+<?php }else{ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Home</a></li>
+<ul>
+
+<?php } ?>
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<?php if($session['userid']){ ?> 
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" title="<?php echo $session['username']; ?>" class="active">
+				<?php 
+				$name = $session['username'];
+                 if(strlen($name) > 24 )
+                 {
+                 echo substr($name, 0, 26).'...' ;
+                                 }
+               else {
+                   echo $name;
+               } ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li title="<?php echo $value['username']; ?>" onclick="switchuser('<?php echo $value['userid'];?>')"  ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a title="<?php echo $value['username']; ?>" style="font-size:10px;padding-left:4px;"><?php $leafname = $value['username'];
+                 if(strlen($leafname) > 15 )
+                 {
+                 echo substr($leafname, 0, 15).'...' ;
+                                 }
+               else {
+                   echo $leafname; } ?></a></label></div></li>
+                                 	<?php } 
+                                 	if($session['type']!='none' && $session['type']!='leaf'){
+                                 	?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                <?php }elseif($session['type']=='leaf'){ ?>
+                                   <li><a href="http://www.freniz.com/leafedit/<?php echo $session['userid']; ?>#privacyinfo">Privacy Setting</a> </li>
+                                <?php } ?>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+ <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://www.freniz.com/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:250px; height:30px" ><span id="searchusers-load" style="margin-top:-24px; margin-left: 215px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -24px; margin-right:-45px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div> 
+
+<div style="width:1000px; margin-left:auto; margin-right:auto">
+<div style="width:1000px; font-weight: bold; font-family: cursive; font-size: 30px;  height: 50px; float:left">
+    Secret Diary
+</div>    
+<div style="width:800px; height:35px; margin-left:50px;  float:left">
+<form action="/">
+<label style="font-size:19px; margin-top:4px; font-weight:bold" for="date2">Date</label>
+<input id="date2" name="date2" style="width:200px; outline:none;font-size:20px; font-weight:bold; height:25px;" class="w16em" type="text" />
+</form>
+    <input id="modify" type="button" onclick="" value="Create or Modify" style="float:right; margin-top: -25px" />
+</div>
+<div   style="width:800px; white-space:pre; margin-left:50px; height:500px; float:left; border:solid 8px">
+<div id="diary-div"  style="width:97%; padding:10px; white-space:pre; overflow:auto; margin-top:-20px; height:475px; ">
+
+
+</div>
+
+
+<div id="keyboard" style="margin-top:-87px; display:none">
+ <span id="span-update" style="margin-left: 600px;border:solid 1px; margin-top:-20px;"onclick="writediary(document.getElementById('date2').value,document.getElementById('diary-div').innerHTML);" >Update</span>
+<textarea id="diary-text" onfocus="VirtualKeyboard.attachInput(this);" style="width: 99%;  margin-left:1px; outline:none; overflow:auto; height:80px;"></textarea>
+<span style="position:absolute; margin-top:-24px;  margin-left:724px;"onclick="VirtualKeyboard.toggle('diary-text','td'); return false;" ><img src="http://www.freniz.com/keyboard/img/jsvk.gif"/></span>
+<div id="td" style="position:absolute; margin-top:-20px; margin-left:50px"></div>
+</div>
+</div>
+<div style="width:700px; margin-left:80px; height:20px; margin-top:20px; float:left; ">
+ 
+<a style="float:left" onclick="previous(document.getElementById('date2').value)" href="javascript:void(0)">Previous</a>
+<a style="float:right" onclick="next(document.getElementById('date2').value)" href="javascript:void(0)">Next</a>
+
+</div>
+</div>
+
+         <div style="width:100%; float:left; height:250px ">
+   </div>     
+       	         
+<script type="text/javascript">
+var joindate = new Date();
+            	joindate.setDate(joindate.getDate());
+            	var currentdate=joindate.getFullYear()+ "-" +("0" + (joindate.getMonth() + 1)).slice(-2) + "-" + ("0" + joindate.getDate()).slice(-2);
+    			updatediarydiv(currentdate);
+    			document.getElementById('date2').value=currentdate;			
+getcount();	
+								
+					function miniprofile(data,element){
+							var position=$(element).offset();
+							getminiprofile(data,position.top,position.left);
+						}
+
+
+					var options_xmlsearch = function(type,appendto){
+					     if(!appendto)
+					        appendto='body'; 
+					     var options={
+					                script:"http://www.freniz.com/search?type="+type+"&",
+							varname:"key",
+					                type:type,
+					                appendto:appendto,
+					                callback:function(suggestion,fld){
+												window.location.href="http://www.freniz.com/"+suggestion.id;
+					                       }
+					                
+					            };
+					            return options;
+						}
+           var options_xmlsearch = new AutoSuggest('searchusers', options_xmlsearch('all'));
+        
+        
+        
+</script> 
+     <div id="musictab">
+
+ <div class="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     
+     </ul>
+     
+ </div> 
+       
+</div>
+</body>
+</html>

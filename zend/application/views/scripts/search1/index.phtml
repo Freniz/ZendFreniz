@@ -1,0 +1,12 @@
+<?php 
+if(is_array($this->results)){
+	foreach ($$this->results as $key=>$result)
+	{
+		echo $key."<br>";
+		print_r($result);
+		echo '<br><br>';
+	}
+}
+else
+	echo $this->results;
+?>

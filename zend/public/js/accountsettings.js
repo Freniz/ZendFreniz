@@ -36,8 +36,8 @@ function basicaccount()
              else
                  sex1 = "male";
              request.onreadystatechange = basicaccountsettings;
-             alert("ajax/updatebasicinfo.php?fname="+fname.value+"&lname="+lname.value+"&bdm="+bdm.value+"&bdd="+bdd.value+"&bdy="+bdy.value+"&sex="+sex1+"&status="+status.value+"&religious="+religious.value+"&ccity="+ccity.value+"&htown="+htown.value);
-             request.open("get","ajax/updatebasicinfo.php?fname="+fname.value+"&lname="+lname.value+"&bdm="+bdm.value+"&bdd="+bdd.value+"&bdy="+bdy.value+"&sex="+sex1+"&status="+status.value+"&religious="+religious.value+"&ccity="+ccity.value+"&htown="+htown.value,true);
+             alert("http://localhost:10088/freniz_zend/public/updatebasicinfo?fname="+fname.value+"&lname="+lname.value+"&bdm="+bdm.value+"&bdd="+bdd.value+"&bdy="+bdy.value+"&sex="+sex1+"&status="+status.value+"&religious="+religious.value+"&ccity="+ccity.value+"&htown="+htown.value);
+             request.open("get","http://localhost:10088/freniz_zend/public/updatebasicinfo?fname="+fname.value+"&lname="+lname.value+"&bdm="+bdm.value+"&bdd="+bdd.value+"&bdy="+bdy.value+"&sex="+sex1+"&status="+status.value+"&religious="+religious.value+"&ccity="+ccity.value+"&htown="+htown.value,true);
              request.send(null);
          }
          
@@ -101,7 +101,9 @@ function addschools(pageid)
 {
    
     request.onreadystatechange=addschool;
-    request.open("get","ajax/updatefav.php?action=add&category=school&pageid="+pageid,true);
+    alert("http://localhost:10088/freniz_zend/public/updatetofavorites?action=add&category=school&pageid="+pageid);
+    request.open("get","http://localhost:10088/freniz_zend/public/updatetofavorites?action=add&category=school&pageid="+pageid,true);
+  
     request.send(null);
 }
 function addschool()
@@ -130,3 +132,61 @@ function addcollege()
             alert(json.success);
         }
 }
+function personalinfo()            
+{
+    var body=document.getElementById('body_tpe').value;
+    var look=document.getElementById('look_tpe').value;
+    var smoke=document.getElementById('smoke_tpe').value;
+    var drink=document.getElementById('drink_tpe').value;
+    var passion=document.getElementById('passion_tpe').value;
+    var pet=document.getElementById('pet_tpe').value;
+    var ethnicity=document.getElementById('ethnicity_tpe').value;
+    var sexual=document.getElementById('sexual_tpe').value;
+    var humor=document.getElementById('humor_tpe').value;
+    var url="http://localhost:10088/freniz_zend/public/updatepersonalinfo?";
+    if(body!= '')
+        url+="body="+body;
+    if(look!= '')
+        url+="&look="+look;
+    if(smoke!= '')
+        url+="&smoke="+smoke;
+    if(drink!= '')
+        url+= "&drink="+drink;
+    if(passion!= '')
+        url+="&passion="+passion;
+    if(pet!= '')
+        url+="&pets="+pet;
+    if(ethnicity!= '')
+        url+="&ethnicity="+ethnicity;
+     if(sexual!= '')
+        url+= "&sexual="+sexual;
+     if(humor!= '')
+        url+= "&humor="+humor;
+        alert(url);
+        
+ /*$.ajax({
+  url:url,
+  cache:false,
+  dataType:"json",
+  success:function(data){alert(data.status);}
+  });*/
+  request.onreadystatechange=personal1;
+    //request.onreadystatechange=personal1;
+
+  request.open("get",url,true);
+  request.send(null);
+    
+}
+
+function personal1()
+{
+
+     if(request.readyState==4 && request.status==200)
+        {
+            var json=eval('('+request.responseText+')');
+            alert(json.status);
+        }
+}
+ 
+ 
+

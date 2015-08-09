@@ -1,0 +1,406 @@
+<?php $session=(array)$this->myDetails;
+$personalinfo = $this->personalinfo;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Personalinfo</title>
+<style>
+.curve {
+    -moz-border-radius : 25px; /* Firefox */
+    -webkit-border-radius :25px; /* Safari & Chrome */
+    -khtml-border-radius : 25px; /* Linux browsers */
+    border-radius : 25px; /* CSS3 compatible browsers */
+}
+body {
+    margin: 0;
+    padding: 0;
+	width:99%;
+    text-align: center; /* !!! */
+}
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 1024px;
+	
+}
+
+.greenbutton{
+
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 20px;
+padding: ;
+width: 100px;
+cursor: pointer;
+font: bold 12px Arial, Helvetica;
+color: white;
+}
+.foot-tab{
+width:99%;
+
+}
+.foot-tab  ul{
+                    display:block;
+                    margin-top: -2px;
+                    text-align:left;
+                   margin-left: 10px;
+                   
+                }
+               .foot-tab ul li{
+                    display:inline-block; padding: 8px;
+                    font-size: 12px;
+                }
+                .foot-tab ul li a{
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                .foot-tab ul li a:hover{
+                   text-decoration: underline;
+                }
+                .foot-tab{
+                    border-top: solid 2px #ccc;
+                    margin-top: 50px;
+                  float: left;
+                  margin-left: 2px;
+                 
+                }
+                .foot-tab-pos{
+                    position: absolute;
+                }
+                
+                  .show-load{
+                position: absolute;
+                  margin-left:500px;
+                 display:none;
+           width: 100px;
+			height: 20px;
+			background-color: #fff;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+                }
+                
+</style>
+<style>
+	#side-menu ul{
+		display:inline;
+		width:150px;
+		margin-top:-50px;
+	}
+	#side-menu ul li{
+		display:block;
+		background-color:#FFF;
+		padding:20px;
+		
+		
+	}
+	#side-menu ul li a{
+		text-decoration:none;
+		color:black;
+		position:absolute;
+		padding:5px;
+	}
+	#side-menu ul li a:hover{
+		background-color:#A4A4A4;
+		width:150px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);	
+		padding:5px;
+		
+		
+	}
+	.show-selected{
+		background-color:#A4A4A4;
+		width:150px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		padding:5px;
+	}
+nav ul {
+		  margin-top:0px;
+		  padding: 2px;
+		  list-style: none;
+		  position: relative;
+		  background: #eee;
+	float:left;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;    
+		}
+		
+		nav li {
+		  float: left;      
+			   border-left:solid 1px; 
+		}
+     
+      nav li:first-child  a{
+		   
+			border-left:solid 1px #eee; 
+		}
+		
+		nav #acountmenu a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		nav #acountmenu a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+		
+		
+			nav #acountmenu-trigger {
+		  -moz-border-radius: 3px 0 0 3px;
+		  -webkit-border-radius: 3px 0 0 3px;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		nav #acountmenu a:hover {
+		  background: #fff;
+		}
+			.active {
+		  background: #fff;
+		}
+	</style>
+	
+	
+     <link rel="stylesheet" href="http://css.freniz.com/login.css" type="text/css" media="screen" charset="utf-8" />
+   
+<script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+</head>
+
+<body>
+<?php //echo $_SESSION['userid']; ?>
+ <div class="header-div-top" style="height:50px;">
+             <a href="/"><div class="headername-font" style="width:220px; float:left; background-image: url(www.freniz.com/images/freniz.png); margin-top: -10px; height:60px; "></div></a>
+     
+</div>
+        
+<div class="centered" style="margin-top:10px; margin-left:auto; margin-right:auto;">
+<?php if ($_REQUEST['log_aug']=='true'){?> 
+<div id="second" style="width:900px; margin-left:50px; height:60px;">
+<div style="width:100px;float:left; margin-top:20px;">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">1</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; background-color:#3F0; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">2</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">3</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">4</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">5</p>
+</div>
+</div>
+<?php }else{?>
+
+<div style="width:100%;  height:50px;margin-left:auto;margin-right:auto;">
+
+<div style="width:600px; height:50px;margin-left:auto;margin-right:auto;">
+
+<nav>
+	<img style="width:32px; float:left; height:32px; " src="http://www.freniz.com/images/32/32_<?php echo $session['propic_url'];?>"/>
+	<ul>
+			<li id="acountmenu" style="border-left:solid 1px #eee"><a  href="http://www.freniz.com/<?php echo $session['userid'];?>" ><?php echo $session['fname'];?></a></li>
+	    <li class="active" id="acountmenu" ><a href="#" >Account Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/privacysettings" >Privacy Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/advancedsettings" >Advanced Privacy</a></li>
+	</ul>
+</nav>
+</div></div><?php }?>
+ <div style=" width:1000px; margin-left:auto; margin-right:auto; ">
+     
+        <?php if ($_REQUEST['log_aug']!='true'){?>
+ <div id="side-menu" style="width:200px; float:left; ">
+<ul>
+<li><a href="http://www.freniz.com/index/basicinfo">Basic info</a></li>
+<li><a href="http://www.freniz.com/index/changepassword">Password</a></li>
+<li><a class="show-selected" href="javascript:void(0)">Personal Info</a></li>
+<li><a href="http://www.freniz.com/index/otherinfo">Other Info</a></li>
+<li><a href="http://www.freniz.com/index/changedp">change photo</a></li>
+</ul>
+</div>  
+<?php }?>  
+
+<div style="width:600px;  <?php if ($_REQUEST['log_aug']=='true'){?> margin-left:auto; margin-right:auto; <?php }else{?>float:left;<?php }?>">
+<div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+   <label style="font-size:18px; font-weight:bold"> Build</label>-
+   
+    <input id="body_tpe" name="body_type" type="text" style="width:500px; outline: none; height:20px;" placeholder="eg: slim/fit, athelic, average, etc."  />
+  
+ <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['body'])) echo $personalinfo['body']; ?>
+</div>
+
+</div>
+
+  <div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+  <label style="font-size:18px; font-weight:bold"> Look</label>-
+     <input id="look_tpe" name="look_type" type="text" style="width:500px; outline: none; height:20px;" placeholder="eg: attractive, very attractive, average, etc"  />
+ 
+  
+ <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['look'])) echo $personalinfo['look']; ?>
+</div>
+
+</div>
+  <div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+  <label style="font-size:18px; font-weight:bold"> Ethicity</label>-
+     <input id="ethnicity_tpe" name="ethnicity_type" type="text" style="width:500px; outline: none; height:20px;" placeholder="eg: asian, african/native american, caucasian, hispanic/latino, middle eastern,etc."  />
+ 
+   
+ <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['ethnicity'])) echo $personalinfo['ethnicity']; ?>
+</div>
+
+</div>
+    <div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+  <label style="font-size:18px; font-weight:bold"> Smoking</label>-
+      <input id="smoke_tpe" name="smoke_type" type="text" style="width:500px; outline: none; height:20px;" placeholder="do you smoke?"  />
+ 
+  
+ <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['smoke'])) echo $personalinfo['smoke']; ?>
+</div>
+
+</div>
+     <div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+  <label style="font-size:18px; font-weight:bold"> Drinking</label>-
+     <input id="drink_tpe" name="drink_type" type="text" style="width:500px; outline: none; height:20px;" placeholder="do you drink?"  />
+ 
+  
+ <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['drink'])) echo $personalinfo['drink']; ?>
+</div>
+
+</div>
+    <div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+  <label style="font-size:18px; font-weight:bold"> Pet</label>-
+    <input id="pet_tpe" name="pet_type" type="text" style="width:500px; outline: none; height:20px;" placeholder="do you like pet?"  />
+ 
+  
+ <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['pets'])) echo $personalinfo['pets']; ?>
+</div>
+
+</div>
+  <div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+  <label style="font-size:18px; font-weight:bold"> Sexual</label>-
+     <select id="sexual_tpe" name="sexual_type">
+   <option <?php if( $personalinfo['sexual']=='no mention') {echo 'selected="selected"';} ?> value="no mention">no mention</option>
+   <option <?php if( $personalinfo['sexual']=='straight') {echo 'selected="selected"';} ?> value="straight">straight</option>
+   <option <?php if( $personalinfo['sexual']=='gay') {echo 'selected="selected"';} ?> value="gay">gay</option>
+   <option <?php if( $personalinfo['sexual']=='bisexual') {echo 'selected="selected"';} ?> value="bisexual">bisexual</option>
+   <option <?php if( $personalinfo['sexual']=='bi-curious') {echo 'selected="selected"';} ?> value="bi-curious">bi-curious</option>
+   </select>
+ <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['sexual'])) echo $personalinfo['sexual']; ?>
+</div>
+
+</div>
+   <div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+  <label style="font-size:18px; font-weight:bold"> Humor</label>-
+   <input type="text" style="width:500px;  outline: none; height:20px;" placeholder="write about your humor" id="humor_tpe" name="humor_type" />
+  <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['humor'])) echo $personalinfo['humor']; ?>
+</div>
+ 
+
+</div>
+ <div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+  <label style="font-size:18px; font-weight:bold"> Passions</label>-
+      <input type="text" style="width:500px; outline: none; height:20px;" placeholder="write about your passion" id="passion_tpe" name="passion_type" />
+   <div style="max-width:400px; margin-left:30px; margin-top:10px; padding:5px;">
+<?php if(isset( $personalinfo['passion'])) echo $personalinfo['passion']; ?>
+</div>
+ 
+
+</div>
+<div style="width:600px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+<div id="basic-details" style="width:600px;  height:20px;">
+<input onclick="personalinfo();" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>   
+ <!--  -->
+</div>
+
+<?php if ($_REQUEST['log_aug']=='true'){?> 
+<div style="width:1000px; padding:10px;float:left;border-bottom:solid 1px">
+<input class="greenbutton" style="float:left; margin-left:3px;" type="button" onclick="window.location.href='http://www.freniz.com/index/basicinfo?log_aug=true'" value="Back"/>
+<a style="float:right; margin-right:5px; cursor:pointer" onclick="window.location.href='http://www.freniz.com/index/otherinfo?log_aug=true'">-->Skip</a>
+</div>
+<?php }?>
+
+</div>
+
+
+<div class="foot-tab" id="foot-tab">
+    <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+
+</body>
+</html>
+

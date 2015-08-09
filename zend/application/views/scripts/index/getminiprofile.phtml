@@ -1,0 +1,47 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+$row=(array)$this->miniprofile;
+$session=(array)$this->mydetails;
+?>
+<profile>
+ <user>
+ <type><?php echo $row['profile_type'];?></type>
+       <id><?php echo $row['userid'] ?></id>
+       <url><?php echo $row['user_url']?></url>
+       <username><?php echo $row['username']?></username>
+      <isfriends><?php
+			if(in_array($session['userid'], $row['friends']))
+				echo 'yes';
+				else echo 'no';?></isfriends>
+       <mutual><?php echo count($row['mutual_friends']);?></mutual>
+       <propic_url><?php echo $row['propic_url']?></propic_url>
+       <walpic_url><?php echo $row['secondarypic1_url'];?></walpic_url>
+       <mood_url><?php $mood=explode(',', $row['mood']);
+       							echo $mood[0];
+       	?></mood_url>
+       	<mood_description><?php echo $mood[1]; ?></mood_description>
+        <friends>
+        	
+           <?php foreach($row['friends_profiles'] as $id => $friends){ ?>
+           <friend>
+           <friendid><?php echo $id; ?></friendid>
+           <fusername><?php echo $friends['fname'].' '.$friends['lname'];?></fusername>
+           <imgurl><?php echo $friends['imageurl'];?></imgurl>
+           <friendurl><?php echo $friends['friendurl'];?></friendurl>
+           </friend>
+           <?php } ?>
+       </friends>
+       <ismyid><?php 
+       if($session['userid']==$row['userid'])
+       			echo 'yes';
+       else echo 'no';
+       ?></ismyid>
+       <myid><?php echo $session['userid'];?></myid>
+       <category><?php echo trim($row['category']);?></category>
+       <subcategory><?php echo $row['subcategory'];?></subcategory>
+       <bids><?php echo $row['bids'];?></bids>
+        </user>
+</profile>
+    

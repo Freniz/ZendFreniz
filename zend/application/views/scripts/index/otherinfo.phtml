@@ -1,0 +1,549 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$session=(array)$this->myDetails;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Otherinfo</title>
+<script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/bsn.AutoSuggest_c_2.0.js"></script>
+<link rel="stylesheet" href="http://css.freniz.com/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+
+<style>
+.curve {
+    -moz-border-radius : 25px; /* Firefox */
+    -webkit-border-radius :25px; /* Safari & Chrome */
+    -khtml-border-radius : 25px; /* Linux browsers */
+    border-radius : 25px; /* CSS3 compatible browsers */
+}
+body {
+    margin: 0;
+	width:99%;
+    padding: 0;
+    text-align: center; /* !!! */
+}
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 1024px;
+	
+}
+.greenbutton{
+
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 20px;
+padding: 0;
+width: 50px;
+cursor: pointer;
+font: bold 12px Arial, Helvetica;
+color: white;
+}
+.updatebutton{
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 40px;
+padding:10px;
+width: 100px;
+cursor: pointer;
+font: bold 16px Arial, Helvetica;
+color: white;
+}
+.foot-tab{
+width:99%;
+
+}
+.foot-tab  ul{
+                    display:block;
+                    margin-top: -2px;
+                    text-align:left;
+                   margin-left: 10px;
+                   
+                }
+               .foot-tab ul li{
+                    display:inline-block; padding: 8px;
+                    font-size: 12px;
+                }
+                .foot-tab ul li a{
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                .foot-tab ul li a:hover{
+                   text-decoration: underline;
+                }
+                .foot-tab{
+                    border-top: solid 2px #ccc;
+                    margin-top: 50px;
+                  float: left;
+                  margin-left: 2px;
+                 
+                }
+                .foot-tab-pos{
+                    position: absolute;
+                }
+                 .show-load{
+                display:none;
+                 position: absolute;
+                  margin-left:550px;
+                  
+           width: 70px;
+			height: 20px;
+			background-color: #fff;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+                }
+               
+</style>
+<style>
+	#side-menu ul{
+		display:inline;
+		width:150px;
+		margin-top:-50px;
+	}
+	#side-menu ul li{
+		display:block;
+		background-color:#FFF;
+		padding:20px;
+		
+		
+	}
+	#side-menu ul li a{
+		text-decoration:none;
+		color:black;
+		position:absolute;
+		padding:5px;
+	}
+	#side-menu ul li a:hover{
+		background-color:#A4A4A4;
+		width:150px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);	
+		padding:5px;
+		
+		
+	}
+	.show-selected{
+		background-color:#A4A4A4;
+		width:150px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		padding:5px;
+	}
+	nav ul {
+		  margin-top:0px;
+		  padding: 2px;
+		  list-style: none;
+		  position: relative;
+		  float: left;
+		  background: #eee;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;    
+		}
+		
+		nav li {
+		  float: left;      
+			   border-left:solid 1px; 
+		}
+     
+      nav li:first-child  a{
+		   
+			border-left:solid 1px #eee; 
+		}
+		
+		nav #acountmenu a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		nav #acountmenu a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+		
+		
+			nav #acountmenu-trigger {
+		  -moz-border-radius: 3px 0 0 3px;
+		  -webkit-border-radius: 3px 0 0 3px;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		nav #acountmenu a:hover {
+		  background: #fff;
+		}
+		.active{
+		  background: #fff;
+		}
+	</style>
+	<link rel="stylesheet" href="http://css.freniz.com/login.css" type="text/css" media="screen" charset="utf-8" />
+   
+<script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+</head>
+</head>
+
+<body>
+ <div class="header-div-top" style="height:50px;">
+             <a href="/"><div class="headername-font" style="width:220px; float:left; background-image: url(images.freniz.com/freniz.png); margin-top: -10px; height:60px; "></div></a>
+     
+</div>
+<div class="centered" style=" margin-top:10px; margin-left:auto; margin-right:auto;">
+<?php if ($_REQUEST['log_aug']=='true'){?>
+<div id="third" style="width:900px; height:60px;  margin-left:auto; margin-right:auto; ">
+<div style="width:100px;float:left; margin-top:20px; ">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">1</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">2</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px;  background-color:#3F0; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">3</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">4</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">5</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; ">
+</div>
+</div>
+<?php }else{?>
+<div style="width:600px;margin-left:auto;margin-right:auto;">
+<nav>
+<img style="width:32px; float:left; height:32px; " src="http://images.freniz.com/32/32_<?php echo $session['propic_url'];?>"/>
+	<ul>
+			<li id="acountmenu" style="border-left:solid 1px #eee"><a  href="http://www.freniz.com/<?php echo $session['userid'];?>" ><?php echo $session['fname'];?></a></li>
+			
+		<li class="active" id="acountmenu" ><a href="#" >Account Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/privacysettings" >Privacy Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/advancedsettings" >Advanced Privacy</a></li>
+	</ul>
+</nav>
+</div>
+<?php }?>
+<div style="width:1000px;float:left;">
+<?php if ($_REQUEST['log_aug']!='true'){?>
+
+ <div id="side-menu" style="width:200px; float:left; ">
+<ul>
+<li><a href="http://www.freniz.com/index/basicinfo">Basic info</a></li>
+<li><a href="http://www.freniz.com/index/changepassword">Password</a></li>
+<li><a  href="http://www.freniz.com/index/personalinfo">Personal Info</a></li>
+<li><a class="show-selected" href="javascript:void(0)">other Info</a></li>
+<li><a href="http://www.freniz.com/index/changedp">change photo</a></li>
+
+</ul>
+</div>  
+<?php }?> 
+<div id="hometown-add" style="width:600px;margin-left:auto; padding:10px; margin-right:auto;border-top:solid 1px">
+<label style="font-size:18px; font-weight:bold">Home Town</label>-<input placeholder="what is your native?" id="search-place-update" type="text" style="width:400px; height:20px" /><input id="search-place-update-hidden" type="hidden" style="width:400px; height:20px" />
+<div id="hometown" style="width:500px; margin-top:10px;  padding:5px;">
+
+<?php if($session['ht_id']){?>
+<div id="<?php echo $session['ht_id'];?>" style="width:500px; background-color:#eee; margin-top:2px;  height:55px; padding:5px;"><div style="width:50px; height:50px; float:left;  "><img src="http://images.freniz.com/50/50_<?php echo $session['htpic_url']; ?>" width="50" height="50" /></div><div style="width:350px; height:40px; padding:6px; float:left; margin-left:5px;"><a href="http://www.freniz.com/<?php echo $session['ht_id'];?>"><?php echo $session['ht_name'];?></a></div><a style="position:relative; right:-60px; text-decoration:none; font-size:12px; font-weight:bold" href="javascrit:0" onclick="">X</a><div style="position:absolute ; margin-left:330px; margin-top:28px;"><span style=" font-size:13px; font-weight:bold; width:150px;float:right  ">vote-<?php echo count(unserialize($session['ht_vote']));?></span></div></div>
+<?php }?>
+
+
+</div>
+
+<div id="home-details" style="width:600px;  height:20px;">
+<input class="greenbutton" type="button" value="Update" onclick='updatehometown()' />
+<span id="loading-hometown" class="show-load">loading...</span>
+
+</div>
+</div>
+
+<div id="livingin-add" style="width:600px;margin-left:auto; padding:10px; margin-right:auto;border-top:solid 1px">
+<label style="font-size:18px; font-weight:bold">Living In</label>-<input id="search-cc-place-update" placeholder="where you are living in?" type="text" style="width:400px; height:20px" /><input id="search-cc-place-update-hidden" type="hidden" style="width:400px; height:20px" />
+<div id="livingin" style="width:500px; margin-top:10px;  padding:5px;">
+<?php if($session['cc_id']){?>
+<div id="<?php echo $session['cc_id'];?>" style="width:500px; background-color:#eee; margin-top:2px;  height:55px; padding:5px;"><div style="width:50px; height:50px; float:left;  "><img src="http://images.freniz.com/50/50_<?php echo $session['ccpic_url'];?>" width="50" height="50" /></div><div style="width:350px; height:40px; padding:6px; float:left; margin-left:5px;"><a href="http://www.freniz.com/<?php echo $session['cc_id'];?>"><?php echo $session['cc_name'];?></a></div><a style="position:relative; right:-60px; text-decoration:none; font-size:12px; font-weight:bold" href="javascrit:0" onclick="">X</a><div style="position:absolute ; margin-left:330px; margin-top:28px;"><span style=" font-size:13px; font-weight:bold; width:150px;float:right  ">vote-<?php echo count(unserialize($session['cc_vote']));?></span></div></div>
+<?php }?>
+</div>
+
+<div id="livingin-details" style="width:600px;  height:20px;">
+<input class="greenbutton" type="button" value="Update" onclick='updatelivingin()'/>
+<span id="loading-livinin" class="show-load">loading...</span>
+</div>
+</div>
+
+
+<div id="school-add" style="width:600px;margin-left:auto; padding:10px; margin-right:auto;border-top:solid 1px">
+<label style="font-size:18px; font-weight:bold">School</label>-<input placeholder="where you study?" id="search-school-update" type="text" style="width:400px; height:20px" /><input  id="search-school-update-hidden" type="hidden" style="width:400px; height:20px" />
+<input class="greenbutton" type="button" value="create" />
+<div id="school" style="width:500px; margin-top:10px;  padding:5px;">
+
+</div>
+<div id="school-updated" style="width:500px; margin-top:10px;  padding:5px;">
+
+<script type="text/javascript">
+
+function getuserinfo(where){
+			$.ajax({
+					url:"http://www.freniz.com/settings/getfav?category="+where,
+					dataType:'xml',
+					cache:false,
+					success:function(xml){
+						if(where=='employer')
+							where='work';
+					 var main=document.getElementById(where);
+					    var b=document.createElement('div');
+						  $(xml).find('pages').each(function(){
+			                 $(this).find('page').each(function(){
+				                 
+						var c=document.createElement('div');
+						
+				  c.innerHTML='<div id="'+$(this).find('pageid').text()+'" style="width:500px; background-color:#eee; margin-top:2px;  height:55px; padding:5px;"><div style="width:50px; height:50px; float:left;  "><img src="images/50/50_'+$(this).find('pagepic').text()+'" width="50" height="50" /></div><div style="width:350px; height:40px; padding:6px; float:left; margin-left:5px;"><a href="'+$(this).find('url').text()+'">'+$(this).find('pagename').text()+'</a></div><a style="position:relative; right:-60px; text-decoration:none; font-size:12px; font-weight:bold" href="javascrit:0" onclick="">X</a><div style="position:absolute ; margin-left:330px; margin-top:28px;"><span style=" font-size:13px; font-weight:bold; width:150px;float:right  ">vote-'+$(this).find('votecount').text()+'</span></div></div>';
+					
+				  $(b).append($(c).html());
+					  
+			                 });
+					  });
+						  
+					   $(main).html($(b).html());
+						 
+							
+					}
+			
+			});
+			}
+			window.onload=function(){
+			getuserinfo('school');
+			getuserinfo('college');
+			getuserinfo('employer');
+				}
+</script>
+
+</div>
+<div id="school-details" style="width:600px;  height:20px;">
+<input class="greenbutton" type="button" value="Update" onclick="addEducationInfo('school')" />
+<span id="loading-school" class="show-load">loading...</span>
+
+</div>
+</div>
+
+<div id="college-add" style="width:600px;margin-left:auto; padding:10px; margin-right:auto;border-top:solid 1px">
+<label style="font-size:18px; font-weight:bold">College</label>-<input placeholder="where you study?" id="search-college-update" type="text" style="width:400px; height:20px" /><input  id="search-college-update-hidden" type="hidden" style="width:400px; height:20px" />
+<div id="college" style="width:500px; margin-top:10px;  padding:5px;" >
+
+
+
+</div>
+<div id="college-updated" style="width:500px; margin-top:10px;  padding:5px;">
+</div>
+<div id="college-details" style="width:600px;  height:20px;">
+<input class="greenbutton" type="button" value="Update" onclick="addEducationInfo('college')" />
+
+<span id="loading-college" class="show-load">loading...</span>
+</div>
+</div>
+
+<div id="work-add" style="width:600px;margin-left:auto; padding:10px; margin-right:auto;border-top:solid 1px">
+<label style="font-size:18px; font-weight:bold">Worked at</label>-<input placeholder="what you work?" id="search-work-update" type="text" style="width:400px; height:20px" /><input id="search-work-update-hidden" type="hidden" style="width:400px; height:20px" />
+<div id="work" style="width:500px; margin-top:10px;  padding:5px;">
+
+</div>
+<div id="work-updated" style="width:500px; margin-top:10px;  padding:5px;">
+</div>
+<div id="work-details" style="width:600px;  height:20px;">
+<input class="greenbutton" type="button" value="Update" onclick="addEducationInfo('work')" />
+<span id="loading-work" class="show-load">loading...</span>
+
+</div>
+</div>
+
+<div id="work-add" style="width:600px;margin-left:auto; padding:10px; margin-right:auto;border-top:solid 1px">
+</div>
+
+</div>
+<?php if ($_REQUEST['log_aug']=='true'){?> 
+<div style="width:1000px; padding:10px;float:left;border-bottom:solid 1px">
+<input class="greenbutton" style="float:left; margin-left:3px;" type="button" onclick="window.location.href='http://www.freniz.com/index/personalinfo?log_aug=true'" value="Back"/>
+<a style="float:right; margin-right:5px; cursor:pointer" onclick="window.location.href='http://www.freniz.com/index/favourites?log_aug=true'">-->Skip</a>
+</div>
+<?php }?>
+</div>
+
+
+ <script type="text/javascript">
+ 
+ 	
+     var options_xmlsearch = function(type,appendto){
+      if(!appendto)
+        appendto='body'; 
+     var options={
+                script:"http://www.freniz.com/search?type="+type+"&",
+		varname:"key",
+                type:type,
+                appendto:appendto,
+                callback:function(suggestion,fld){
+             		switch(fld.id){
+					case 'search-place-update':
+								 var main=document.getElementById('hometown');
+								  var b=document.createElement('div');
+					  b.innerHTML='<div id="favorite-list-'+suggestion.id+'" style="width:500px;  height:55px; border:solid 1px; padding:5px;"><div style="width:50px; height:50px; float:left; border:solid 1px"><img src="'+suggestion.name+'" width="50" height="50" /></div><div style="width:350px; height:40px; padding:6px; float:left; margin-left:5px;"><a href="'+suggestion.url+'">'+suggestion.name+'</a></div><a style="position:relative; right:-60px; text-decoration:none; font-size:12px; font-weight:bold" href="javascrit:0" onclick="document.getElementById(\'favorite-list-'+suggestion.id+'\').style.display=\'none\'; document.getElementById(\''+fld.id+'-hidden\').value=\'\';">X</a><div style="position:absolute ; margin-left:330px; margin-top:28px;"><span style=" font-size:13px; font-weight:bold; width:150px;float:right  ">vote-'+suggestion.votecount+'</span></div></div>';
+					  $(main).html(b);
+					  document.getElementById(fld.id+"-hidden").value=suggestion.id;
+                  				 break;
+					
+					case 'search-cc-place-update':
+								 var main=document.getElementById('livingin');
+								   var b=document.createElement('div');
+				  b.innerHTML='<div id="favorite-list-'+suggestion.id+'" style="width:500px;  height:55px; border:solid 1px; padding:5px;"><div style="width:50px; height:50px; float:left; border:solid 1px"><img src="'+suggestion.name+'" width="50" height="50" /></div><div style="width:350px; height:40px; padding:6px; float:left; margin-left:5px;"><a href="'+suggestion.url+'">'+suggestion.name+'</a></div><a style="position:relative; right:-60px; text-decoration:none; font-size:12px; font-weight:bold" href="javascrit:0" onclick="document.getElementById(\'favorite-list-'+suggestion.id+'\').style.display=\'none\'; document.getElementById(\''+fld.id+'-hidden\').value=\'\';">X</a><div style="position:absolute ; margin-left:330px; margin-top:28px;"><span style=" font-size:13px; font-weight:bold; width:150px;float:right  ">vote-'+suggestion.votecount+'</span></div></div>';
+					  $(main).html(b);
+					  document.getElementById(fld.id+"-hidden").value=suggestion.id;
+                   
+								 break;
+					}
+                       }
+                
+            };
+            return options;
+	}
+	 var options_xml = function(type,category,subcategory,fav,appendto){
+     if(!appendto)
+        appendto='body'; 
+     var options={
+                script:"http://www.freniz.com/search?type="+type+"&category="+category+"&subcategory="+subcategory+"&",
+		varname:"key",
+                type:type,
+                category:category,
+                subcategory:subcategory,
+                fav:fav,
+                appendto:appendto,
+                 callback:function(suggestion,fld){
+                    switch(fld.id){
+					case 'search-school-update':
+						//addfavorites(suggestion.id,'school','add');
+								 var main=document.getElementById('school');
+								 var b=document.createElement('div');
+								 b.style.width='500px';
+								 b.style.height='55px';
+								 b.style.padding='5px';
+								 b.style.backgroundColor='#eee';
+								 b.style.marginTop='2px';
+								 b.id=suggestion.id;
+								  b.innerHTML='<div style="width:50px; height:50px; float:left; border:solid 1px"><img src="'+suggestion.name+'" width="50" height="50" /></div><div style="width:350px; height:40px; padding:6px; float:left; margin-left:5px;"><a href="'+suggestion.url+'">'+suggestion.name+'</a></div><a style="position:relative; right:-60px; text-decoration:none; font-size:12px; font-weight:bold" href="javascrit:0" onclick="document.getElementById(\''+suggestion.id+'\').style.display=\'none\'; document.getElementById(\''+fld.id+'-hidden\').value=\'\';">X</a><div style="position:absolute ; margin-left:330px; margin-top:28px;"><span style=" font-size:13px; font-weight:bold; width:150px;float:right  ">vote-'+suggestion.votecount+'</span></div>';
+			                     $(main).prepend(b);
+			                    		 break;
+					 case 'search-college-update':
+						 //addfavorites(suggestion.id,'college','add');
+								 var main=document.getElementById('college');
+					 var b=document.createElement('div');
+					 b.style.width='500px';
+					 b.style.height='55px';
+					 b.style.padding='5px';
+					 b.style.backgroundColor='#eee';
+					 b.style.marginTop='2px';
+					 b.id=suggestion.id;
+					  b.innerHTML='<div style="width:50px; height:50px; float:left; border:solid 1px"><img src="'+suggestion.name+'" width="50" height="50" /></div><div style="width:350px; height:40px; padding:6px; float:left; margin-left:5px;"><a href="'+suggestion.url+'">'+suggestion.name+'</a></div><a style="position:relative; right:-60px; text-decoration:none; font-size:12px; font-weight:bold" href="javascrit:0" onclick="document.getElementById(\''+suggestion.id+'\').style.display=\'none\'; document.getElementById(\''+fld.id+'-hidden\').value=\'\';">X</a><div style="position:absolute ; margin-left:330px; margin-top:28px;"><span style=" font-size:13px; font-weight:bold; width:150px;float:right  ">vote-'+suggestion.votecount+'</span></div>';
+                     $(main).prepend(b);
+                    			 break;
+                     case 'search-work-update':
+                    	 //addfavorites(suggestion.id,'employer','add');
+								 var main=document.getElementById('work');
+								 var b=document.createElement('div');
+								 b.style.width='500px';
+								 b.style.height='55px';
+								 b.style.padding='5px';
+								 b.style.backgroundColor='#eee';
+								 b.style.marginTop='2px';
+								 b.id=suggestion.id;
+								  b.innerHTML='<div style="width:50px; height:50px; float:left; border:solid 1px"><img src="'+suggestion.name+'" width="50" height="50" /></div><div style="width:350px; height:40px; padding:6px; float:left; margin-left:5px;"><a href="'+suggestion.url+'">'+suggestion.name+'</a></div><a style="position:relative; right:-60px; text-decoration:none; font-size:12px; font-weight:bold" href="javascrit:0" onclick="document.getElementById(\''+suggestion.id+'\').style.display=\'none\'; document.getElementById(\''+fld.id+'-hidden\').value=\'\';">X</a><div style="position:absolute ; margin-left:330px; margin-top:28px;"><span style=" font-size:13px; font-weight:bold; width:150px;float:right  ">vote-'+suggestion.votecount+'</span></div>';
+			                     $(main).prepend(b);
+			                    	 break;			 
+					}
+                
+					   }
+                
+            };
+            return options;
+	}
+        var as_xmlsearch = new AutoSuggest('search-place-update', options_xmlsearch('places'));
+         var as_xmlsearch1 = new AutoSuggest('search-cc-place-update', options_xmlsearch('places'));
+          var as_xml = new AutoSuggest('search-school-update', options_xml('page','Organisations','School/University','school'));
+        var as_xml1 = new AutoSuggest('search-college-update', options_xml('page','Organisations','School/University','college'));
+        var as_xml2 = new AutoSuggest('search-work-update', options_xml('page','Organisations','Company','employer'));
+</script>
+  <div class="foot-tab" id="foot-tab">
+    <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+</body>
+</html>
+

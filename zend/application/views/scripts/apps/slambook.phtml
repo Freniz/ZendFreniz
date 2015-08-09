@@ -1,0 +1,399 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$session=(array)$this->mydetails;
+$slambook=$this->slambook;
+?>
+
+<html>
+  <head>
+    <title>Slam Book</title>
+
+    <script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+	   <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script>
+	<!-- Page Flip -->
+<script type="text/javascript" src="http://js.freniz.com/pageflip.js"></script>
+
+<script type="text/javascript">
+	/* pageflip timing */
+	var flipTime = 1000; // in ms [recommended 1000]
+</script>
+
+<link rel="stylesheet" type="text/css" href="http://css.freniz.com/reset.css"/>
+<link rel="stylesheet" type="text/css" href="http://css.freniz.com/pageflip.css"/>
+<link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+
+<style type="text/css">
+body{
+	width:99%;
+}
+#userpic{
+	  border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+             -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+}
+td {
+	font-size:14px;
+	font-weight:bold;
+	color:#000;
+}
+.sh{
+        -moz-box-shadow: 5px 5px 5px rgba(68,68,68,0.6);
+        -webkit-box-shadow: 5px 5px 5px rgba(70,70,70,0.7);
+        box-shadow: 5px 5px 5px rgba(68,68,68,0.6);
+      border:solid 2px;
+
+}
+.page-left-des{
+ /* fallback */
+ background-image: -ms-linear-gradient(right, #000000 0%, #FFFFFF 5%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(right, #000000 0%, #FFFFFF 5%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(right, #000000 0%, #FFFFFF 5%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, right top, left top, color-stop(0, #000000), color-stop(1, #FFFFFF));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(right, #000000 -2px, #FFFFFF 5%);
+
+/* Proposed W3C Markup */ 
+background-image: linear-gradient(right, #000000 0%, #FFFFFF 5%);
+}
+.page-right-des{
+/* IE10 */ 
+background-image: -ms-linear-gradient(right, #000000 0%, #FFFFFF 5%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(left, #000000 0%, #FFFFFF 5%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(left, #000000 0%, #FFFFFF 5%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #000000), color-stop(1, #FFFFFF));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(left, #000000 -2px, #FFFFFF 5%);
+
+/* Proposed W3C Markup */ 
+background-image: linear-gradient(left, #000000 1px, #FFFFFF 5%);
+}
+</style>
+
+<link rel="stylesheet" href="css/prettyGallery.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+		
+		
+		<script src="js/jquery.prettyGallery.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+            $(function() {
+                $('#navigation a').stop().animate({'marginLeft':'-120px'},1000);
+
+                $('#navigation > li').hover(
+                    function () {
+                        $('a',$(this)).stop().animate({'marginLeft':'-5px'},200);
+                    },
+                    function () {
+                        $('a',$(this)).stop().animate({'marginLeft':'-120px'},200);
+                    }
+                );
+            });
+        </script>
+
+        
+</head>
+
+<body>
+   <img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+    <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+<?php if(isset($session['userid']) && $session['type']!='none' && $session['type']!='leaf'){ ?>
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+<?php } ?>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    <?php if(isset($session['userid']) && $session['type']=='user'){ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://www.freniz.com/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+<?php }else{ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Home</a></li>
+<ul>
+
+<?php } ?>
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<?php if($session['userid']){ ?> 
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" title="<?php echo $session['username']; ?>" class="active">
+				<?php 
+				$name = $session['username'];
+                 if(strlen($name) > 24 )
+                 {
+                 echo substr($name, 0, 26).'...' ;
+                                 }
+               else {
+                   echo $name;
+               } ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li title="<?php echo $value['username']; ?>" onclick="switchuser('<?php echo $value['userid'];?>')"  ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a title="<?php echo $value['username']; ?>" style="font-size:10px;padding-left:4px;"><?php $leafname = $value['username'];
+                 if(strlen($leafname) > 15 )
+                 {
+                 echo substr($leafname, 0, 15).'...' ;
+                                 }
+               else {
+                   echo $leafname; } ?></a></label></div></li>
+                                 	<?php } 
+                                 	if($session['type']!='none' && $session['type']!='leaf'){
+                                 	?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                <?php }elseif($session['type']=='leaf'){ ?>
+                                   <li><a href="http://www.freniz.com/leafedit/<?php echo $session['userid']; ?>#privacyinfo">Privacy Setting</a> </li>
+                                <?php } ?>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+ <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://www.freniz.com/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+   </div>
+</div>
+
+
+</div> 
+    
+    <div style="width:99%; float:left; ">
+
+<div style="width:100%; height:70px; float:left">
+    <div style="width:40%; font-size:30px; font-weight:bold; font-family:'Comic Sans MS', cursive; height:35px; float:left">
+  </div>
+<div style="width:500px;margin-left:-200px; margin-top: -5px; float: left; height: 50px; ">
+<ul style="margin-left:0px" class="prettyGallery">     
+ <?php
+        $i=2;
+         foreach($slambook as $url){
+          
+            echo "<li><a onClick=\"gotoPage('".($i*2)."')\" ><img src='images.freniz.com/32/32_".$url['propic_url']."' width=\"45\" height=\"45\" /></a></li>";
+            $i++;
+    } ?>
+    </ul>
+</div>
+  
+</div>
+
+    
+    
+    <div id = "pagesContainer" class="sh" >
+
+<!-- the page DIVs at least 4, in multiples of 2. --> 
+
+<!-- insert your DIVs here, classed "pageContent" -->
+    <div class="pageContent" >
+ 
+
+
+<div class="page-left-des" style="width:470px; height: 700px; border: solid 3px;  float:left">
+    
+    <div style="width: 400px; padding:10px; font-size:24px; font-weight:bold; margin-top:200px; height:150px; position:absolute;">
+"A friendship can weather most things and thrive in thin soil; but it needs a little mulch of letters and phone calls and small, silly presents every so often - just to save it from drying out completely." 
+
+    
+    </div>
+    </div></div>
+    <div class="pageContent">
+ 
+<div class="page-right-des" style="width:470px;  height:700px; border: solid 3px;  float:left">
+   
+    <div style="width: 150px; margin-left:50px;float:left; margin-top:20px; height:150px; ">
+<img id="userpic"src='http://images.freniz.com/200/200_<?php echo $session['propic_url'];?>' width="150"  />
+</div>
+  <div style="width: 150px; margin-left:10px; float:left;margin-top:50px; height:150px;">
+<label style="font-weight:bold"><?php echo $session['username'];?></label>
+  </div>
+   <div style="width: 300px; margin-left:100px; float:left;margin-top:50px; height:150px;">
+<label style="font-weight:bold;font-size:42px">Slambook</label>
+  </div>
+    </div></div>
+<?php foreach($slambook as $slam){
+    ?>   
+    
+<div class="pageContent" >
+ 
+
+
+<div class="page-left-des" style="width:470px; height: 700px; border: solid 3px;  float:left">
+
+<div style="width: 150px; margin-left:300px; margin-top:5px; height:150px; position:absolute;">
+<img id="userpic"src='images.freniz.com/200/200_<?php echo $slam['propic_url'];?>' width="150"  />
+</div>
+<form name="slambook" >
+    <table style=" margin-left: 20px; margin-top: 60px" cellpadding="5px" cellspacing="3px">
+<tr>
+<td><div style="width:275px;  height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Name:</label><?php echo $slam['Name']; ?></div></td></tr>
+<tr>
+<td><div style="width:275px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">B'day:</label><?php echo $slam['Born_On']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Email:</label><?php echo $slam['Email']; ?></div></td></tr>
+<tr><td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Ring me:</label><?php echo $slam['Ring_Me']; ?></div></td></tr>
+<tr><td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Ambition:</label><?php echo $slam['Ambition']; ?></div></td></tr>
+<tr><td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Hobby:</label><?php echo $slam['My_Hobby']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">I Believe in:</label><?php echo $slam['I_Believed_in']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">About Friendship:</label><?php echo $slam['About_Friendship']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">About Love:</label><?php echo $slam['About_Love']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">I hate:</label><?php echo $slam['I_hate']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">My Philosophy:</label><?php echo $slam['My_Philosophy']; ?></div></td></tr>
+</table></form>
+
+
+</div>
+</div>
+<div class="pageContent">
+ 
+<div class="page-right-des" style="width:470px;  height:700px; border: solid 3px;  float:left">
+<form>
+    <table style=" margin-left: 20px; margin-top: 20px" cellpadding="5px" cellspacing="3px">
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite film:</label><?php echo $slam['Fav_Film']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite music:</label><?php echo $slam['Fav_Music']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite actor:</label><?php echo $slam['Fav_Actor']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite actress:</label><?php echo $slam['Fav_Actress']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite sports:</label><?php echo $slam['Fav_Sports']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite sportsman:</label><?php echo $slam['Fav_Sportsman']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite dress:</label><?php echo $slam['Fav_Dress']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite food:</label><?php echo $slam['Fav_Food']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Favourite place:</label><?php echo $slam['Fav_Place']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">Close friends:</label><?php echo $slam['Close_Friends']; ?></div></td></tr>
+<tr>
+<td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">I feel about you:</label><?php echo $slam['I_Feel_About_You']; ?></div></td></tr>
+<tr>
+    <td><div style="width:400px; height:50px; overflow:auto;border-bottom:solid 1px #ccc"><label style="font-size: 18px">My advice for you:</label><?php echo $slam['My_Advice_for_You']; ?></div></td></tr>
+</table></form>
+
+</div>
+
+
+</div>
+ <?php } ?>
+</div>
+        <div style="width:99%; float:left; height: 40px; "></div>
+        
+    </div>
+    <div id="musictab1">
+ <div class="foot-tab">
+     <ul>
+          <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     
+     </ul>
+       
+</div>
+</div>
+
+    <script type="text/javascript" charset="utf-8">
+			$(document).ready(function(){
+				
+			       
+				$('.prettyGallery').prettyGallery({
+					'navigation':'bottom',
+					'itemsPerPage':10
+				});
+
+
+				getcount();	
+				
+				
+
+
+				
+			});
+		</script>
+
+ 
+</body>
+
+</html>

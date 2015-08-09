@@ -1,0 +1,978 @@
+<?php
+
+	
+	$session=(array)$this->mydetails;
+	$lists=$this->lists;
+		
+?>
+	<html>
+	    <head>
+	         <script type="text/javascript" src="http://js.freniz.com/jquery.js"></script> 
+	        <script type="text/javascript" src="http://js.freniz.com/ajax.js"></script> 
+	        <link rel="stylesheet" href="http://css.freniz.com/theme.css" type="text/css" media="screen" charset="utf-8" />
+	        <link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+	          <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script> 
+	      <script src="http://js.freniz.com/jquery.timeago.js" type="text/javascript"></script>
+	      
+        
+         <script type="text/javascript">
+			var activitylist=new Array();
+			var minId=0,maxId=0;
+	     $(document).ready(function(event){
+	    	 $('.mes-text').live('mouseover', function() {
+	    		    $('.mes-text').toggle(function() {
+	    		    	$('#mes-text').css('display','block');
+	    		    	$('.mes-text').html('cancel');
+	    		    },function(){
+	    		    	$('#mes-text').css('display','none');
+	    		    	$('.mes-text').html('send text');
+	    		    });
+	    		});
+	    		
+	    		
+	    		$('.hover').live('mouseover',function(){
+	    			var data=$(this).attr('data');
+	    			miniprofile(data,this);
+	    			$(".hover-div").live('mouseover',function() {
+	    			    $('.hover-div').css('display','block');
+	    			  }).live('mouseout',function(){
+	    				  $('.hover-div').css('display','none');
+	    			  });
+	    			}).live('mouseout',function(){
+	    				 $('.hover-div').css('display','none');
+	    			  });
+	    	
+	     });
+	     function miniprofile(data,element){
+				var position=$(element).offset();
+				getminiprofile(data,position.top,position.left);
+			}
+	     </script>
+	      <style>
+#remove-items{
+			border-radius: 10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+-webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+-ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+		}
+#remove-items ul{
+		display:inline;
+		width:70px;
+            background-color:#eee;
+		
+	}
+	#remove-items ul li{
+		display:block;
+		background-color:#FFF;
+		padding:7px;
+	
+	background-color:#eee;
+		
+		
+	}
+	#remove-items ul li a{
+		margin-top:-10px;
+		text-decoration:none;
+		color:black;
+		position:absolute;
+	font-size:12px;
+		padding:2px;
+	}
+	#remove-items ul li a:hover{
+		background-color:#A4A4A4;
+		width:70px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);	
+		padding:2px;
+		
+		
+	}
+#user-pic{
+            	     border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+             -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);		
+	}
+  #stature-stream{
+            	     border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+             -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+            background-color:#eee;
+           
+            }
+.vote-bar {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 14px; font-weight: bold;
+                color: #000;
+            }
+           .vote-bar :hover{
+                color: #fff;
+            }
+            .close {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 8px; font-weight: bold;
+                color: #000;
+            }
+            .close:hover{
+                color: #aaa;
+            }
+#leaf-vote{
+	            
+	    	  cursor: pointer;
+			  font-weight: bold;
+			  padding: 6px 20px;
+			  text-decoration: none;
+			  color: #000;
+			  text-shadow: 0 1px 0 #fff; 
+			  -moz-border-radius: 6px;
+			  -webkit-border-radius: 6px;
+			  border-radius: 6px;
+	                  background-color: rgb(146,213,0);
+			  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(146,213,0)), to(rgb(146,213,0)));
+			  background-image: -webkit-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -moz-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -ms-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -o-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+	                   -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-ms-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-o-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	        
+	        }
+	        #leaf-vote:hover{
+	            color:#fff;
+	            
+	        }
+	         #home-stream ul{
+	        	display:inline;
+	        
+	        }
+	        #home-stream ul li{
+	        	display:block;
+	        float:left;
+	      
+	        margin-top:3px;
+	        width:200px;
+	        }
+ #home-stream ul li:hover{
+	        	
+	        background-color:#ccc;
+	      
+	        }       
+		 #home-stream ul li a{
+			        	cursor:pointer;
+			          width:200px;
+	       float:left;
+			        }
+		  
+	         #home-stream ul li a div{
+	          margin-top:3px;
+	        }
+      .selected{
+	          background-color:#aaa;
+	        float:left;
+	        }
+	        
+	        
+	     </style>
+	     <script type="text/javascript">
+			function getstreams(criteria)
+			{
+				if(!criteria)
+				criteria='';
+				var contentdisplay='none';
+				if(maxId==0 || criteria!='higher')
+					contentdisplay='block';
+					$.ajax({
+ 	              	  type: 'get',
+ 	              	  url: 'http://www.freniz.com/streams?maxid='+maxId+'&activitylist='+activitylist+'&minid='+minId+'&criteria='+criteria,
+ 	              	  cache:false,
+ 	              	  success: function(xml){
+							streams(xml,contentdisplay);
+ 	              		  },
+ 	              	  dataType: "xml"
+ 	              	});
+			}
+			function streams(xml,contentdisplay){
+				var main=document.getElementById('streams');
+				 $(xml).find('streams').each(function(){
+					 if(maxId<$(this).find('maxId').text())
+					 maxId=$(this).find('maxId').text();
+					 if((minId>$(this).find('minId').text() || minId==0) && $(this).find('minId').text()!='')
+					 minId=$(this).find('minId').text();
+					 if(comment_max==0)
+					 comment_max=$(this).find('maxcomment').text();
+	                 $(this).find('stream').each(function(){
+						 activitylist.push($(this).find('alternateId').text());
+			switch($(this).find('type').text()){
+			case 'post':
+					var postid=$(this).find('contentid').text();
+	           	  var top=document.createElement('div');
+	           	  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		            var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='post-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold; ">'+$(this).find('title').text()+'</div><div style="width:500px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div><div style="width:560px; margin-left: 20px; float: left; margin-top: 5px; padding:5px; max-height: 200px; ">'+$(this).find('status').text()+'</div>';
+	                 	
+	                 var b=document.createElement('div');
+	                b.style.width='580px';
+	                b.style.padding='5px';
+	                b.style.float='left';
+	                if($(this).find('vote-contains').text()=='no'){
+	               	 b.innerHTML='<a onclick="votescribbles('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">wink( '+$(this).find('vote').text()+' )</a>';
+	                 }else{
+	               	  b.innerHTML='<a onclick="unvotescribbles('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">winked( '+$(this).find('vote').text()+' )</a>';
+	                 }
+	                $(c).append(b);
+	                comments.scribbles[postid]={};
+				          comments.scribbles[postid]['totalcomments']=$(this).find('commentcounts').text();
+				      
+	                  var g=document.createElement('div');
+			            g.id='post-comment-main-div'+$(this).find('contentid').text();
+			            var i=document.createElement('div');
+			            i.id='post-comment-sub-div'+$(this).find('contentid').text();
+			          
+			            $(this).find('comments').each(function(){
+			            	$(this).find('comment').each(function(){
+			            		var d=document.createElement('div');
+			            		 d.id='post-comment-box'+$(this).find('comment-id').text();
+			            d.innerHTML='<div style="width: 580px; margin-top:5px;  padding:5px; float: left; background-color:#E6E6E6;"><div style="width: 32px; height: 32px; float: left;"><img src="http://images.freniz.com/32/32_'+$(this).find('comment-propic').text()+'" height="32" width="32" /></div><div style="width: 390px;  max-height: 100px; margin-left: 5px; font-weight:normal; margin-top: 5px; float: left; "><a style="font-size:14px; padding:2px; text-decoration;" href="'+$(this).find('comment-userid').text()+'">'+$(this).find('comment-username').text()+':</a>'+$(this).find('comment-message').text()+'</div><a id="stature-comment-del'+$(this).find('comment-id').text()+'" href="javascript:void(0)" onclick="deletescribblescomment('+$(this).find('comment-id').text()+')" style="text-decoration:none; color:#000; font-size:10px;float:right; margin-top:10px;">x</a><div style="height:10px; margin-left: 5px; font-size:10px; float: left"><div class="timeago" style="float:left" title="'+$(this).find('comment-date').text()+'">'+$(this).find('comment-date').text()+'</div></div></div>';
+			              $(i).append(d);
+			            
+			              if($(this).parent().parent().find('myid').text()!=$(this).parent().parent().find('userid').text() || $(this).find('comment-id').text()==$(this).parent().parent().find('myid').text()){
+			            	  $('#post-comment-del'+$(this).find('comment-id').text()).css('display','none');
+	        				}
+			            	});
+			              	comments.scribbles[postid]['commentsdisplayed']=defaultcomments;
+				            	if($(this).find('loadprevious').text()=='yes'){
+									$('<div/>').attr({id:postid+'-loadcomments-post'}).html('<a href="javascript:void(0)" onclick="loadscribblecomments(\''+postid+'\')">load previous</a>').appendTo(g);
+								}
+				            	else
+				            	$('#'+postid+'-loadcomments-post').remove();
+				         
+			            });
+			            $(g).append(i);
+			            if($(this).find('iscommentable').text()=='yes'){
+			            var f=document.createElement('div');
+			            f.innerHTML='<div id="comment-feild"style="width: 470px;height: 32px; margin-bottom:3px; padding:5px; float: left;"><div style="background-color:#ccc;margin-top: 5px; padding:5px; float: left; "><input id="text-comment-'+$(this).find('contentid').text()+'" onkeydown="postcommentscribles('+$(this).find('contentid').text()+',event)" type="text"placeholder="write to post"style="width: 430px; height: 20px;"/></div></div>';
+			            $(g).append(f);
+			            }
+			            $(c).append(g);
+	                 
+	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);
+				break;
+			case 'stature':
+				var statureid=$(this).find('contentid').text();
+		         var top=document.createElement('div');
+				  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		            var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='stature-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold; ">'+$(this).find('title').text()+'</div><div style="width:400px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div><div style="width:460px; margin-left: 20px; float: left; margin-top: 5px; padding:5px; max-height: 200px; ">'+$(this).find('status').text()+'</div>';
+	                 	
+	                 var b=document.createElement('div');
+	                b.style.width='580px';
+	                b.style.padding='5px';
+	                b.style.float='left';
+	                if($(this).find('vote-contains').text().trim()=='no'){
+	               	 b.innerHTML='<a onclick="votestature('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">wink( '+$(this).find('vote').text()+' )</a>';
+	                 }else{
+	               	  b.innerHTML='<a onclick="unvotestature('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">winked( '+$(this).find('vote').text()+' )</a>';
+	                 }
+	                $(c).append(b);
+	                  var g=document.createElement('div');
+			            g.id='stature-comment-main-div'+$(this).find('contentid').text();
+			            var i=document.createElement('div');
+			            i.id='stature-comment-sub-div'+$(this).find('contentid').text();
+							comments.statures[statureid]={};
+					          comments.statures[statureid]['totalcomments']=$(this).find('commentcounts').text();
+				            
+			            $(this).find('comments').each(function(){
+			            	$(this).find('comment').each(function(){
+			            		var d=document.createElement('div');
+			            		 d.id='stature-comment-box'+$(this).find('comment-id').text();
+			            d.innerHTML='<div style="width: 480px; margin-top:5px;  padding:5px; float: left; background-color:#E6E6E6;"><div style="width: 32px; height: 32px; float: left;"><img src="http://images.freniz.com/32/32_'+$(this).find('comment-propic').text()+'" height="32" width="32" /></div><div style="width: 390px;  max-height: 100px; margin-left: 5px; font-weight:normal; margin-top: 5px; float: left; "><a style="font-size:14px; padding:2px; text-decoration;" href="'+$(this).find('comment-userid').text()+'">'+$(this).find('comment-username').text()+':</a>'+$(this).find('comment-message').text()+'</div><a id="stature-comment-del'+$(this).find('comment-id').text()+'" href="javascript:void(0)" onclick="deletescribblescomment('+$(this).find('comment-id').text()+')" style="text-decoration:none; color:#000; font-size:10px;float:right; margin-top:10px;">x</a><div style="height:10px; margin-left: 5px; font-size:10px; float: left"><div class="timeago" style="float:left" title="'+$(this).find('comment-date').text()+'">'+$(this).find('comment-date').text()+'</div></div></div>';
+			              $(i).append(d);
+			            
+			              if($(this).parent().parent().find('myid').text()!=$(this).parent().parent().find('userid').text() || $(this).find('comment-id').text()==$(this).parent().parent().find('myid').text()){
+			            	  $('#stature-comment-del'+$(this).find('comment-id').text()).css('display','none');
+	        				}
+			            	});
+			              	comments.statures[statureid]['commentsdisplayed']=defaultcomments;
+			              		if($(this).find('loadprevious').text()=='yes'){
+									$('<div/>').attr({id:statureid+'-loadcomments-stature'}).css({'width':'500px','height':'10px','float':'left'}).html('<a href="javascript:void(0)" onclick="loadstaturecomments(\''+statureid+'\')">load previous</a>').appendTo(g);
+								}
+				            	else
+				            	$('#'+statureid+'-loadcomments-stature').remove();
+				            
+			            });
+			            $(g).append(i);
+			            if($(this).find('iscommentable').text()=='yes'){
+			            var f=document.createElement('div');
+			            f.innerHTML='<div id="comment-feild"style="width: 570px;height: 32px; margin-bottom:3px; padding:5px; float: left;"><div style="background-color:#ccc;margin-top: 5px; padding:5px; float: left; "><input id="text-comment-'+$(this).find('contentid').text()+'" onkeydown="postcommentstature('+$(this).find('contentid').text()+',event)" type="text"placeholder="write to post"style="width: 430px; height: 20px;"/></div></div>';
+			            $(g).append(f);
+			            }
+			            $(c).append(g);
+	                 
+	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);
+				break;
+			case 'image':
+		            	
+				var top=document.createElement('div');
+	           	  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		          var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='image-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold;  ">'+$(this).find('title').text()+'</div><div style="width:400px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div>';
+		    	  var b1=document.createElement('div');
+	      	         $(b1).css({'margin-left':'20px','background-color': '#c1d8a9','float':'left','margin-top':'5px'});
+	      	         b1.innerHTML='<a href="http://www.freniz.com/image/'+$(this).find('albumid').text()+'#'+$(this).find('contentid').text()+'"><img alt="image"src="http://images.freniz.com/500/500_'+$(this).find('imageurl').text().trim()+'"></a>';
+	      	        c.appendChild(b1);
+	      	      	
+	                 var b=document.createElement('div');
+	                b.style.width='580px';
+	                b.style.padding='5px';
+	                b.style.float='left';
+	                if($(this).find('vote-contains').text().trim()=='no'){
+	               	 b.innerHTML='<a onclick="voteimage('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">wink( '+$(this).find('vote').text()+' )</a>';
+	                 }else{
+	               	  b.innerHTML='<a onclick="unvoteimage('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">unwink( '+$(this).find('vote').text()+' )</a>';
+	                 }
+	                $(c).append(b);
+	                var g=document.createElement('div');
+		            g.id='image-comment-main-div'+$(this).find('contentid').text();
+		            var i=document.createElement('div');
+		            i.id='image-comment-sub-div'+$(this).find('contentid').text();
+		          
+		            $(this).find('comments').each(function(){
+		            	$(this).find('comment').each(function(){
+		            		var d=document.createElement('div');
+		            		 d.id='image-comment-box'+$(this).find('comment-id').text();
+		            d.innerHTML='<div style="width: 580px; margin-top:5px;  padding:5px; float: left; background-color:#E6E6E6;"><div style="width: 32px; height: 32px; float: left;"><img src="http://images.freniz.com/32/32_'+$(this).find('comment-userpic').text()+'" height="32" width="32" /></div><div style="width: 390px;  max-height: 100px; margin-left: 5px; font-weight:normal; margin-top: 5px; float: left; "><a style="font-size:14px; padding:2px; text-decoration;" href="'+$(this).find('comment-userid').text()+'">'+$(this).find('comment-username').text()+':</a>'+$(this).find('comment-message').text()+'</div><a id="stature-comment-del'+$(this).find('comment-id').text()+'" href="javascript:void(0)" onclick="deletescribblescomment('+$(this).find('comment-id').text()+')" style="text-decoration:none; color:#000; font-size:10px;float:right; margin-top:10px;">x</a><div style="height:10px; margin-left: 5px; font-size:10px; float: left"><div class="timeago" style="float:left" title="'+$(this).find('comment-date').text()+'">'+$(this).find('comment-date').text()+'</div></div></div>';
+		              $(i).append(d);
+		            
+		              if($(this).parent().parent().find('myid').text()!=$(this).parent().parent().find('userid').text() || $(this).find('comment-id').text()==$(this).parent().parent().find('myid').text()){
+		            	  $('#image-comment-del'+$(this).find('comment-id').text()).css('display','none');
+        				}
+		            	});
+		              	
+		            });
+		            $(g).append(i);
+		            if($(this).find('iscommentable').text()=='yes'){
+		            var f=document.createElement('div');
+		            f.innerHTML='<div id="comment-feild"style="width: 570px;height: 32px; margin-bottom:3px; padding:5px; float: left;"><div style="background-color:#ccc;margin-top: 5px; padding:5px; float: left; "><input id="text-comment-'+$(this).find('contentid').text()+'" onkeydown="postcommentscribles('+$(this).find('contentid').text()+',event)" type="text"placeholder="write to post"style="width: 430px; height: 20px;"/></div></div>';
+		            $(g).append(f);
+		            }
+		            $(c).append(g);
+	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);    
+				break;
+			case 'video':
+				 var videoid=$(this).find('contentid').text();
+				 var top=document.createElement('div');
+				  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		           var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='video-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold;  ">'+$(this).find('title').text()+'</div><div style="width:500px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div>';
+	                	 var b1=document.createElement('div');
+		      	         $(b1).css({'margin-left':'20px','float':'left','margin-top':'15px'});
+		      	         b1.innerHTML=$(this).find('url').text();
+		      	        c.appendChild(b1);
+	                 var b=document.createElement('div');
+	                b.style.width='580px';
+	                b.style.padding='5px';
+	                b.style.float='left';
+	                if($(this).find('vote-contains').text().trim()=='no'){
+	               	 b.innerHTML='<a onclick="votevideo('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">wink( '+$(this).find('vote').text()+' )</a>';
+	                 }else{
+	               	  b.innerHTML='<a onclick="unvotevideo('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">unwink( '+$(this).find('vote').text()+' )</a>';
+	                 }
+	                $(c).append(b);
+	                var g=document.createElement('div');
+		            g.id='video-comment-main-div'+$(this).find('contentid').text();
+		            var i=document.createElement('div');
+		            i.id='video-comment-sub-div'+$(this).find('contentid').text();
+		          comments.videos[videoid]={};
+					          comments.videos[videoid]['totalcomments']=$(this).find('commentcounts').text();
+				            
+		            $(this).find('comments').each(function(){
+		            	$(this).find('comment').each(function(){
+		            		var d=document.createElement('div');
+		            		 d.id='video-comment-box'+$(this).find('comment-id').text();
+		            d.innerHTML='<div style="width: 580px; margin-top:5px;  padding:5px; float: left; background-color:#E6E6E6;"><div style="width: 32px; height: 32px; float: left;"><img src="http://images.freniz.com/32/32_'+$(this).find('comment-propic').text()+'" height="32" width="32" /></div><div style="width: 390px;  max-height: 100px; margin-left: 5px; font-weight:normal; margin-top: 5px; float: left; "><a style="font-size:14px; padding:2px; text-decoration;" href="'+$(this).find('comment-userid').text()+'">'+$(this).find('comment-username').text()+':</a>'+$(this).find('comment-message').text()+'</div><a id="stature-comment-del'+$(this).find('comment-id').text()+'" href="javascript:void(0)" onclick="deletescribblescomment('+$(this).find('comment-id').text()+')" style="text-decoration:none; color:#000; font-size:10px;float:right; margin-top:10px;">x</a><div style="height:10px; margin-left: 5px; font-size:10px; float: left"><div class="timeago" style="float:left" title="'+$(this).find('comment-date').text()+'">'+$(this).find('comment-date').text()+'</div></div></div>';
+		              $(i).append(d);
+		            
+		              if($(this).parent().parent().find('myid').text()!=$(this).parent().parent().find('userid').text() || $(this).find('comment-id').text()==$(this).parent().parent().find('myid').text()){
+		            	  $('#video-comment-del'+$(this).find('comment-id').text()).css('display','none');
+        				}
+		            	});
+		              	comments.videos[statureid]['commentsdisplayed']=defaultcomments;
+			              		if($(this).find('loadprevious').text()=='yes'){
+									$('<div/>').attr({id:videoid+'-loadcomments-video'}).css({'width':'500px','height':'10px','float':'left'}).html('<a href="javascript:void(0)" onclick="loadvideocomments(\''+videoid+'\')">load previous</a>').appendTo(g);
+								}
+				            	else
+				            	$('#'+videoid+'-loadcomments-video').remove();
+		            });
+		            $(g).append(i);
+		            if($(this).find('iscommentable').text()=='yes'){
+		            var f=document.createElement('div');
+		            f.innerHTML='<div id="comment-feild"style="width: 570px;height: 32px; margin-bottom:3px; padding:5px; float: left;"><div style="background-color:#ccc;margin-top: 5px; padding:5px; float: left; "><input id="text-comment-'+$(this).find('contentid').text()+'" onkeydown="postcommentscribles('+$(this).find('contentid').text()+',event)" type="text"placeholder="write to post"style="width: 430px; height: 20px;"/></div></div>';
+		            $(g).append(f);
+		            }
+		            $(c).append(g);
+	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);
+	                 $("iframe").attr({ 
+		            	  width: "500",
+		            	  height: "300"
+		            	});
+				break;
+			case 'mood':
+				var top=document.createElement('div');
+				  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		           	 var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='stature-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold;  ">'+$(this).find('title').text()+'</div><div style="width:400px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div>';
+	                	 var b1=document.createElement('div');
+		      	         $(b1).css({'margin-left':'20px','float':'left','margin-top':'-15px'});
+		      	         b1.innerHTML='<img style="float:left;" alt="image"src="http://images.freniz.com/mood/32/'+$(this).find('mood').text().trim()+'"><span style="float:left; margin-left:5px; font-weight:bold">'+$(this).find('mood-description').text().trim()+'</span>';
+		      	        c.appendChild(b1);
+		      	      
+		 	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);  
+				break;
+			case 'blog':
+				 var top=document.createElement('div');
+				  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		             var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='stature-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold;  ">'+$(this).find('title').text()+'</div><div style="width:500px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div><div style="width:560px; margin-left: 20px; float: left; margin-top: 5px; padding:5px; max-height: 200px; ">'+$(this).find('blog').text()+'</div>';
+	                 	
+	                 var b=document.createElement('div');
+	                b.style.width='580px';
+	                b.style.padding='5px';
+	                b.style.float='left';
+	                if($(this).find('vote-contains').text().trim()=='no'){
+	               	 b.innerHTML='<a onclick="voteblog('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">wink( '+$(this).find('vote').text()+' )</a>';
+	                 }else{
+	               	  b.innerHTML='<a onclick="unvoteblog('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">unwink( '+$(this).find('vote').text()+' )</a>';
+	                 }
+	                $(c).append(b);
+	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);
+				break;
+			case 'admire':
+				 var top=document.createElement('div');
+				  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		            var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='stature-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold;  ">'+$(this).find('title').text()+'</div><div style="width:500px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div><div style="width:560px; margin-left: 20px; float: left; margin-top: 5px; padding:5px; max-height: 200px; ">'+$(this).find('message').text()+'</div>';
+	                 	
+	                 var b=document.createElement('div');
+	                b.style.width='580px';
+	                b.style.padding='5px';
+	                b.style.float='left';
+	                if($(this).find('vote-contains').text().trim()=='no'){
+	               	 b.innerHTML='<a onclick="voteadmire('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">wink('+$(this).find('vote').text()+')</a>';
+	                 }else{
+	               	  b.innerHTML='<a onclick="unvoteadmire('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">unwink('+$(this).find('vote').text()+')</a>';
+	                 }
+	                $(c).append(b);
+	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);
+				break;
+			case 'friends':
+				var top=document.createElement('div');
+				  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		           	 var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='stature-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold;  ">'+$(this).find('title').text()+'</div><div style="width:500px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div>';
+	                	  var b1=document.createElement('div');
+		 	      	         $(b1).css({'margin-left':'20px','float':'left','margin-top':'-20px'});
+			 	      	      $(this).find('rusers').each(function(){
+					            	$(this).find('ruser').each(function(){
+		 	      	         var c1=document.createElement('div');
+			 	      	      $(c1).css({'margin-left':'5px','float':'left'});
+				 	      	    
+		 	      	         c1.innerHTML='<a href="'+$(this).find('ruserid').text().trim()+'"><img height="50" width="50"title="'+$(this).find('rusername').text().trim()+'" alt="image"src="http://images.freniz.com/50/50_'+$(this).find('userpic').text().trim()+'"></a>';
+							b1.appendChild(c1);
+					            	});
+			 	      	      });
+			 	      	        c.appendChild(b1);
+		                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);
+				break;
+			case 'propic':
+				var top=document.createElement('div');
+	           	  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		          var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='stature-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold;  ">'+$(this).find('title').text()+'</div><div style="width:400px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div>';
+		    	  var b1=document.createElement('div');
+	      	         $(b1).css({'margin-left':'20px','background-color': '#c1d8a9','float':'left','margin-top':'5px'});
+	      	         b1.innerHTML='<img alt="image"src="http://images.freniz.com/500/500_'+$(this).find('suserpic').text().trim()+'">';
+	      	        c.appendChild(b1);
+	      	      	
+	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);  
+				break;
+				
+			case 'forum':
+				 var top=document.createElement('div');
+				  $(top).css({'width':'700px','float':'left','display':contentdisplay});
+		            var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('contentid').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+	           	  var a=document.createElement('div');
+	           	   a.id='stature-stream';
+	           	   a.className='stature-stream'+$(this).find('contentid').text();
+	                  a.style.width='600px';
+	                  a.style.cssFloat='left';
+	                  a.style.borderBottom='solid 1px #ccc';
+	                  a.style.padding='5px';
+	                     a.style.margin='0 0 5px 7px';
+	                	var c=document.createElement('div');
+	                	c.id='main-scrible-div';
+	                	c.style.width='600px';
+	                	c.style.float='left';
+	                	c.innerHTML='<div style="width:600px; float: left; font-size: 8px; margin-top: 2px; height: 45px; "><div style="width: 10px; height: 10px; position: absolute; margin-left: 580px;margin-top: 5px;  float: right"><a id="remove-'+$(this).find('contentid').text()+'" class="close"data="'+$(this).find('contentid').text()+'"href="javascript:void(0)">X</a></div><div style="width:520px; float: left; font-size: 16px; font-weight: bold;  ">'+$(this).find('title').text()+'</div><div style="width:600px; float: left; font-size: 12px; font-weight: bold; height: 15px; margin-left:10px; color: #aaa; "><div class="timeago" style="float:left; margin-top:2px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></div></div><div style="width:660px; margin-left: 20px; float: left; margin-top: -10px; padding:5px; max-height: 200px; ">'+$(this).find('question').text()+'</div><div style="width:660px; margin-left: 20px; float: left; margin-top: -2px; color:#aaa; padding:5px; max-height: 200px; ">'+$(this).find('description').text()+'</div>';
+	                 	
+	                 var b=document.createElement('div');
+	                b.style.width='580px';
+	                b.style.padding='5px';
+	                b.style.float='left';
+	                if($(this).find('vote-contains').text().trim()=='no'){
+	               	 b.innerHTML='<a onclick="votequestion('+$(this).find('contentid').text()+',this)" class="vote-bar"style="float: right">wink( '+$(this).find('vote').text()+' )</a>';
+	                 }else{
+	               	  b.innerHTML='<a class="vote-bar"style="float: right">winked( '+$(this).find('vote').text()+' )</a>';
+	                 }
+	                $(c).append(b);
+	                  $(a).append(c);
+	                  $(top).append(a);
+	                 $(main).prepend(top);
+				break;
+						
+			}
+							
+	                 });
+	                 
+				 });
+				 $('#new-streams-count').html($('#streams').children(':hidden').length);
+				 if($('#streams').children(':hidden').length>0)
+					$('#new-streams').css('display','block');
+					
+					
+					setTimeout(function(){getstreams('higher');},3000);
+				 prettyLinks();
+			}
+			
+			
+			
+			function setStreamsVisible()
+			{
+				$('#streams').children(':hidden').each(function(){$(this).css('display','block');});
+				$('#new-streams').css('display','none');
+				$('#new-streams-count').html(0);
+			}
+			
+	     </script>
+	     
+	    </head>
+	    <body>
+ <img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+    <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+<?php if(isset($session['userid']) && $session['type']!='none' && $session['type']!='leaf'){ ?>
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+<?php } ?>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    <?php if(isset($session['userid']) && $session['type']=='user'){ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://www.freniz.com/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+<?php }else{ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Home</a></li>
+<ul>
+
+<?php } ?>
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<?php if($session['userid']){ ?> 
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" title="<?php echo $session['username']; ?>" class="active">
+				<?php 
+				$name = $session['username'];
+                 if(strlen($name) > 24 )
+                 {
+                 echo substr($name, 0, 26).'...' ;
+                                 }
+               else {
+                   echo $name;
+               } ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li title="<?php echo $value['username']; ?>" onclick="switchuser('<?php echo $value['userid'];?>')"  ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a title="<?php echo $value['username']; ?>" style="font-size:10px;padding-left:4px;"><?php $leafname = $value['username'];
+                 if(strlen($leafname) > 15 )
+                 {
+                 echo substr($leafname, 0, 15).'...' ;
+                                 }
+               else {
+                   echo $leafname; } ?></a></label></div></li>
+                                 	<?php } 
+                                 	if($session['type']!='none' && $session['type']!='leaf'){
+                                 	?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                <?php }elseif($session['type']=='leaf'){ ?>
+                                   <li><a href="http://www.freniz.com/leafedit/<?php echo $session['userid']; ?>#privacyinfo">Privacy Setting</a> </li>
+                                <?php } ?>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+ <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://www.freniz.com/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:250px; height:30px" ><span id="searchusers-load" style="margin-top:-24px; margin-left: 215px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -24px; margin-right:-45px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div>          
+	        <div style="width:1000px; margin-left: auto; margin-right: auto;">
+	        <div id="maincontainer">
+	        	 
+	           <!-- main div close --> 
+	              
+	                  <div id="home-stream" style="width:200px; border-right:solid 1px; height:300px; float: left; ">
+	             <div style="width:190px; padding:5px; height:60px; ">
+	             <div style="width:50px; height:50px; float:left; border:solid 1px">
+	             <img src="http://images.freniz.com/50/50_<?php echo $session['propic_url']; ?>" />
+	             </div>
+	             <div style="width:130px; margin-left:3px; height:50px; float:left; ">
+	             <label>name name name</label>
+	             </div>
+	             
+	             
+	             </div>
+	             
+	             <ul>
+	             <li><a><span class="selected"><div style="width:20px;  float:left; height:20px;"><img src="j.png" height="20" width="20"/></div><div style="width:175px; margin-left:2px;  float:left; height:20px; ">Stream</div></span></a></li>
+	              <?php foreach($lists as $list){
+	               ?>
+	             <li><a><span><div style="width:20px;  float:left; height:20px;"><img src="<?php echo $list['picture']; ?>" height="20" width="20"/></div><div style="width:175px; margin-left:2px;  float:left; height:20px; "><?php echo $list['name']; ?></div></span></a></li>
+	            <?php } ?>     
+	            <li><a style="width:200px; text-align:center; font-weight:bold">Add list +</a></li>
+	            
+	                </ul>
+	             
+	             </div>
+	         
+	              <div style="width:700px; border:solid 1px; height:50px; float: left; ">
+	          </div>
+	         
+	            <div style="width:700px; float: left; ">
+	            
+	            <label style="font-size: 24px; 	text-transform: uppercase; "><?php echo  $session['username']; ?>'s Streams</label>
+	            
+	            <!-- text feild -->
+	            
+	           <!-- text feild close --> 
+	         <!-- blog start -->   
+	         <script type="text/javascript">
+				getstreams();
+				setTimeout(function(){loadcomments();},2000);
+	         </script>
+	         <div id="new-streams" style='width:700px; margin-top:5px; float: left; display:none;'><a href='javascript:void(0)' onclick='setStreamsVisible()'><div id="new-streams-count" style="float:left" >0</div><div style="float:left">new streams</div></a></div>
+	 <div id="streams" style="width: 700px; margin-top:5px; float: left;">
+             </div>
+             </div>
+             <div style="width:250px; height:100px; float: left; ">
+	            </div>
+	            <!-- blog close -->
+	            <div id="footer" style="width: 100%; height: 100px; float: left; ">
+    
+    
+    
+</div>
+ 
+	            </div>
+	           </div> 
+	         
+	   
+        <div id="light" class="white_content"></div>
+    <div id="fade" onClick="document.getElementById('light').style.display='none';  document.getElementById('fade').style.display='none'" class="black_overlay">
+        </div>
+	<!-- 
+	  <div id="remove-items" style="width:130px; display:none; background-color:#eee;float:left; ">
+<ul>
+<li class="delete" ><a href="javascript:void(0)">delete</a></li>
+<li><a href="javascript:void(0)">Settings</a></li>
+<li><a  href="javascript:void(0)">Report</a></li>
+</ul>
+</div> 
+	 -->  
+	 
+	      <!-- <div style="border: solid 1px; width:100%; height:270px; background-image:url(images/banner.png)"></div>  --> 
+	 <div id="musictab">
+
+ <div class="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+ </div> 
+       
+</div>
+ <div id="hover-data"></div>
+	    </body>  
+	    
+	    
+	    
+	    
+	</html>

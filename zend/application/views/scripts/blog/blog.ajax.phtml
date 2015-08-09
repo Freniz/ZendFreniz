@@ -1,0 +1,35 @@
+<?php header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+$session=(array)$this->mydetails;
+?>
+
+<blogs>
+<?php
+foreach($this->blogs['results'] as $id=>$blog){
+	?>
+	<blog>
+		<id> <?php echo $id; ?> </id>
+		<title> <?php echo $blog['title']; ?> </title>
+		<imgurl> <?php echo $blog['imgurl']; ?> </imgurl>
+		<suserid> <?php echo $blog['userid']; ?> </suserid>
+		<susername> <?php echo $blog['username']; ?> </susername>
+		<suserpic> <?php echo $blog['imageurl']; ?> </suserpic>
+		<suserfrnds> <?php echo $blog['friendlist']; ?> </suserfrnds>
+		<blog1> <?php echo $blog['blog']; ?></blog1>
+		<myid><?php echo $session['userid'];?></myid>
+		<vote_count> <?php $votes=unserialize($blog['vote']); echo count($votes); ?> </vote_count>
+		  <votecontains><?php if(in_array($session['userid'], $votes)){
+                            echo "yes";
+                     }
+                        else 
+                            echo "no";
+                            ?></votecontains>
+		<vote> <?php echo $blog['vote']; ?> </vote>
+		<date> <?php echo $blog['date']; ?> </date>
+	</blog>
+<?php 
+	}
+	?>
+	<loadmore><?php if($this->blogs['loadmore']) echo 'yes'; else echo 'no';?></loadmore>
+</blogs>

@@ -1,0 +1,22 @@
+<?php header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+$session=(array)$this->mydetails;
+?>
+<comments>
+	<maxcomment><?php echo max(array_keys($this->results));?></maxcomment>
+	<?php foreach($this->results as $id=>$values){?>
+	<comment>
+		<type><?php echo $values['type'];?></type>
+		<id><?php echo $values['commentid'];?></id>
+		<objectid><?php echo $values['objid'];?></objectid>
+		<userid><?php echo $values['userid'];?></userid>
+		<username><?php echo $values['username'];?></username>
+		<user_url><?php echo $values['url'];?></user_url>
+		<user_image><?php echo $values['imageurl'];?></user_image>
+		<imageurl><?php echo $values['imageurl'];?></imageurl>
+		<comment-comment><?php echo $values['comment'];?></comment-comment>
+		<date><?php echo $values['date'];?></date>
+	</comment>
+	<?php } ?>
+</comments>

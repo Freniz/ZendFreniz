@@ -1,17 +1,18 @@
 .chatbox {
 	position: fixed;
 	position:expression("absolute");
-	width: 225px;
+	width: 200px;
 	display:none;
 }
 
 .chatboxhead {
-	background-color: #090;
-	padding:7px;
-	color: #ffffff;
-
-	border-right:1px solid #090;
-	border-left:1px solid #090;
+	background-color: #A9F5A9;
+	padding:3px;
+	font-size:14px;
+	color: #444;
+	font-weight:bold;
+	border-right:1px solid #f99d39;
+	border-left:1px solid #f99d39;
 }
 
 .chatboxblink {
@@ -25,7 +26,7 @@
 	font-size: 13px;
 	color: #333333;
 	height:200px;
-	width:209px;
+	width:184px;
 	overflow-y:auto;
 	overflow-x:auto;
 	padding:7px;
@@ -37,7 +38,6 @@
 }
 
 .chatboxinput {
-	padding: 5px;
 	background-color: #ffffff;
 	border-left:1px solid #cccccc;
 	border-right:1px solid #cccccc;
@@ -45,7 +45,7 @@
 }
 
 .chatboxtextarea {
-	width: 206px;
+	width: 181px;
 	height:44px;
 	padding:3px 0pt 3px 3px;
 	border: 1px solid #eeeeee;
@@ -89,4 +89,61 @@
 
 .chatboxtitle {
 	float: left;
+}
+
+
+.receiver-mess{
+
+
+padding: 10px 10px 5px 10px;
+
+border-radius: 10px;
+
+-moz-border-radius: 10px;
+
+-webkit-border-radius: 10px;
+
+-moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+
+-webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+
+-ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+
+box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+
+background-color:#E0F8E0;
+
+margin-left:10px;
+margin-top:5px;
+max-width:350px;
+
+float:left;
+
+}
+
+.sender-mess{
+
+padding: 10px 10px 5px 10px;
+border-radius: 10px;
+
+-moz-border-radius: 10px;
+
+-webkit-border-radius: 10px;
+
+-moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+
+-webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+
+-ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+
+box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+
+background-color:#A9F5BC;
+
+float:right;
+margin-top:5px;
+margin-right:10px;
+
+max-width:350px
+
 }

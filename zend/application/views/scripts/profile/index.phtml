@@ -1,14 +1,125 @@
+
 <?php
-if(is_array($this->bodyContent)){
-	foreach($this->bodyContent as $key => $values){
-		echo $key.'<br>';
-		print_r($values);
-		echo "<br><br>";
-	}
+	$session=(array)$this->mydetails;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Administrator</title>
+<style>
+.curve {
+    -moz-border-radius : 25px; /* Firefox */
+    -webkit-border-radius :25px; /* Safari & Chrome */
+    -khtml-border-radius : 25px; /* Linux browsers */
+    border-radius : 25px; /* CSS3 compatible browsers */
+}
+body {
+    margin: 0;
+    padding: 0;
+	width:99%;
+    text-align: center; /* !!! */
 }
 
-echo $this->results;
-echo '<br><br><br><br>';
-print_r($this->results);
+.foot-tab{
+width:99%;
+
+}
+.foot-tab  ul{
+                    display:block;
+                    margin-top: -2px;
+                    text-align:left;
+                   margin-left: 10px;
+                   
+                }
+               .foot-tab ul li{
+                    display:inline-block; padding: 8px;
+                    font-size: 12px;
+                }
+                .foot-tab ul li a{
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                .foot-tab ul li a:hover{
+                   text-decoration: underline;
+                }
+                .foot-tab{
+                    border-top: solid 2px #ccc;
+                    margin-top: 50px;
+                  float: left;
+                  margin-left: 2px;
+                 
+                }
+                .foot-tab-pos{
+                    position: absolute;
+                }
+                a{
+                	color:#444;
+                }
+		a div:hover{
+			background-color:#eee;
+			color:#444;
+		}
+
+</style>
+	
+     <link rel="stylesheet" href="http://css.freniz.com/login.css" type="text/css" media="screen" charset="utf-8" />
+   
+<script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+</head>
+
+<body>
+<?php //echo $_SESSION['userid']; ?>
+ <div class="header-div-top" style="height:50px;">
+             <a href="/"><div class="headername-font" style="width:220px; float:left; background-image: url(http://images.freniz.com/freniz.png); margin-top: -10px; height:60px; "></div></a>
+</div>
+        
+<div class="centered" style="margin-top:10px; width:1000px; border:solid 1px;margin-left:auto; margin-right:auto;">
+<label style="font-size:28px;font-weight:bold;">Administrator Pages</label>
+<div style="width:600px; padding:50px; ">
+
+
+<?php  unset($session['adminpages_details'][$session['userid']]);
+	foreach ($session['adminpages_details'] as $id=>$row){ 
+
+	?>
+
+<a onclick="switchuser('<?php echo $id;?>')"  href="javascript:void(0)" ><div style="width:400px; margin-top:5px;text-align:left; padding:5px; border:solid 1px;height:85px;">
+<div style="width:75px; height:75px; float:left; padding:5px; ">
+<img src="http://images.freniz.com/75/75_<?php echo $row['propic_url'];?>" height="75" width="75" alt="" />
+</div>
+<div style="float:left; width:200px; font-size:20px;  margin-top:10px; font-weight:bold; margin-left:5px; "><?php echo $row['username'];?></div>
+</div></a>
+<?php  }?>
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="foot-tab" id="foot-tab">
+    <ul>
+    <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+
+</body>
+</html>
+
 
 

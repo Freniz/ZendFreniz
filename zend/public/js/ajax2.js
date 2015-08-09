@@ -7,7 +7,7 @@ var imagetimeout;
 var imageid=window.location.hash.replace('#', '');
 window.onload=function(){
  imageid=window.location.hash.replace('#', '');
-imgcom(imageid);
+
 }
 function imgcom(imageid)
 {

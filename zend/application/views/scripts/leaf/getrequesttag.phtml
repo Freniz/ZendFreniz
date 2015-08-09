@@ -1,0 +1,30 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+$session=(array)$this->mydetails;	
+?>
+<pages>
+<?php foreach ($this->results as $row){?>
+<page>
+<leafid><?php echo $row['userid'] ?></leafid>
+<leafname><?php echo $row['username'] ?></leafname>
+<leafurl><?php echo $row['url'] ?></leafurl>
+<vote><?php $vote=$row['vote'];
+echo $vote; ?></vote>
+<votecontain><?php $votes=unserialize($vote);
+if(in_array($session['userid'], $votes)){
+			echo 'yes';
+}else echo 'no';
+?></votecontain>
+<vote_count><?php echo count($vote);?></vote_count>
+<pagepic><?php echo $row['pagepic_url'] ?></pagepic>
+<category><?php echo htmlspecialchars($row['category']);?></category>
+<view><?php echo $row['views'];?></view>
+</page>
+<?php }?>
+<norequests><?php if(empty($this->results)){
+echo 'yes';
+}else echo 'no';?></norequests>
+</pages>
+

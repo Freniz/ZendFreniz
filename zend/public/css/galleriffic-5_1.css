@@ -35,7 +35,8 @@ div.nav-controls {
 div.slideshow-container,
 div.loader,
 div.slideshow a.advance-link {
-	width: 510px; /* This should be set to be at least the width of the largest image in the slideshow with padding */
+	width: 550px; /* This should be set to be at least the width of the largest image in the slideshow with padding */
+	
 }
 
 div.loader,
@@ -45,7 +46,9 @@ div.caption-container {
 }
 div.comment {
 	padding: 0 12px;
-	height:500px;
+	height:80px;
+	position:relative;
+	margin-top:-20px;
         width:600px; 
 	
 	
@@ -73,7 +76,6 @@ div.slideshow span.image-wrapper {
 }
 div.slideshow a.advance-link {
 	display: block;
-	line-height: 502px; /* This should be set to be at least the height of the largest image in the slideshow with padding */
 	text-align: center;
 }
 
@@ -102,7 +104,7 @@ div.comment-container
 	position: relative;
        
 	margin-top: 30px;
-	height:650px;
+	
 	
 }
 span.image-caption {
@@ -114,14 +116,13 @@ span.image-caption {
 
 div.caption-container, span.image-caption {
 	width: 300px;
-        
+	
 }
 
 div.caption {
 	padding: 0 12px;
        margin-right: 30px;
-	width:200px; 
-	
+	width:380px;
 	
 }
 

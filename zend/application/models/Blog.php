@@ -21,28 +21,60 @@ class Application_Model_Blog extends Zend_Db_Table_Abstract {
 		if($auth->hasIdentity())
 		{
 			$this->authIdentity=$auth->getIdentity();
+			
+				if(round((time()-$this->authIdentity->latime)/60)>25){
+				$this->authIdentity->latime=time();
+				$this->_db->update('user_info', array('latime'=>new Zend_Db_Expr('now()')),array('userid=?'=>$this->authIdentity->userid));
+			}
+				
+				
 		}
+		$this->registry=Zend_Registry::getInstance();
 		
 	}
-	
-	public function addBlog($title,$text,$imageurl)
+	public function addBlog($title,$text,$imageurl,$userid)
 	{
 		if(isset($this->authIdentity)){
 			$privacy=$this->authIdentity->privacy;
-			$blog_data=array('userid'=>$this->authIdentity->userid,'blog'=>mysql_real_escape_string($text),'date'=>new Zend_Db_Expr('Now()'),'vote'=>'a:0:{}','pt'=>$privacy['blogvisi'],'specificlist'=>$privacy['blogspeci'],'hiddenlist'=>$privacy['bloghidden'],'title'=>mysql_real_escape_string($title));
+			if(($this->authIdentity->userid !=$userid)){
+					$privacy['blogvisi']='public';
+					$privacy['blogspeci']='a:0:{}';
+					$privacy['bloghidden']='a:0:{}';
+			}
+			else if($this->authIdentity->type=='page')
+			{
+				$privacy['blogvisi']='public';
+				$privacy['blogspeci']='a:0:{}';
+				$privacy['bloghidden']='a:0:{}';
+			}
+
+			$blog_data=array('userid'=>$userid,'blog'=>$text,'date'=>new Zend_Db_Expr('Now()'),'vote'=>'a:0:{}','pt'=>$privacy['blogvisi'],'specificlist'=>$privacy['blogspeci'],'hiddenlist'=>$privacy['bloghidden'],'title'=>$title);
+			$blog_data['dontnotify']='a:0:{}';
+
 			if(isset($imageurl)){
 			$blog_data=array_merge($blog_data,array('imgurl'=>$imageurl));
 			}
 			$uptdid=$this->insert($blog_data);
-			$activity=array('userid'=>$this->authIdentity->userid,'ruserid'=>$this->authIdentity->userid,'contentid'=>$uptdid,'title'=>'write blog','contenttype'=>'blog','contenturl'=>'blog.php?statureid='.$uptdid,'date'=>new Zend_Db_Expr('now()'),'alternate_contentid'=>'blog_'.$uptdid);
+
+			$activity=array('userid'=>$userid,'ruserid'=>$userid,'contentid'=>$uptdid,'title'=>'write blog','contenttype'=>'blog','contenturl'=>'blog.php?statureid='.$uptdid,'date'=>new Zend_Db_Expr('now()'),'alternate_contentid'=>'blog_'.$uptdid);
+
 			$activityModel=new Application_Model_Activity($this->_db);
+
 			$activityModel->insert($activity);
-			return array("status"=>"your blog sucessfully updated");
+			if($imageurl){
+			return array("blogid"=>$uptdid,"time"=>date('c'),'content'=>$text,"title"=>$title,"status"=>'success','imageurl'=>$imageurl);
+			}else 
+				return array("blogid"=>$uptdid,"time"=>date('c'),'content'=>$text,"title"=>$title,"status"=>'success');
+					
 		   // return $activity;
+
 		}
 		else
+
 			return array("status","please give the valid information");
+
 	}
+	
 	public function deleteBlog($blogid){
 		if(isset($this->authIdentity)){
 			$userid=$this->authIdentity->userid;
@@ -60,29 +92,94 @@ class Application_Model_Blog extends Zend_Db_Table_Abstract {
 			return array("status","please give the valid information");
 	}
 	
+	
 	public function voteBlog($blogid){
 		if(isset($this->authIdentity)){
-			$result=$this->_db->se;
-			 if(!in_array($_SESSION['userid'], $votes)){
-			$votes=unserialize($result['vote']);
-
-			 }
-			 
-			 else
-			 	return array("status"=> "you are already voted to this blog");
+			$result=$this->find($blogid)->toArray();
+			$result=$result[0];
+			$vote=unserialize($result['vote']);
+	
+			array_push($vote, $this->authIdentity->userid);
+			$vote=array_unique($vote);
+			$update_data=array('vote'=>serialize($vote));
+			$this->update($update_data, "blogid='$blogid'");
+			$activity=array('userid'=>$this->authIdentity->userid,'ruserid'=>$result['userid'],'contentid'=>$blogid,'title'=>'voted on','contenttype'=>'blog','contenturl'=>'blog.php?blogid='.$blogid,'date'=>new Zend_Db_Expr('now()'),'alternate_contentid'=>'blog_'.$blogid);
+			$activityModel=new Application_Model_Activity($this->_db);
+			$activityModel->insert($activity);
+			
+			return true;
+			
 		}
-		else
-			return array("status","please give the valid information");
 	}
-	public function getBlogs($ruserid,$from){
+	public function unVoteblog($blogid)
+	{
+		if(isset($this->authIdentity)){
+			$result=$this->find($blogid);
+			if($result){
+				$result=$result[0];
+	
+				$vote=unserialize($result['vote']);
+				if(in_array($this->authIdentity->userid, $vote)){
+					$vote=array_diff($vote, array($this->authIdentity->userid));
+					$updatedata=array('vote'=>serialize($vote));
+					$this->update($updatedata, array('blogid=?'=>$blogid));
+				}
+			}
+		}
+	}
+	public function getdeveloperBlogs($ruserid,$from){
+			$sql=$this->_db->select()->from($this->_name,array('blogid','title','imgurl','userid','blog','vote','date','pt','specificlist','hiddenlist'))
+	
+			->joinLeft('friends_vote','friends_vote.userid=blog.userid','friendlist')
+	
+			->joinLeft('freniz','freniz.userid=blog.userid', array('username'))
+	
+			->joinLeft('image','image.imageid=freniz.propic','url as imageurl')
+	
+			->where("blog.userid in (?)",$ruserid)
+	
+			->order('date desc')->limit($this->registry->limit,$from);
+			$results=$this->_db->fetchAssoc($sql);
+			if(count($results)==$this->registry->limit)
+				$final_results['loadmore']=true;
+			else
+				$final_results['loadmore']=false;
+			foreach ($results as $id=>$result){
+				$rusrid=$result['userid'];
+				$privacy=$result['pt'];
+				$specific=  unserialize($result['specificlist']);
+				$hiddenlist=  unserialize($result['hiddenlist']);
+				$rusrfrnds=$result['friendlist'];
+				if((($privacy=='public'||($privacy=='friends' && in_array($rusrid,$this->authIdentity->friends))||($privacy=='fof' && count(array_intersect($rusrfrnds, $this->authIdentity->friends)>=1) )||($privacy=='specific' && in_array($this->authIdentity->userid, $specific)))&& !in_array($rusrid, $this->authIdentity->blocklistmerged) && !in_array($this->authIdentity->userid, $hiddenlist))|| $this->authIdentity->userid==$rusrid ){
+	
+				}
+				else unset($results[$id]);
+	
+			}
+			$final_results['results']=$results;
+			return $final_results;
+		
+	}
+	
+	
+public function getBlogs($ruserid,$from){
 		if(isset($this->authIdentity)){
 			$sql=$this->_db->select()->from($this->_name,array('blogid','title','imgurl','userid','blog','vote','date','pt','specificlist','hiddenlist'))
+
 			->joinLeft('friends_vote','friends_vote.userid=blog.userid','friendlist')
-			->joinLeft('user_info','user_info.userid=blog.userid', array('fname','lname','propic'))
-			->joinLeft('image','image.imageid=user_info.propic','url as user_imageurl')
+
+			->joinLeft('freniz','freniz.userid=blog.userid', array('username'))
+
+			->joinLeft('image','image.imageid=freniz.propic','url as imageurl')
+
 			->where("blog.userid='".$ruserid."'")
-			->order('date desc')->limit('500',$from);
+
+			->order('date desc')->limit($this->registry->limit,$from);
 			$results=$this->_db->fetchAssoc($sql);
+			if(count($results)==$this->registry->limit)
+				$final_results['loadmore']=true;
+			else
+				$final_results['loadmore']=false;
 			foreach ($results as $id=>$result){
 			    $rusrid=$result['userid'];
 			    $privacy=$result['pt'];
@@ -93,11 +190,35 @@ class Application_Model_Blog extends Zend_Db_Table_Abstract {
 
     		}
     		else unset($results[$id]);
+
 		}
-		return $results;
+		$final_results['results']=$results;
+		return $final_results;
 		}
 		else
+
 			return array("status","please give the valid information");
 	}
 
+	public function getBlogsArray($blogids){
+		$sql=$this->_db->select()->from($this->_name,array('blogid','title','imgurl','userid','blog','vote','date','pt','specificlist','hiddenlist'))
+		->joinLeft('friends_vote','friends_vote.userid=blog.userid','friendlist')
+		->joinLeft('freniz','freniz.userid=blog.userid', array('username'))
+		->joinLeft('image','image.imageid=freniz.propic','url as imageurl')
+		->where('blog.blogid in (?) and accepted=\'yes\'',$blogids);
+		$results=$this->_db->fetchAssoc($sql);
+		foreach ($results as $id=>$result){
+			$rusrid=$result['userid'];
+			$privacy=$result['pt'];
+			$specific=  unserialize($result['specificlist']);
+			$hiddenlist=  unserialize($result['hiddenlist']);
+			$rusrfrnds=$result['friendlist'];
+			if((($privacy=='public'||($privacy=='friends' && in_array($rusrid,$this->authIdentity->friends))||($privacy=='fof' && count(array_intersect($rusrfrnds, $this->authIdentity->friends)>=1) )||($privacy=='specific' && in_array($this->authIdentity->userid, $specific)))&& !in_array($rusrid, $this->authIdentity->blocklistmerged) && !in_array($this->authIdentity->userid, $hiddenlist))|| $this->authIdentity->userid==$rusrid ){
+	
+			}
+			else unset($results[$id]);
+		}
+		return $results;
+			
+	}
 }

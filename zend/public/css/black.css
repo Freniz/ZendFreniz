@@ -1,22 +1,22 @@
 body{
-	background-color: #111;
-	color: #FFF;
+	background-color: #fff;
+	color: #000;
 }
 a{
-	color: #FFF;
+	color: #444;
 }
 h2 {
 	color: #ccc;
 }
 div#page {
-	background-color: #000;
+	background-color: #A9F5A9;
 	border-color: #222;
 }
 div#footer {
 	color: #888;
 }
 div.caption-container {
-	color: #eee;
+	color: #444;
         
 }
 div.image-title {
@@ -27,9 +27,7 @@ div.image-desc {
 	line-height: 1.3em;
 	padding-top: 12px;
 }
-div.download {
-	margin-top: 8px;
-}
+
 div.photo-index {
 	color: #CCC;
 }
@@ -55,4 +53,24 @@ div.pagination span.current,div.pagination span.current1 {
 	background-color: #fff;
 	border-color: #fff;
 	color: #000;
+}
+
+
+div#page {
+	width: 1024px;
+	
+	margin: 0 auto;
+	text-align: left;
+	border:solid 1 #444;
+}
+
+div#page1 {
+	width: 600px;
+	
+	background-color: #fff;
+	margin: 0 auto;
+	text-align: left;
+	border-color: #ddd;
+	border-style: none solid solid;
+	border-width: medium 1px 1px;
 }

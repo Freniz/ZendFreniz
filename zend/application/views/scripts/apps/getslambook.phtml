@@ -1,0 +1,37 @@
+<?php 
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+?>
+<slambooks>
+<?php foreach($this->slambook as $key => $values){?>
+<slambook>
+<Name><?php echo $values['Name']?></Name>
+ <Born_On><?php echo $values['Born_On']?></Born_On>
+  <Email><?php echo $values['Email']?></Email>
+   <Ring_Me><?php echo $values['Ring_Me']?></Ring_Me>
+    <Ambition><?php echo $values['Ambition']?></Ambition>
+     <My_Hobby><?php echo $values['My_Hobby']?></My_Hobby>
+      <I_Believed_in><?php echo $values['I_Believed_in']?></I_Believed_in>
+       <About_Friendship><?php echo $values['About_Friendship']?></About_Friendship>
+        <About_Love><?php echo $values['About_Love']?></About_Love> 
+        <I_hate><?php echo $values['I_hate']?></I_hate>
+         <My_Philosophy><?php echo $values['My_Philosophy']?></My_Philosophy>
+
+ 
+ <Fav_Film><?php echo $values['Fav_Film']?></Fav_Film>
+  <Fav_Music><?php echo $values['Fav_Music']?></Fav_Music>
+   <Fav_Actor><?php echo $values['Fav_Actor']?></Fav_Actor>
+    <Fav_Actress><?php echo $values['Fav_Actress']?></Fav_Actress>
+     <Fav_Sports><?php echo $values['Fav_Sports']?></Fav_Sports> 
+     <Fav_Sportsman><?php echo $values['Fav_Sportsman']?></Fav_Sportsman>
+      <Fav_Dress><?php echo $values['Fav_Dress']?></Fav_Dress>
+       <Fav_Food><?php echo $values['Fav_Food']?></Fav_Food>
+       <Fav_Place><?php echo $values['Fav_Place']?></Fav_Place> 
+       <Close_Friends><?php echo $values['Close_Friends']?></Close_Friends>
+        <I_Feel_About_You><?php echo $values['I_Feel_About_You']?></I_Feel_About_You>
+         <My_Advice_for_You><?php echo $values['My_Advice_for_You']?></My_Advice_for_You>
+        </slambook>
+         <?php }?>
+</slambooks>

@@ -1,0 +1,495 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta charset="UTF-8">
+<title>Freniz-The Real World</title>
+<script type="text/javascript" src="js/onload.js"></script> 
+<script src="js/jquery-latest.js"></script>
+<script type="text/javascript" src="js/bsn.AutoSuggest_c_2.0.js"></script>
+<link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/welcome.css" type="text/css" media="screen" charset="utf-8" />
+ <script src="js/ajax.js" type="text/javascript"></script>
+   <script src="http://localhost:10088/freniz_zend/public/js/autocom.js"></script>
+	    <link rel="stylesheet" href="http://localhost:10088/freniz_zend/public/css/autocom.css" />
+    
+<script type="text/javascript">
+            
+            var json={"1006":{"2506":"Airport","2508":"Arts/Entertainment","2523":"Attractions","2509":"Automobiles","2512":"Bank/Financial Services","2716":"Bar","1305":"Book store","2518":"Business Services","2264":"Religious organisation","2101":"Club","2519":"Community/Government","2250":"Education","2511":"Event planning/Event services","2513":"Food/Grocery","2514":"Health/Medical/Pharmacy","2515":"Home Interiors","2527":"Hospital/Clinic","2501":"Hotel","2503":"Landmark","1306":"Library","2500":"Local business","1111":"Cinemas","2528":"Museum/Art gallery","2231":"Outdoor gear/Sporting goods","2516":"Pet services","2517":"Professional services","2520":"Property","2522":"Public places","1900":"Restaurant/Cafe","2601":"School/University","2521":"Shopping/Retail","2510":"Beauty/Personal care","2524":"Sport/Recreation/Activities","2507":"Sports venue","2525":"Tours/Sightseeing","2505":"Couries/Cargoes","2526":"Transport","2602":"University","2100":"Malls"},"1007":{"1103":"Actor/Director","1601":"Artist","1600":"Athlete","1301":"Author","1609":"Business person","1606":"Chef","1802":"Coach","1610":"Comedian","1614":"Dancer","1608":"Doctor","1308":"Editor","1611":"Entertainer","1113":"Fictional character","1701":"Government official","1604":"Journalist","1607":"Lawyer","1612":"Monarch","1202":"Musician/Band","1605":"News personality","1700":"Politician","1108":"Producer","1602":"Public figure","1613":"Teacher","1109":"Writer"},"1000":{"1000":"Music","1200":"Album","1209":"Concert venue","1212":"Music award","1213":"Music chart","1207":"Music video","1204":"Musical instrument","1202":"Musician/Band","1206":"Playlist","1210":"Radio station","1211":"Record label","1201":"Song"},"1001":{"1103":"Actor/Director","1113":"Fictional character","1105":"Movie","1111":"Cinemas","1108":"Producer","1110":"Studio","1112":"TV/Movie award","1109":"Writer"},"1015":{"1103":"Actor/Director","1405":"Episode","1113":"Fictional character","1110":"Studio","1404":"TV channel","1402":"TV network","1400":"TV show","1112":"TV/Movie award","1109":"Writer"},"1002":{"1301":"Author","1300":"Book","1305":"Book store","1308":"Editor","1306":"Library","1307":"Magazine","1304":"Publisher"},"1009":{"2215":"Appliances","2232":"Baby goods/Kids goods","2206":"Bags/Luggage","2216":"Building materials","2208":"Camera/Photo","2205":"Cars","2209":"Clothing","2217":"Commercial equipment","2210":"Computers","2263":"Drugs","2213":"Electronics","2252":"Food/Beverages","2219":"Furniture","2300":"Games/Toys","2214":"Health/Beauty","2218":"Home Interiors","2220":"Home Appliances","2226":"Jewellery/Watches","2221":"Kitchen/Cooking","2227":"Movies/Music","1204":"Musical instrument","2212":"Office supplies","2231":"Outdoor gear/Sporting goods","2222":"Park/Garden","2230":"Pet supplies","2201":"Product/Service","2211":"Software","2223":"Tools/Equipment","2262":"Vitamins/Supplements","2202":"Website","2224":"Wine/Spirits"},"1013":{"2244":"Aerospace/Defence","2240":"Automobiles and parts","2234":"Bank/Financial institution","2254":"Biotechnology","2247":"Chemicals","2264":"Religious organisation","2260":"Community organisation","2200":"Company","2255":"Computers/Technology","2248":"Consulting/Business Services","2250":"Education","2238":"Energy/Utility","2251":"Engineering/Construction","2246":"Farming/Agriculture","2252":"Food/Beverages","2604":"Government organisation","2214":"Health/Beauty","2243":"Medical/Pharmacy","2241":"Industrials","2236":"Insurance company","2256":"Internet/Software","2249":"Legal/Law","2233":"Media/News/Publishing","2245":"Mining/Materials","2235":"Non-governmental organisation (NGO)","2603":"Non-profit organisation","2600":"Organisation","2261":"Political organisation","2618":"Political party","2239":"Retail and consumer merchandise","2601":"School/University","2237":"Small business","2253":"Telecommunication","2242":"Transport/Freight","2258":"Travel/Leisure","2602":"University"},"1004":{"1700":"Sport","1803":"Sports team","1600":"Athlete","1802":"Coach","1804":"School sports team","1800":"Sports league","2507":"Sports venue"},"1016":{"2701":"Arts/Humanities","2702":"Business/Economy","2703":"Computers/Internet","2704":"Education","2705":"Entertainment","2706":"Government","2707":"Health/Wellness","2708":"Home/Garden","2715":"Local/Travel","2709":"News/Media","2700":"Personal blog","2717":"Personal website","2710":"Recreation/Sport","2711":"Reference","2712":"Regional","2713":"Science","2714":"Society/Culture","2716":"Teens/Kids"},"1018":{"2612":"Community"},"1003":{"2612":"Game","2613":"PC Games","2614":"PS Games","2615":"Indoor Games","2616":"Outdoor Games"}};
+            var a=eval(json);
+            var b={"1006":"Businesses & places","1007":"Celebrities","1000":"Musics","1001":"Movies","1015":"Television","1002":"Books","1009":"Products","1013":"Organisations","1003":"Games","1004":"Sports","1016":"Websites & blogs","1018":"Other"};
+            var c=new Array();
+for (var key in a)
+                {
+                    var d=new Array();
+                     for(var key1 in a[key])
+                        {
+                            value=a[key][key1];
+                            d[value]=value;
+                        }
+                        c[b[key]]=d;
+                }
+               window.onload=function(){
+                    
+                   var e=document.getElementById("category");
+                   for(var k in c)
+                       {
+                           var e1=document.createElement("option");
+                         e1.value=k;
+                         e1.innerHTML=k;
+                         e.appendChild(e1);
+                           
+                       }
+         
+     }
+function displaysubcategory(value)
+            {
+                   
+      
+                if(value!=0){
+                    var e=document.getElementById("subcategory");
+                    e.innerHTML='';
+                    for(var k in c[value]){
+                        var e1=document.createElement("option");
+                        e1.value=k;
+                        e1.innerHTML=c[value][k];
+                        e.appendChild(e1);
+               }
+            }
+       
+     }
+   
+        </script>
+ <style>
+      #inside-search{
+                     background-image: url(images/inside-search.png); width:400px; height: 78px; margin-top: -20px; float: right;
+                }
+                .search-top{
+    width:825px;
+    height: 265px;
+    background-image: url(images/freniz-welcome.png);
+    margin-top: 60px; 
+    
+    margin-left: auto; margin-right: auto;
+}
+ </style>
+       
+ </head>
+    <body>
+     <div class="header-div-top" style="height:50px;">
+<div class="headername-font" style="width:220px; float:left; background-image: url(images/freniz.png); margin-top: -10px; height:60px; ">
+
+</div>
+         <div style="width:320px; height: 25px; float: right">
+            <input id="userid" onkeydown="login(event)" type="email" name="Email" placeholder="User Name" />
+            <input id="password" onkeydown="login(event)" name="Password" type="password" placeholder="Password" /><br/>
+            <div id="login-keep" style="margin-top: 5px; "> <label style="font-size: 12px; font-weight: bold; margin-top: 3px; "><input style="float:left; " type="checkbox" checked="checked"/> Keep me signed in</label></div>
+         </div>
+<nav>
+	<ul>
+		
+		<li id="signup">
+			<a id="signup-trigger" href="#" class="active">Sign up
+			 <span id="signspan">&#x25BC;</span></a>
+			<div id="signup-content" >
+				 <div >
+<div style="width:200px; font-family: sans-serif; float:left">
+<form action="" method="post">
+<fieldset id="inputs">
+<input type="text" size="30" height="20" name="username"  placeholder="User Name" id="username" onkeyup="checkusername()" />
+<input type="text" size="30" height="20" name="eid" id="eid" onkeyup="checkemail()"  placeholder="Your email address" onfocus="checkmail()" />
+<input type="password" size="30" height="20" name="password1" id="password1"  placeholder="Your Password" onkeyup="checkpassword()" />
+<input type="password" size="30" height="20" name="cpassword" id="cpassword"  placeholder="Again Password" onkeyup="matchpassword()" />
+<input type="text" size="30" height="20"  placeholder="First Name" name="fname" id="fname" />
+<input type="text" size="30" height="20" name="lname"  placeholder="Last Name" id="lname"/>
+<td style="text-align:left"><select class="select" name="sex" id="sex"><option value="0">Select Sex:</option><option value="1">Female</option><option value="2">Male</option></select>
+<br/>
+<td style="text-align:left"><select class="" id="birthday_month" name="birthday_month"><option value="-1">Month:</option><option value="1">Jan</option>
+<option value="2">Feb</option>
+<option value="3">Mar</option>
+<option value="4">Apr</option>
+<option value="5">May</option>
+<option value="6">Jun</option>
+<option value="7">Jul</option>
+<option value="8">Aug</option>
+<option value="9">Sep</option>
+<option value="10">Oct</option>
+
+<option value="11">Nov</option>
+<option value="12">Dec</option>
+</select> <select name="birthday_day" id="birthday_day"  onchange="bagofholding" autocomplete="off"><option value="-1">Day:</option><option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select> <select name="birthday_year" id="birthday_year"  autocomplete="off"><option value="-1">Year:</option><option value="2011">2011</option>
+
+<option value="2010">2010</option>
+<option value="2009">2009</option>
+<option value="2008">2008</option>
+<option value="2007">2007</option>
+<option value="2006">2006</option>
+<option value="2005">2005</option>
+<option value="2004">2004</option>
+<option value="2003">2003</option>
+<option value="2002">2002</option>
+
+<option value="2001">2001</option>
+<option value="2000">2000</option>
+<option value="1999">1999</option>
+<option value="1998">1998</option>
+<option value="1997">1997</option>
+<option value="1996">1996</option>
+<option value="1995">1995</option>
+<option value="1994">1994</option>
+<option value="1993">1993</option>
+
+<option value="1992">1992</option>
+<option value="1991">1991</option>
+<option value="1990">1990</option>
+<option value="1989">1989</option>
+<option value="1988">1988</option>
+<option value="1987">1987</option>
+<option value="1986">1986</option>
+<option value="1985">1985</option>
+<option value="1984">1984</option>
+
+<option value="1983">1983</option>
+<option value="1982">1982</option>
+<option value="1981">1981</option>
+<option value="1980">1980</option>
+<option value="1979">1979</option>
+<option value="1978">1978</option>
+<option value="1977">1977</option>
+<option value="1976">1976</option>
+<option value="1975">1975</option>
+
+<option value="1974">1974</option>
+<option value="1973">1973</option>
+<option value="1972">1972</option>
+<option value="1971">1971</option>
+<option value="1970">1970</option>
+<option value="1969">1969</option>
+<option value="1968">1968</option>
+<option value="1967">1967</option>
+<option value="1966">1966</option>
+
+<option value="1965">1965</option>
+<option value="1964">1964</option>
+<option value="1963">1963</option>
+<option value="1962">1962</option>
+<option value="1961">1961</option>
+<option value="1960">1960</option>
+<option value="1959">1959</option>
+<option value="1958">1958</option>
+<option value="1957">1957</option>
+
+<option value="1956">1956</option>
+<option value="1955">1955</option>
+<option value="1954">1954</option>
+<option value="1953">1953</option>
+<option value="1952">1952</option>
+<option value="1951">1951</option>
+<option value="1950">1950</option>
+<option value="1949">1949</option>
+<option value="1948">1948</option>
+
+<option value="1947">1947</option>
+<option value="1946">1946</option>
+<option value="1945">1945</option>
+<option value="1944">1944</option>
+<option value="1943">1943</option>
+<option value="1942">1942</option>
+<option value="1941">1941</option>
+<option value="1940">1940</option>
+<option value="1939">1939</option>
+
+<option value="1938">1938</option>
+<option value="1937">1937</option>
+<option value="1936">1936</option>
+<option value="1935">1935</option>
+<option value="1934">1934</option>
+<option value="1933">1933</option>
+<option value="1932">1932</option>
+<option value="1931">1931</option>
+<option value="1930">1930</option>
+
+<option value="1929">1929</option>
+<option value="1928">1928</option>
+<option value="1927">1927</option>
+<option value="1926">1926</option>
+<option value="1925">1925</option>
+<option value="1924">1924</option>
+<option value="1923">1923</option>
+<option value="1922">1922</option>
+<option value="1921">1921</option>
+
+<option value="1920">1920</option>
+<option value="1919">1919</option>
+<option value="1918">1918</option>
+<option value="1917">1917</option>
+<option value="1916">1916</option>
+<option value="1915">1915</option>
+<option value="1914">1914</option>
+<option value="1913">1913</option>
+<option value="1912">1912</option>
+
+<option value="1911">1911</option>
+<option value="1910">1910</option>
+<option value="1909">1909</option>
+<option value="1908">1908</option>
+<option value="1907">1907</option>
+<option value="1906">1906</option>
+<option value="1905">1905</option>
+</select>
+</fieldset>
+<div id="signup" style=" width:100px;float:left">
+<label><input type="checkbox" checked="checked">I have read, understand, and agree to the freniz Terms of Service.</label>
+    <li><input type="button" id="submit" onclick="createaccount()" value="Create"/></li>
+</div>
+</form>
+
+</div>
+</div>
+			</div>     
+			
+		</li>
+	</ul>
+</nav>
+</div>
+        <div style="width:1000px; margin-left: auto; margin-right: auto;">
+            
+            <div id="search-top" class="search-top">
+        <div id="display-front-pic" class="display-front-pic">
+          
+        </div>
+                <div style="margin-left:100px; ">
+    <input id="welcome-search-element" onkeyup="welcomesearch()" type="text" style="width:500px; margin-top: 10px; font-size: 18px; margin-left: 30px; height:30px"/>
+   <div style="width:600px; height: 20px;"></div>
+
+    <input id="search-button-main" type="button" onclick="welcomesearch()"  value="Search"/>
+    <div id="inside-search" class="inside-search-none" ></div>
+                </div>
+</div> 
+            
+    <div id="search-option-top" class="search-option-top">
+        
+        <label class="fontstyle">Select option to search:</label><br/>
+        <select  id="select-field" style="width:100px;" ><option value="user">people</option><option value="page">Leaf</option>
+<option value="places">Places</option><option value="skills">Skills</option>
+</select>
+<div style="width:300px; height: 20px;"></div>
+
+<div id="search-by-place" class="search-by-place-display">
+<label class="fontstyle"> Search By Places:</label><br/>
+<input id="search-places" type="text" style="width:250px; height:30px"><span id="search-top-loading" style="margin-top:-20px; margin-left: 220px; color: #ffffff; display: none; position: absolute;"><img src="images/small-loading.gif" height="16" width="16"/></span></input><input id="search-places-hidden" type="hidden" style="width:400px; height:20px" />
+
+<div style="width:600px; height: 20px;"></div>
+</div>
+<div id="search-by-skills" class="search-by-skills-hidden">
+<label class="fontstyle"> Search By skills:</label><br/>
+ <div class="ui-widget">
+<input id="tags" onkeyup="findskills()" placeholder="Ex:php java mysql" type="text" style="width:250px; height:30px"><span id="search-top-loading" style="margin-top:-20px; margin-left: 220px; color: #ffffff; display: none; position: absolute;"><img src="images/small-loading.gif" height="16" width="16"/></span></input><input id="search-skills-hidden" type="hidden" style="width:400px; height:20px" />
+</div>
+<div style="width:600px; height: 20px;"></div>
+</div>  
+
+<div id="category-div" class="category-hidden" >
+        <label class="fontstyle">Category:</label><br/>
+      
+  <select name="category" id="category" onchange="displaysubcategory(document.getElementById('category').value)" autocomplete="off"><option value="0" selected>Select Category:</option>
+   </select><br/>
+     <div style="width:300px; height: 20px;"></div>
+   <label class="fontstyle">Sub-category:</label><br/>
+         <select name="subcategory" id="subcategory"  autocomplete="off"><option value="0" selected>Select SubCategory:</option>
+
+</select>
+</div>
+
+
+    </div>        
+            
+            
+      <div id="search-welcome-results"></div>      
+            
+        </div>
+  <script type="text/javascript">
+     var options_xmlsearch = function(type,appendto){
+     if(!appendto)
+        appendto='body'; 
+     var options={
+                script:"ajax/search.php?type="+type+"&",
+		varname:"key",
+                type:type,
+                appendto:appendto
+                
+            };
+            return options;
+	}
+       var as_xmlsearch = new AutoSuggest('search-places', options_xmlsearch('places'));
+          
+</script>
+<script type="text/javascript">
+ 
+ 
+   $(document).ready(function() {
+       
+       var heig=($(window).height()-96)+'px';
+       var widt=($(window).width()-15)+'px';
+        $('#foot-tab').addClass('foot-tab-pos');
+       $('#foot-tab').css({'top': heig,'width':widt});
+   });
+   
+  $(window).resize(function() {
+      
+  if(!$('#foot-tab').hasClass('foot-tab-pos')){
+    var widt=($(window).width()-15)+'px';
+       $('#foot-tab').css({'width':widt});
+  }else{
+      var heig=($(window).height()-96)+'px';
+       var widt=($(window).width()-15)+'px';
+        $('#foot-tab').addClass('foot-tab-pos');
+       $('#foot-tab').css({'top': heig,'width':widt});
+  }     
+
+});
+   $('#welcome-search-element').bind('keyup', function() { $('#search-top').removeClass('search-top');
+       $('#search-option-top').removeClass('search-option-top');
+       $('#display-front-pic').removeClass('display-front-pic'); 
+       $('#inside-search').removeClass('inside-search-none'); 
+       $('#display-front-pic').addClass('hidden-front-pic'); 
+       $('#front-suggestion').addClass('front-suggestion'); 
+       $('#search-top').addClass('search-top-change');
+       $('#search-option-top').addClass('search-option-top-change');
+   
+      var widt=($(window).width()-25)+'px';
+       $('#foot-tab').removeClass('foot-tab-pos');
+   
+       $('#foot-tab').css({'float':'left','width':widt});
+
+
+} );
+  
+		   		$('#signup-trigger').click(function(){
+				    
+                                       logintoggle('#signup');
+					});
+                          
+                          
+                          
+                               $(document.body).click(function(e){
+                                               
+                    if($(e.target).parents().index($('#signup')) == -1) {
+                        if($('#signup-content').is(":visible")) {
+                            if (!$('#signup-trigger').hasClass('active')){ logintoggle('#signup');
+                                                }
+                            
+                        }
+                    }        
+               
+                                        });
+function logintoggle(id){
+                     $(id+'-trigger').next(id+'-content').slideToggle();
+					$(id+'-trigger').toggleClass('active');					
+					
+					if ($(id+'-trigger').hasClass('active')) $(id+'-trigger').find('span').html('&#x25BC;')
+						else $(id+'-trigger').find('span').html('&#x25B2;')   
+
+}
+  
+   
+  $("#select-field").change(function(){  
+       
+        switch(document.getElementById('select-field').value){
+      
+      case 'user':
+          
+          $('#category-div').removeClass('category-display'); $('#category-div').addClass('category-hidden'); 
+          $('#search-by-place').removeClass('search-by-place-hidden'); $('#search-by-place').addClass('search-by-place-display'); 
+          $('#search-by-skills').removeClass('search-by-skills-display'); $('#search-by-skills').addClass('search-by-skills-hidden');  
+          
+           welcomesearch();
+          break;
+       case 'skills':
+    	   
+           $('#category-div').removeClass('category-display');$('#category-div').addClass('category-hidden'); 
+           $('#search-by-place').removeClass('search-by-place-display'); $('#search-by-place').addClass('search-by-place-hidden');  
+            $('#search-by-skills').removeClass('search-by-skills-hidden'); $('#search-by-skills').addClass('search-by-skills-display'); 
+           
+            welcomesearch();
+          break;   
+      case 'page':
+          
+          $('#category-div').removeClass('category-hidden'); $('#category-div').addClass('category-display');  
+          $('#search-by-place').removeClass('search-by-place-display'); $('#search-by-place').addClass('search-by-place-hidden');  
+          $('#search-by-skills').removeClass('search-by-skills-display'); $('#search-by-skills').addClass('search-by-skills-hidden');  
+          
+           welcomesearch();
+          break;
+          
+      case 'places':
+          
+          $('#category-div').removeClass('category-display');$('#category-div').addClass('category-hidden'); 
+          $('#search-by-place').removeClass('search-by-place-display'); $('#search-by-place').addClass('search-by-place-hidden');  
+          $('#search-by-skills').removeClass('search-by-skills-display'); $('#search-by-skills').addClass('search-by-skills-hidden');  
+          
+         welcomesearch();
+           break;
+        default:
+            $('#category-div').removeClass('category-display'); $('#category-div').addClass('category-hidden'); 
+          $('#search-by-place').removeClass('search-by-place-hidden'); $('#search-by-place').addClass('search-by-place-display'); 
+          $('#search-by-skills').removeClass('search-by-skills-display'); $('#search-by-skills').addClass('search-by-skills-hidden');  
+          
+            break;
+  }    
+      
+      selectionfeild(document.getElementById('select-field').value);
+
+});
+ 
+</script>
+        <div class="foot-tab" id="foot-tab">
+     <ul>
+         <li><a href="#">About</a></li>
+         <li><a href="#">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="#">Create a leaf</a></li>
+          <li><a href="#">Developers</a></li>
+         <li><a href="#">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+    </body>
+    
+</html>

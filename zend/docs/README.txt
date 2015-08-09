@@ -14,13 +14,13 @@ Setting Up Your VHOST
 The following is a sample VHOST you might want to consider for your project.
 
 <VirtualHost *:80>
-   DocumentRoot "/var/www/freniz_zend/public"
+   DocumentRoot "/usr/local/zend/apache2/htdocs/freniz_zend/public"
    ServerName freniz_zend.local
 
    # This should be omitted in the production environment
    SetEnv APPLICATION_ENV development
 
-   <Directory "/var/www/freniz_zend/public">
+   <Directory "/usr/local/zend/apache2/htdocs/freniz_zend/public">
        Options Indexes MultiViews FollowSymLinks
        AllowOverride All
        Order allow,deny

@@ -1,0 +1,16 @@
+<?php 
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+?>
+<users>
+	<?php foreach($this->results as $userid => $values){?>
+	<user>
+		<id><?php echo $userid?></id>
+		<username><?php echo $values['fname'].' '.$values['lname']?></username>
+		<propic><?php echo $values['propic_url'];?></propic>
+		<mutual><?php echo count($values['mutual'])?></mutual>
+	</user>
+	<?php }?>
+</users>

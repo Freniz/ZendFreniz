@@ -62,7 +62,30 @@
 }
  
 
-
+.black_overlay{
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+		}
+		.white_content {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+                       padding: 16px;
+			border: 4px solid black;
+			background-color: white;
+			z-index:1002;
+			overflow: auto;
+		}
 #search-button-main{
                      background-color: rgb(193,223,121);
 		  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(193,223,121)), to(rgb(193,223,121)));
@@ -127,6 +150,13 @@
     display:block;
 }
 .search-by-place-hidden{
+    display: none;
+    
+}
+.search-by-skills-display{
+    display:block;
+}
+.search-by-skills-hidden{
     display: none;
     
 }
@@ -482,18 +512,57 @@ box-sizing: border-box;
                 #login-keep{
                     
                      padding: 4px 4px 3px 2px;
-    
    color: #FFF;
-	width:150px;
-     
+	width:240px;
  -webkit-font-smoothing: antialiased;
-border: 1px solid rgba(0, 0, 0, 0.2);
-
 -webkit-background-clip: padding-box;
 display: block;
-
-        
-        
+                margin-left:10px;
                 }
+       #login-keep a{
+				text-decoration:none;
+                color:#fff;
+                font-size:12px;
+                font-weight:bold;
+                float:left;
+                padding-right:10px
+       } 
+        
+        #leaf-vote{
+	            
+	    	  cursor: pointer;
+			  font-weight: bold;
+			  padding: 3px 10px;
+			  text-decoration: none;
+			  color: #000;
+			  text-shadow: 0 1px 0 #fff; 
+			  -moz-border-radius: 6px;
+			  -webkit-border-radius: 6px;
+			  border-radius: 6px;
+	                  background-color: rgb(146,213,0);
+			  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(146,213,0)), to(rgb(146,213,0)));
+			  background-image: -webkit-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -moz-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -ms-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -o-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+	                   -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-ms-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-o-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	        
+	        }
+	        #leaf-vote:hover{
+	            color:#fff;
+	            
+	        }       
                 
-	
+	.search-skills{
+	width: 500px; height: 20px; float: left; font-size:12px; font-weight:bold; color:#ccc; margin-left:10px;
+	}

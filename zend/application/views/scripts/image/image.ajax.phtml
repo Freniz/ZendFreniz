@@ -1,0 +1,25 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+?>
+<images>
+<?php foreach ($this->results as $row){?>
+<image>
+<id><?php echo $row['imageid']; ?></id>
+       <url><?php echo $row['url']; ?></url>
+       <title><?php echo $row['title']; ?></title>
+       <description><?php echo $row['description']; ?></description>
+      
+       <albumid><?php echo $row['albumid']; ?></albumid>
+       <albumname><?php echo $row['name']; ?></albumname>
+       <userid><?php echo $row['userid']; ?></userid>
+       <pinnedpeople><?php echo $row['pinnedpeople']; ?></pinnedpeople>
+       <pinnedpeople_count><?php echo sizeof(unserialize($row['pinnedpeople'])); ?></pinnedpeople_count>
+       <vote_count><?php echo sizeof(unserialize($row['vote'])); ?></vote_count>
+       <vote><?php echo unserialize($row['vote']); ?></vote>
+       <date><?php echo $row['date']; ?></date>
+       </image>
+       <?php }?>
+   </images>

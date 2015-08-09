@@ -1,0 +1,440 @@
+<?php $session=(array)$this->myDetails;
+
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Changedp</title>
+<style>
+.curve {
+    -moz-border-radius : 25px; /* Firefox */
+    -webkit-border-radius :25px; /* Safari & Chrome */
+    -khtml-border-radius : 25px; /* Linux browsers */
+    border-radius : 25px; /* CSS3 compatible browsers */
+}
+body {
+	width:99%;
+    margin: 0;
+    padding: 0;
+    text-align: center; /* !!! */
+}
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 1024px;
+	
+}
+.greenbutton{
+
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 20px;
+padding: 0;
+width: 50px;
+cursor: pointer;
+font: bold 12px Arial, Helvetica;
+color: white;
+}
+.updatebutton{
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 40px;
+padding:10px;
+width: 200px;
+cursor: pointer;
+font: bold 16px Arial, Helvetica;
+color: white;
+}
+.foot-tab{
+width:99%;
+
+}
+.foot-tab  ul{
+                    display:block;
+                    margin-top: -2px;
+                    text-align:left;
+                   margin-left: 10px;
+                   
+                }
+               .foot-tab ul li{
+                    display:inline-block; padding: 8px;
+                    font-size: 12px;
+                }
+                .foot-tab ul li a{
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                .foot-tab ul li a:hover{
+                   text-decoration: underline;
+                }
+                .foot-tab{
+                    border-top: solid 2px #ccc;
+                    margin-top: 50px;
+                  float: left;
+                  margin-left: 2px;
+                 
+                }
+                .foot-tab-pos{
+                    position: absolute;
+                }
+             
+</style>
+<style>
+	#side-menu ul{
+		display:inline;
+		width:150px;
+		margin-top:-50px;
+	}
+	#side-menu ul li{
+		display:block;
+		background-color:#FFF;
+		padding:20px;
+		
+		
+	}
+	#side-menu ul li a{
+		text-decoration:none;
+		color:black;
+		position:absolute;
+		padding:5px;
+	}
+	#side-menu ul li a:hover{
+		background-color:#A4A4A4;
+		width:150px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);	
+		padding:5px;
+		
+		
+	}
+	.show-selected{
+		background-color:#A4A4A4;
+		width:150px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		padding:5px;
+	}
+	nav ul {
+		  margin-top:0px;
+		  padding: 2px;
+		  list-style: none;
+		  position: relative;
+		  float: left;
+		  background: #eee;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;    
+		}
+		
+		nav li {
+		  float: left;      
+			   border-left:solid 1px; 
+		}
+     
+      nav li:first-child  a{
+		   
+			border-left:solid 1px #eee; 
+		}
+		
+		nav #acountmenu a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		nav #acountmenu a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+		
+		
+			nav #acountmenu-trigger {
+		  -moz-border-radius: 3px 0 0 3px;
+		  -webkit-border-radius: 3px 0 0 3px;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		nav #acountmenu a:hover {
+		  background: #fff;
+		}
+		.active{
+		  background: #fff;
+		}
+	</style>
+	<script src="http://js.freniz.com/jquery-latest.js" type="text/javascript"></script>
+	
+<link href="http://css.freniz.com/fileuploader.css" rel="stylesheet" type="text/css" />	
+<script src="http://js.freniz.com/fileuploader.js" type="text/javascript"></script>
+	<script type="text/javascript">        
+     
+     function createUploader(albumid,multiple,drag){ 
+             var uploader = new qq.FileUploader({
+                element: document.getElementById('file-uploader'),
+                action: 'http://www.freniz.com/uploadimage',
+                multiple:multiple,
+		    showMessage: function(message){alert(message);},
+                    params:{album : albumid},
+                    onComplete:function(id, fileName, responseJSON){ set_propic(responseJSON.fileid,"http://images.freniz.com/200/200_"+responseJSON.imgurl,"true");},
+                debug: true,
+                drag:drag
+            });
+            
+        }
+        
+        // in your app create uploader as soon as the DOM is ready
+        // don't wait for the window to load  
+            window.onload=function(){createUploader('<?php echo $this->myDetails->propicalbum; ?>',false,false);}
+    
+    </script>
+
+
+
+		<script src="http://js.freniz.com/jquery.Jcrop.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="http://css.freniz.com/jquery.Jcrop.css" type="text/css" />
+		<script src="http://js.freniz.com/ajax.js" type="text/javascript" ></script>
+		<script type="text/javascript">
+                  function initcrop(aspectRatio){
+		jQuery(function($){
+
+      var c=$('#target').Jcrop({
+        onChange:   showCoords,
+        onSelect:   showCoords,
+        onRelease:  clearCoords,
+        aspectRatio: aspectRatio
+      }).Coords;
+
+    });
+    }
+    function propiccroping(imageid,deletesrc)
+    {
+        
+        var url=document.getElementById("target").src;
+        var x=$('#x1').val();
+        var y=$('#y1').val();
+        var w=$('#w').val();
+        var h=$('#h').val();
+        alert(x+"\n"+y+"\n"+w+"\n"+h);
+        setaspropic(imageid,deletesrc,x,y,w,h);
+    }
+    function secpiccroping(imageid,deletesrc,secpicno)
+    {
+        
+        var url=document.getElementById("target").src;
+        var x=$('#x1').val();
+        var y=$('#y1').val();
+        var w=$('#w').val();
+        var h=$('#h').val();
+        alert(x+"\n"+y+"\n"+w+"\n"+h);
+        setassecpic(imageid,deletesrc,secpicno,x,y,w,h);
+    }
+    
+
+    // Simple event handler, called from onChange and onSelect
+    // event handlers, as per the Jcrop invocation above
+    function showCoords(c)
+    {
+        
+      $('#x1').val(c.x);
+      $('#y1').val(c.y);
+      $('#x2').val(c.x2);
+      $('#y2').val(c.y2);
+      $('#w').val(c.w);
+      $('#h').val(c.h);
+    };
+
+    function clearCoords()
+    {
+      $('#coords input').val('');
+      $('#h').css({color:'red'});
+      window.setTimeout(function(){
+        $('#h').css({color:'inherit'});
+      },500);
+    };
+
+		</script>
+		<style>
+		
+		      .show-load{
+                display:block;
+                  position: fixed;
+            text-align:center;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #fff;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+                }
+                
+                .hide-load{
+                display:none;
+                }
+		
+</style>
+                <script src="http://js.freniz.com/php_serialize.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+</script>
+<link rel="stylesheet" href="http://css.freniz.com/login.css" type="text/css" media="screen" charset="utf-8" />
+</head>
+
+<body>
+<div class="header-div-top" style="height:50px;">
+             <a href="/"><div class="headername-font" style="width:220px; float:left; background-image: url(www.freniz.com/images/freniz.png); margin-top: -10px; height:60px; "></div></a>
+     
+</div>
+
+<div class="centered" style="margin-top:20px; margin-left:auto; margin-right:auto">
+<?php if ($_REQUEST['log_aug']=='true'){?>
+
+<div id="fifth" style="width:900px; height:60px; border-bottom:solid 1px; margin-left:50px; ">
+<div style="width:100px;float:left; margin-top:20px; ">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">1</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">2</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">3</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">4</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px;  background-color:#3F0; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">5</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px;">
+
+</div>
+
+</div>
+<?php }else{?>
+<div style="width:600px;margin-left:auto;margin-right:auto;">
+<nav>
+	<img style="width:32px; float:left; height:32px; " src="http://images.freniz.com/32/32_<?php echo $session['propic_url'];?>"/>
+	<ul>
+			<li id="acountmenu" style="border-left:solid 1px #eee"><a  href="http://www.freniz.com/<?php echo $session['userid'];?>" ><?php echo $session['fname'];?></a></li>
+		<li class="active" id="acountmenu"><a href="#" >Account Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/privacysettings" >Privacy Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/advancedsettings" >Advanced Privacy</a></li>
+	</ul>
+</nav>
+</div>
+<?php }?>
+<div style="width:600px; margin-left:auto; margin-right:auto; padding:10px; ">
+<label style="font-size:26px; border-bottom:solid; float:left; font-weight:bold;">Set Your Profile Pic here</label>
+</div>
+
+<div style="width:1000px;float:left;border-bottom:solid 1px">
+<?php if ($_REQUEST['log_aug']!='true'){?>
+
+ <div id="side-menu" style="width:200px; float:left; ">
+<ul>
+<li><a href="http://www.freniz.com/index/basicinfo">Basic info</a></li>
+<li><a href="http://www.freniz.com/index/changepassword">Password</a></li>
+<li><a  href="http://www.freniz.com/index/personalinfo">Personal Info</a></li>
+<li><a  href="http://www.freniz.com/index/otherinfo">other Info</a></li>
+<li><a class="show-selected" href="javacript:void(0)">change photo</a></li>
+</ul>
+</div>  
+<?php }?> 
+<div id="target-container" style="width:500px; text-align:center; padding:30px; margin-left:220px; border-bottom:solid 1px">
+<img src="http://www.freniz.com/images/200/200_male.png"  id="target" alt="Flowers" />
+</div>
+
+    <div id="file-uploader" style="text-align:center">
+    </div>
+    <div style="width:180px; margin-left:100px; margin-top:-30px; height:36px;background-image:url('www.freniz.com/images/change.png')">
+    </div>
+</div>
+
+
+<div style="width:1000px; padding:10px;float:left;border-bottom:solid 1px">
+<?php if ($_REQUEST['log_aug']=='true'){?>
+<input class="greenbutton" style="float:left; margin-left:3px;" type="button" onclick="window.location.href='http://www.freniz.com/index/favourites'" value="Back"/>
+<?php }?>
+<input class="updatebutton"  style="float:right" type="button" onclick="window.location.href='http://www.freniz.com/<?php echo $session['userid']; ?>'" value="Go to my world"/>
+</div>
+
+
+</div>
+  <div class="foot-tab" id="foot-tab">
+    <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+<div id="loading" class="hide-load" >
+<div style="height:50%">
+</div>
+<label style="font-weight:bold; font-size:24px; color:#000">Loading...</label>
+</div>
+</body>
+</html>

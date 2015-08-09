@@ -12,7 +12,55 @@
           <actionMethod actionName="index"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
-        <controllerFile controllerName="Post">
+        <controllerFile controllerName="Streams">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Invites">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Sature">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Tab">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Blog">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Admire">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Settings">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Apps">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Albums">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Videos">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Suggestions">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Images">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Scribbles">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Forum">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Reviews">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Search">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Build">
           <actionMethod actionName="index"/>
         </controllerFile>
       </controllersDirectory>
@@ -28,7 +76,55 @@
           <viewControllerScriptsDirectory forControllerName="Error">
             <viewScriptFile forActionName="error"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Post">
+          <viewControllerScriptsDirectory forControllerName="Streams">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Invites">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Sature">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Tab">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Blog">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admire">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Settings">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Apps">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Albums">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Videos">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Suggestions">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Images">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Scribbles">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Forum">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Reviews">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Search">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Build">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>

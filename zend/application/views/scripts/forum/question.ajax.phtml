@@ -1,0 +1,27 @@
+<?php 
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+?>
+
+<questions>
+<?php
+foreach($this->results as $id=>$quest){
+	?>
+	<question>
+		<id> <?php echo $id; ?> </id>
+		<quest><?php echo $quest['question'];?></quest>
+		<description><?php echo $quest['description'];?></description>
+		<askedby><?php echo $quest['askedby'];?></askedby>
+		<votecount><?php echo $quest['votecount'];?></votecount>
+		<bestanswer><?php echo $quest['bestanswer'];?></bestanswer>
+		<date><?php echo $quest['date'];?></date>
+		<modified><?php echo $quest['modified'];?></modified>
+		<popularity><?php echo $quest['popularity'];?></popularity>
+		<time><?php echo $quest['time'];?></time>
+		<anscount><?php echo $quest['anscount'];?></anscount>
+	</question>
+<?php 
+	}
+	?>
+</questions>

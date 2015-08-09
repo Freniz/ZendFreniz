@@ -7,7 +7,7 @@
  *
  * Much thanks to primary contributer Ponticlaro (http://www.ponticlaro.com)
  */
-;(function($) {
+(function($) {
 	// Globally keep track of all images by their unique hash.  Each item is an image data object.
 	var allImages = {};
 	var imageCounter = 0;
@@ -540,6 +540,8 @@
 				
 				this.currentImage = imageData;
 				this.preloadRelocate(index);
+				setTimeout(function(){displayimage(imageData.hash);
+				getImageComments(imageData.hash);},1000);
 				
 				this.refresh();
 				
@@ -580,6 +582,7 @@
 
 				if (this.$commentContainer) {
 					previousComment = this.$commentContainer.find('span.current1').addClass('previous').removeClass('current1');
+					 $('.comment').remove();
 				}
 
 				// Perform transitions simultaneously if syncTransitions is true and the next image is already preloaded
@@ -599,9 +602,9 @@
 					// Remove old caption
 					if (previousCaption)
 						previousCaption.remove();
-						if (previousComment)
+						if (previousComment){
 						previousComment.remove();
-
+						}
 					if (!isSync) {
 						if (imageData.image && imageData.hash == gallery.data[gallery.currentImage.index].hash) {
 							gallery.buildImage(imageData, isSync);

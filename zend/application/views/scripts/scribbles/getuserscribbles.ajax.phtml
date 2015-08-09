@@ -1,0 +1,55 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+	$session=(array)$this->mydetails;
+?>
+<posts>
+<maxcomment><?php echo $this->results['maxcommentid'];?></maxcomment>
+<?php foreach ($this->results['results'] as $row){?>
+ <post>
+       <id><?php echo $row['statusid'] ?></id>
+       <suserid><?php echo $row['suserid']; ?></suserid>
+       <susername><?php echo $row['susername']; ?></susername>
+       <suserpic><?php echo $row["spropic_url"]; ?></suserpic>
+       <suserfrnds><?php echo $row["sfriendlist"]; ?></suserfrnds>
+       <suservotes><?php echo $row["svotes"]; ?></suservotes>
+       <ruserid><?php echo $row['ruserid'];  ?></ruserid>
+       <rusername><?php echo $row['rusername']; ?></rusername>
+       <ruserpic><?php echo  $row["rpropic"]; ?></ruserpic>
+       <pt><?php echo $row['pt'];?></pt>
+        <cpt><?php echo $row['cpt'];?></cpt>
+       <ruserfrnds><?php echo $row["rfriendlist"]; ?></ruserfrnds>
+       <ruservotes><?php echo $row["rvotes"]; ?></ruservotes>
+       <status><?php echo htmlspecialchars($row['status'], ENT_QUOTES); ?></status>
+       <vote_count><?php $votes=unserialize($row['vote']); echo sizeof($votes); ?></vote_count>
+       <vote><?php echo serialize($votes); ?></vote>
+       <votecontains><?php if(in_array($session['userid'], $votes)){
+                            echo "yes";
+                     }
+                        else 
+                            echo "no";
+                            ?></votecontains>
+        <comments>
+        	
+           <?php foreach($row['comments'] as $commentid => $comment){ ?>
+           <comment>
+           <comment-id><?php echo $commentid; ?></comment-id>
+           <comment-userid><?php echo $comment['userid']; ?></comment-userid>
+           <comment-username><?php echo $comment['username']; ?></comment-username>
+           <comment-userpic><?php echo $comment['commentpic_url']; ?></comment-userpic>
+           <comment-comment><?php echo $comment['comment']; ?></comment-comment>
+           <comment-date><?php echo $comment['date']; ?></comment-date>
+           </comment>
+           <?php } ?>
+           <loadprevious><?php if($row['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+       </comments>
+       <commentcount><?php echo $row['commentcount']; ?></commentcount>
+       <date><?php echo $row['date']; ?></date>
+      <iscommentable><?php if($row['iscommentable']) echo 'yes'; else echo 'no';?></iscommentable>
+       
+   </post>
+      <?php }?>
+      <loadmore><?php if($this->results['loadmore']) echo 'yes'; else echo 'no';?></loadmore>
+</posts>
+    

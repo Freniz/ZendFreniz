@@ -1,0 +1,37 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+?>
+<images>
+<?php
+//print_r($this->results);
+		foreach ($this->results['results']['images'] as $row){
+?>
+<image>
+<id><?php echo $row['imageid']; ?></id>
+       <url><?php echo $row['url']; ?></url>
+       <title><?php echo $row['title']; ?></title>
+       <susername><?php echo $row['username']?></susername>
+       <description><?php echo $row['description']; ?></description>
+       <albumid><?php echo $row['albumid']; ?></albumid>
+       <albumname><?php echo $row['name']; ?></albumname>
+       <userid><?php echo $row['userid']; ?></userid>
+        <suserpic><?php echo $row['suserpic'];?></suserpic>
+       <pinnedpeople><?php echo $row['pinnedpeople']; ?></pinnedpeople>
+       <pinnedpeople_count><?php echo sizeof(unserialize($row['pinnedpeople'])); ?></pinnedpeople_count>
+       <vote_count><?php echo sizeof(unserialize($row['vote'])); ?></vote_count>
+       <vote><?php echo unserialize($row['vote']); ?></vote>
+       <date><?php echo $row['date']; ?></date>
+       </image>
+       <?php }
+       
+       ?>
+       <album>
+		<albumid><?php echo $this->results['results']['album']['albumid']; ?></albumid>
+       	<albumname><?php echo $this->results['results']['album']['name']; ?></albumname>
+       	<show-uploader><?php if($this->results['results']['album']['userid']==$this->myid) echo 'yes';else echo 'no';?></show-uploader>
+       	</album>
+       <loadmore><?php if($this->results['loadmore']==true) echo 'yes'; else echo 'no';?></loadmore>
+   </images>

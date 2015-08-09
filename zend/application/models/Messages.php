@@ -20,6 +20,13 @@ class Application_Model_Messages extends Zend_Db_Table_Abstract {
 		$auth=Zend_Auth::getInstance();
 		if($auth->hasIdentity()){
 			$this->authIdentity=$auth->getIdentity();
+						
+				if(round((time()-$this->authIdentity->latime)/60)>25){
+				$this->authIdentity->latime=time();
+				$this->_db->update('user_info', array('latime'=>new Zend_Db_Expr('now()')),array('userid=?'=>$this->authIdentity->userid));
+			}
+				
+				
 		}
 		
 	}
@@ -33,9 +40,9 @@ class Application_Model_Messages extends Zend_Db_Table_Abstract {
 		if(($result['message']=='public' || ($result['message']=='friends' &&in_array($ruserid, $this->authIdentity->friends) || ($result['message']=='fof' && (in_array($ruserid, $this->authIdentity->friends)|| count(array_intersect($result['friendlist'], $this->authIdentity->friends)>=1))) )&& !in_array($ruserid, $this->authIdentity->blocklistmerged))&&($ruserid!=$this->authIdentity->userid)){
 			$userid=$this->authIdentity->userid;
 			$message_data=array('suserid'=>$userid,'ruserid'=>$ruserid,'message'=>$message,'date'=>new Zend_Db_Expr('Now()'),'read1'=>'0');
-            $this->insert($message_data);
+            $uptdid=$this->insert($message_data);
 		  }
-			
+		  return array("messageid"=>$uptdid,"time"=>date('c'),'content'=>$message,"status"=>'success','propic'=>$this->authIdentity->propic_url);
 		}
 	}
 	
@@ -101,8 +108,13 @@ class Application_Model_Messages extends Zend_Db_Table_Abstract {
 	
 	public function getMessages(){
 		if(isset($this->authIdentity)){
-		$sql=$this->_db->select()->from("{$this->_name} as t",array('messageid','suserid','message','date','read1'))->joinLeft('message as r', 'r.date=t.date and t.suserid=r.suserid and t.messageid < r.messageid ')->where("t.ruserid='".$this->authIdentity->userid."' and t.ruservisi='visible' ")->order('t.date desc');
-		return $sql;
+			$suserid=$this->authIdentity->userid;
+		$sql=$this->_db->select()->from("{$this->_name} as t",array('messageid','suserid','message','date','read1'))->joinLeft('message as r', 'r.suserid=t.suserid and t.messageid < r.messageid ','')
+							->joinLeft('user_info','user_info.userid=t.suserid', array('fname','lname','propic','url as user_url'))
+							->joinLeft('image','image.imageid=user_info.propic','url as user_imageurl')
+							->where("t.ruserid='".$this->authIdentity->userid."' and t.ruservisi='visible' and r.messageid is NULL")->order('t.date desc');
+		$result=$this->_db->fetchAssoc($sql);
+		return $result;
 			
 		}
 		
@@ -116,9 +128,8 @@ class Application_Model_Messages extends Zend_Db_Table_Abstract {
 			->joinLeft('image','image.imageid=user_info.propic','url as user_imageurl')
 			->where("(suserid='".$ruserid."' and ruserid='".$suserid."') or (ruserid='".$ruserid."' and suserid='".$suserid."')")->order('date asc');
 			$result=$this->_db->fetchAssoc($sql);
+			$this->update(array('read1'=>1),"ruserid='$suserid' and suserid='$ruserid'");
 			return $result;
-			$this->update('read1=1',"ruserid='$suserid' and suserid='$ruserid'");
-				
 		}
 		
 	}
@@ -126,7 +137,8 @@ class Application_Model_Messages extends Zend_Db_Table_Abstract {
 	public function getConvocation($ruserid){
 		if(isset($this->authIdentity)){
 			$suserid=$this->authIdentity->userid;
-			$this->update('read=1',"suserid='$ruserid' and ruserid='$suserid'");
+			//$this->update('read1=1', "suserid='$suserid' and ruserid='$ruserid'");
+			$this->update(array('read1'=>'1'),array('suserid=?'=>$suserid,'ruserid=?'=>$ruserid));
 			$suserid=$this->authIdentity->userid;
 			$sql=$this->_db->select()->from($this->_name,array('suserid','messageid','message','date'))
 							->joinLeft('user_info','user_info.userid=message.suserid', array('fname','lname','propic'))
@@ -137,5 +149,17 @@ class Application_Model_Messages extends Zend_Db_Table_Abstract {
 			return $result;
 		}
 		
+	}
+	public function sentMessages(){
+		if(isset($this->authIdentity)){
+			$suserid=$this->authIdentity->userid;
+			$sql=$this->_db->select()->from("{$this->_name} as t",array('messageid','suserid','ruserid','message','date','read1'))->joinLeft('message as r', 'r.suserid=t.suserid and t.messageid < r.messageid ','')
+			->joinLeft('user_info','user_info.userid=t.ruserid', array('fname','lname','propic'))
+			->joinLeft('image','image.imageid=user_info.propic','url as user_imageurl')
+			->where("t.suserid='".$this->authIdentity->userid."' and t.suservisi='visible' and r.messageid is NULL")->order('t.date desc');
+			$result=$this->_db->fetchAssoc($sql);
+			return $result;								
+		
+		}
 	}
 }

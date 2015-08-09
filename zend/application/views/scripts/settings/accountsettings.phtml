@@ -1,0 +1,627 @@
+<?php
+$session=(array)$this->results;
+
+?>
+
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Account Setting</title>
+    <script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script> 
+    <script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+  <link rel="stylesheet" href="http://css.freniz.com/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+	       <script type="text/javascript" src="http://js.freniz.com/bsn.AutoSuggest_c_2.0.js"></script>
+	        <link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+
+	          <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script> 
+	      <script src="http://js.freniz.com/jquery.timeago.js" type="text/javascript"></script>
+<style>
+
+.inner-account-set{
+	width:600px; background-color:#0FC; height:750px; float:left; 
+	 border-radius: 12px ;
+	-moz-border-radius: 12px ;
+	-webkit-border-radius: 12px ; 
+}
+.inner-account-set-fav{
+	width:600px; background-color:#0FC;  float:left; 
+	 border-radius: 12px ;
+	-moz-border-radius: 12px ;
+	-webkit-border-radius: 12px ; 
+}
+input{
+	 font-size:16px; font-weight:bold;
+}
+
+select{
+	 font-size:16px; font-weight:bold;
+}
+textarea{
+	 font-size:14px; font-weight:bold;
+}
+.mood li{
+	cursor:pointer;
+}
+.style{
+width:100px;
+height:35px;
+font-size:20px;
+background:#0C3;
+cursor:pointer;
+-webkit-box-shadow:0 0 4px #000;/*safari and Chrome*/
+-moz-box-shadow:0 0 4px #000; /*Mozilla*/
+-o-box-shadow:0 0 4px #000; /*Opera*/
+-ms-box-shadow:0 0 4px #000; /*Ms IE*/
+box-shadow:0 0 4px #000; /*W3C*/
+	-webkit-border-radius:15px;/*safari and Chrome*/
+-moz-border-radius:15px; /*Mozilla*/
+-o-box-border-radius:15px; /*Opera*/
+-ms-box-border-radius:15px; /*Ms IE*/
+border-radius:15px; /*W3C*/
+background-image:-webkit-linear-gradient(top,#ffffff 0%,#0C3 100%);
+background-image:-moz-linear-gradient(top,#ffffff 0%,#0C3 100%);
+background-image:-o-linear-gradient(top,#ffffff 0%,#0C3 100%);
+background-image:-ms-linear-gradient(top,#ffffff 0%,#0C3 100%);
+background-image:linear-gradient(top,#ffffff 0%,#0C3 100%);
+	}
+</style>
+<link rel="stylesheet" href="www.css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+
+</head>
+<body>
+<img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+	  <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://www.freniz.com/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+
+
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:0" class="active">
+				<?php echo  $session['username']; ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a onclick="switchuser('<?php echo $value['userid'];?>')" style="font-size:10px;padding-left:4px;"><?php echo $value['username'];?></a></label></div></li>
+                                 	<?php } ?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:250px; height:30px" ><span id="searchusers-load" style="margin-top:-24px; margin-left: 215px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -24px; margin-right:-45px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div>        
+
+<div style=" width:900px; margin-left:auto; margin-right:auto; ">
+<div style="float:left">
+<ol id="toc">
+    <li><a href="#page-1"><span>Basic details</span></a></li>
+    <li><a href="#page-2"><span>Education & Occupation</span></a></li>
+    <li><a href="#page-3"><span>Favourites</span></a></li>
+    <li><a href="#page-4"><span>PersonalInfo</span></a></li>
+</ol></div>
+<div class="content" style=" background-color:#CFC; width:600px; height:800px" id="page-1">
+    
+    <div class="inner-account-set" >
+        
+<div style="width:600px; margin-left:20px; margin-top:30px; font-size:18px; font-weight:bold; height:40px; float:left; ">
+    Name:<input type="text" value="<?php echo $session['fname']; ?>" id="fname" name="fname" />
+    <input type="text" value="<?php echo $session['lname']; ?>" id="lname" name="lname" />
+
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+<div style="width:600px; margin-left:20px; margin-top:30px; font-size:18px; font-weight:bold; height:40px; float:left;">
+    <?php $bdd;$bdy;$bdm;
+    if(isset($session['dob']))
+    {
+        $bdd=substr($session['dob'], 8,2);
+        $bdy=substr($session['dob'], 0,4);
+        $bdm=substr($session['dob'], 5,2);
+    }
+    ?>
+    
+    D.O.B:<select class="" id="bdm" name="birthday_month"><?php if(isset($bdm)) { ?><option value="">Month:</option><?php } ?>
+<option <?php if(isset($bdm)) { if($bdm=="01") echo "selected"; } ?> value="1">Jan</option>
+<option <?php if(isset($bdm)) { if($bdm=="02") echo "selected"; } ?> value="2">Feb</option>
+<option <?php if(isset($bdm)) { if($bdm=="03") echo "selected"; } ?> value="3">Mar</option>
+<option <?php if(isset($bdm)) { if($bdm=="04") echo "selected"; } ?> value="4">Apr</option>
+<option  <?php if(isset($bdm)) { if($bdm=="05") echo "selected"; } ?> value="5">May</option>
+<option <?php if(isset($bdm)) { if($bdm=="06") echo "selected"; } ?>  value="6">Jun</option>
+<option <?php if(isset($bdm)) { if($bdm=="07") echo "selected"; } ?>  value="7">Jul</option>
+<option <?php if(isset($bdm)) { if($bdm=="08") echo "selected"; } ?>  value="8">Aug</option>
+<option <?php if(isset($bdm)) { if($bdm=="09") echo "selected"; } ?>  value="9">Sep</option>
+<option <?php if(isset($bdm)) { if($bdm=="10") echo "selected"; } ?>  value="10">Oct</option>
+
+<option <?php if(isset($bdm)) { if($bdm=="11") echo "selected"; } ?>  value="11">Nov</option>
+<option <?php if(isset($bdm)) { if($bdm=="12") echo "selected"; } ?>  value="12">Dec</option>
+</select> <select name="birthday_day" id="bdd"  onchange="bagofholding" autocomplete="off"><option value="">Day:</option>
+<?php for($i=1;$i<=31;$i++){ ?>
+    <option <?php if(isset($bdd)) { if(intval($bdd)==$i) echo "selected"; } ?>  value="<?php echo $i ?>"><?php echo $i ?></option><?php }?>
+</select> <select name="birthday_year" id="bdy"  autocomplete="off"><option value="-1">Year:</option>
+    <?php for($i=2012;$i>=1905;$i--){ ?>
+<option <?php if(isset($bdy)) { if(intval($bdy)==$i) echo "selected"; } ?> value="<?php echo $i ?>"><?php echo $i ?></option><?php }?>
+
+</select>
+
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+<div style="width:600px; margin-left:20px; margin-top:30px; font-size:18px; font-weight:bold; height:40px; float:left; ">
+    Sex:<select class="select" name="sex" id="sex"><?php if(!isset($session['sex'])){  ?><option value="0">Select Sex:</option><?php } ?><option <?php if(isset($session['sex'])){ if($session['sex']=="female") echo "selected"; } ?> value="1">Female</option><option <?php if(isset($session['sex'])){ if($session['sex']=="male") echo "selected"; } ?> value="2">Male</option></select>
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+<div style="width:600px; margin-left:20px; margin-top:30px; font-size:18px; font-weight:bold; height:40px; float:left; ">
+    Religious:<input type="text" value="<?php if(isset($session['religion'])) echo $session['religion']; ?>" id="religious" name="religious" />
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+<div style="width:600px; margin-left:20px; margin-top:30px; font-size:18px; font-weight:bold; height:40px; float:left; ">
+Status:<select class="select" name="Status" id="status"><?php if(isset($session['rstatus'])) { ?><option value="">Select status:</option><?php } ?><option <?php if(isset($session['rstatus'])){ if($session['rstatus']=="single") echo "selected"; } ?> value="single">Single</option><option <?php if(isset($session['rstatus'])){ if($session['rstatus']=="commited") echo "selected"; } ?> value="commited">commited</option><option <?php if(isset($session['rstatus'])){ if($session['rstatus']=="married") echo "selected"; } ?> value="married">Married</option></select>
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+<div style="width:600px; margin-left:20px; margin-top:30px; font-size:18px; font-weight:bold; height:60px; float:left;">
+Language:<textarea id="language" name="langauge" style="width:200px;  height:40px;"></textarea>
+<div style="width:100px; height:40px; float:right; ">
+ <ul class="roundbuttons" style="margin-right:60px">
+        <li><a onclick='addlanguages(document.getElementById("language").value)'>Update</a></li>
+        </ul>
+</div>
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+<div style="width:600px; margin-left:20px; margin-top:30px; font-size:18px; font-weight:bold; height:40px; float:left;">
+Current city:<input type="text" value="<?php if(isset($session['currentcity'])) echo $session['currentcity']; ?>" id="ccity" name="currentcity" />
+
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+<div style="width:600px; margin-left:20px; margin-top:30px; font-size:18px; font-weight:bold; height:40px; float:left; ">
+Hometown:<input type="text" value="<?php if(isset($session['hometown'])) echo $session['hometown']; ?>" id="htown" name="hometown" />
+
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+
+<div class="set-per" style="width:100px; height:40px;  float:right; ">
+<button onclick="basicaccount()" class="style">
+Save
+</button>
+ 
+</div>
+       
+</div>
+
+
+    
+    
+    
+</div>
+
+
+
+<div class="content" style="height:800px; background-color:#CFC; width:600px" id="page-2">
+    <div class="inner-account-set" >
+<div style="width:500px; margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left;">
+School:<input type="text" value="" id="school" size="40px"/>
+<div style="width:500px; height:60px; float:left; border:solid 1px">
+</div>
+
+<div class="set-edu" style="width:50px; margin-right:-30px;  height:40px; float:right; ">
+
+ <ul style="">
+     <li><a onclick='addschools(document.getElementById("school").value)'>Update</a></li>
+        </ul>
+</div>
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+
+
+<div style="width:500px; margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left;">
+College:<input type="text" value="" id="college" size="40px"/>
+<div style="width:500px; height:60px; float:left; border:solid 1px">
+</div>
+
+<div class="set-edu" style="width:50px; margin-right:-30px;  height:40px; float:right; ">
+ <ul style="">
+      <li><a onclick='addcolleges(document.getElementById("college").value)'>Update</a></li>
+        </ul>
+</div>
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+
+
+<div style="width:500px; margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left;">
+Employer:<input type="text" value="" id="employer" size="40px"/>
+<div style="width:500px; height:60px; float:left; border:solid 1px">
+</div>
+
+<div class="set-edu" style="width:50px; margin-right:-30px;  height:40px; float:right; ">
+ <ul style="">
+      <li><a onclick="basiceducation(document.getElementById('employer').value)">Update</a></li>
+        </ul>
+</div>
+</div>
+<div style="width:600px; float:left; border:solid 1px #FFF ">
+</div>
+
+
+    </div>
+</div>
+
+
+
+<div class="content" style="height:1680px; background-color:#CFC; width:600px "  id="page-3">
+    <div class="inner-account-set-fav" >
+<div style="width:700px; margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left; ">
+    Book:<input type="text" value="" id="books"  size="40"/>
+<ul style="width:500px; display: inline-block;  height:135px; float:left; border:solid 1px; overflow: hidden">
+    <?php foreach($session['books'] as $leaf){
+        $result=mysql_query("select pagename,pagepic,vote from pages where pageid='".$leaf."'");
+        while($row=mysql_fetch_assoc($result)){ ?>
+    <li style='display: inline-block;'>
+        <div style="height:75px; width:75px; border:solid 1px">
+            <image src="images/75/75_<?php echo imageurl($row['pagepic']); ?>" height="75" width="75"/>
+</div>
+        <div style="height:20px;width:75px;  font-size:14px; font-weight:bold; overflow: hidden">
+            <?php echo $row['pagename']; ?>
+        </div>
+<div style="height:40px;  font-size:14px; font-weight:bold; width:75px;">
+<?php $votes=unserialize($row['vote']);echo "votes(".sizeof($votes).")"; ?><br/>
+    <a onclick="removefav('<?php echo $leaf ?>','books')">remove</a>
+</div>
+    </li>
+    <?php }
+    } ?>
+</ul>
+
+
+</div>
+<div style="width:700px;margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+Music Album:<input type="text" value="" id="musicalbum" size="40px"/>
+<ul style="width:500px; display: inline-block;  height:135px; float:left; border:solid 1px; overflow: hidden">
+    <?php foreach($session['musics'] as $leaf){
+        $result=mysql_query("select pagename,pagepic,vote from pages where pageid='".$leaf."'");
+        while($row=mysql_fetch_assoc($result)){ ?>
+    <li style='display: inline-block;'>
+        <div style="height:75px; width:75px; border:solid 1px">
+            <image src="images/75/75_<?php echo imageurl($row['pagepic']); ?>" height="75" width="75"/>
+</div>
+        <div style="height:20px;width:75px; overflow: hidden">
+            <?php echo $row['pagename']; ?>
+        </div>
+<div style="height:40px; width:75px;">
+<?php $votes=unserialize($row['vote']);echo "votes : ".  sizeof($votes); ?><br/>
+    <a onclick="removefav('<?php echo $leaf ?>','musics')">remove</a>
+</div>
+    </li>
+    <?php }
+    } ?>
+</ul>
+
+
+</div>
+<div style="width:700px; margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left; ">
+Movies:<input type="text" value="" id="movies" size="40px"/>
+<ul style="width:500px; display: inline-block;  height:135px; float:left; border:solid 1px; overflow: hidden">
+    <?php foreach($session['movies'] as $leaf){
+        $result=mysql_query("select pagename,pagepic,vote from pages where pageid='".$leaf."'");
+        while($row=mysql_fetch_assoc($result)){ ?>
+    <li style='display: inline-block;'>
+        <div style="height:75px; width:75px; border:solid 1px">
+            <image src="images/75/75_<?php echo imageurl($row['pagepic']); ?>" height="75" width="75"/>
+</div>
+        <div style="height:20px;width:75px; overflow: hidden">
+            <?php echo $row['pagename']; ?>
+        </div>
+<div style="height:40px; width:75px;">
+<?php $votes=unserialize($row['vote']);echo "votes : ".  sizeof($votes); ?><br/>
+    <a onclick="removefav('<?php echo $leaf ?>','movies')">remove</a>
+</div>
+    </li>
+    <?php }
+    } ?>
+</ul>
+
+</div>
+<div style="width:700px;margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left; ">
+Celebrities:<input type="text" value="" id="celebrities" size="40px"/>
+<ul style="width:500px; display: inline-block;  height:135px; float:left; border:solid 1px; overflow: hidden">
+    <?php foreach($session['celebrities'] as $leaf){
+        $result=mysql_query("select pagename,pagepic,vote from pages where pageid='".$leaf."'");
+        while($row=mysql_fetch_assoc($result)){ ?>
+    <li style='display: inline-block;'>
+        <div style="height:75px; width:75px; border:solid 1px">
+            <image src="images/75/75_<?php echo imageurl($row['pagepic']); ?>" height="75" width="75"/>
+</div>
+        <div style="height:20px;width:75px; overflow: hidden">
+            <?php echo $row['pagename']; ?>
+        </div>
+<div style="height:40px; width:75px;">
+<?php $votes=unserialize($row['vote']);echo "votes : ".  sizeof($votes); ?><br/>
+    <a onclick="removefav('<?php echo $leaf ?>','celebrities')">remove</a>
+</div>
+    </li>
+    <?php }
+    } ?>
+</ul>
+
+</div>
+<div style="width:700px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left; ">
+Games:<input type="text" value="" id="games" size="40px"/>
+<ul style="width:500px; display: inline-block;  height:135px; float:left; border:solid 1px; overflow: hidden">
+    <?php foreach($session['games'] as $leaf){
+        $result=mysql_query("select pagename,pagepic,vote from pages where pageid='".$leaf."'");
+        while($row=mysql_fetch_assoc($result)){ ?>
+    <li style='display: inline-block;'>
+        <div style="height:75px; width:75px; border:solid 1px">
+            <image src="images/75/75_<?php echo imageurl($row['pagepic']); ?>" height="75" width="75"/>
+</div>
+        <div style="height:20px;width:75px; overflow: hidden">
+            <?php echo $row['pagename']; ?>
+        </div>
+<div style="height:40px; width:75px;">
+<?php $votes=unserialize($row['vote']);echo "votes : ".  sizeof($votes); ?><br/>
+    <a onclick="removefav('<?php echo $leaf ?>','games')">remove</a>
+</div>
+    </li>
+    <?php }
+    } ?>
+</ul>
+</div>
+<div style="width:700px; margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left;">
+Sports:<input type="text" value="" id="sports" size="40px"/>
+<ul style="width:500px; display: inline-block;  height:135px; float:left; border:solid 1px; overflow: hidden">
+    <?php foreach($session['sports'] as $leaf){
+        $result=mysql_query("select pagename,pagepic,vote from pages where pageid='".$leaf."'");
+        while($row=mysql_fetch_assoc($result)){ ?>
+    <li style='display: inline-block;'>
+        <div style="height:75px; width:75px; border:solid 1px">
+            <image src="images/75/75_<?php echo imageurl($row['pagepic']); ?>" height="75" width="75"/>
+</div>
+        <div style="height:20px;width:75px; overflow: hidden">
+            <?php echo $row['pagename']; ?>
+        </div>
+<div style="height:40px; width:75px;">
+<?php $votes=unserialize($row['vote']);echo "votes : ".  sizeof($votes); ?><br/>
+    <a onclick="removefav('<?php echo $leaf ?>','sports')">remove</a>
+</div>
+    </li>
+    <?php }
+    } ?>
+</ul>
+
+</div>
+<div style="width:700px; margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold;  float:left; ">
+Others:<input type="text" value="" id="others" size="40px"/>
+<ul style="width:500px; display: inline-block;  height:135px; float:left; border:solid 1px; overflow: hidden">
+    <?php foreach($session['other'] as $leaf){
+        $result=mysql_query("select pagename,pagepic,vote from pages where pageid='".$leaf."'");
+        while($row=mysql_fetch_assoc($result)){ ?>
+    <li style='display: inline-block;'>
+        <div style="height:75px; width:75px; border:solid 1px">
+            <image src="images/75/75_<?php echo imageurl($row['pagepic']); ?>" height="75" width="75"/>
+</div>
+        <div style="height:20px;width:75px; overflow: hidden">
+            <?php echo $row['pagename']; ?>
+        </div>
+<div style="height:40px; width:75px;">
+<?php $votes=unserialize($row['vote']);echo "votes : ".  sizeof($votes); ?><br/>
+    <a onclick="removefav('<?php echo $leaf ?>','other')">remove</a>
+</div>
+    </li>
+    <?php }
+    } ?>
+</ul
+></div>
+
+</div>
+
+</div>
+
+<div class="content" style=" float:left; background-color:#CFC; width:600px; height:1000px" id="page-4">
+    
+    <div class="inner-account-set-fav" ">
+        <?php $personalinfo = $session['personalinfo']?>
+        
+<div style="width:600px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+ <table>
+        <tr><td>
+    Body:</td><td><textarea id="body_tpe" name="body_type" style="width:500px; height:40px"><?php if(isset( $personalinfo['body'])) echo $personalinfo['body']; ?></textarea>
+  
+       </td></tr>
+   </table>
+ </div>
+<div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+
+        <div style="width:600px;  margin-left:20px; margin-top:30px;    font-size:18px; font-weight:bold; height:40px; float:left;">
+          <table>
+        <tr><td>
+    Look:</td><td><textarea  id="look_tpe" name="look_type" style="width:500px; height:40px"><?php if(isset( $personalinfo['look'])) echo $personalinfo['look']; ?></textarea>
+       </td></tr>
+   </table>
+
+ </div>
+<div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+        <div style="width:600px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+         <table>
+        <tr><td>
+    Ethicity:</td><td><textarea id="ethnicity_tpe" name="ethnicity_type"  style="width:480px; height:40px"><?php if(isset( $personalinfo['ethnicity'])) echo $personalinfo['ethnicity']; ?></textarea>
+     </td></tr>
+   </table>
+
+ </div>
+ <div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+        <div style="width:600px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+         <table>
+        <tr><td>
+    Smoking:</td><td><textarea id="smoke_tpe" name="smoke_type"  style="width:470px; height:40px"><?php if(isset( $personalinfo['smoke'])) echo $personalinfo['smoke']; ?></textarea>
+     </td></tr>
+   </table>
+
+
+</div>
+        <div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+       <div style="width:600px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+        <table>
+        <tr><td>
+    Drinking:</td><td><textarea id="drink_tpe" name="drink_type" style="width:470px; height:40px"><?php if(isset( $personalinfo['drink'])) echo $personalinfo['drink']; ?></textarea>
+      </td></tr>
+   </table>
+
+
+</div>
+      <div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+       <div style="width:600px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+       <table>
+        <tr><td>
+    Pet:</td><td><textarea id="pet_tpe" name="pet_type" style="width:500px; height:40px"><?php if(isset( $personalinfo['pets'])) echo $personalinfo['pets']; ?></textarea>
+   </td></tr>
+   </table>
+
+</div>
+      <div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+       <div style="width:600px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+        <table>
+        <tr><td>
+    Sexual:</td><td><textarea id="sexual_tpe" name="sexual_type" style="width:200px; height:40px"><?php if(isset( $personalinfo['sexual'])) echo $personalinfo['sexual']; ?></textarea>
+   
+</td></tr>
+   </table>
+</div><div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+        <div style="width:600px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+         <table>
+        <tr><td>
+    Humor:</td><td> <textarea  id="humor_tpe" name="humor_type" style="width:480px; height:40px"><?php if(isset( $personalinfo['humor'])) echo $personalinfo['humor']; ?></textarea>
+   
+</td></tr>
+   </table>
+</div>
+<div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+       <div style="width:600px;  margin-left:20px; margin-top:30px;  font-size:18px; font-weight:bold; float:left; ">
+       <table>
+        <tr><td> Passions:</td><td><textarea id="passion_tpe" name="passion_type" style="width:456px; height:40px"><?php if(isset( $personalinfo['passion'])) echo $personalinfo['passion']; ?></textarea></td></tr>
+   </table>
+
+</div>
+<div style="width:600px; float:left; margin-top:10px; border:solid 1px #FFF ">
+</div>
+<div class="set-per" >
+
+
+<button onclick="personalinfo()" class="style">
+Save
+</button> 
+
+</div>
+       
+</div>
+
+</div>
+
+
+
+    
+    
+    
+<script src="www.js.freniz.com/activatables.js" type="text/javascript"></script>
+<script type="text/javascript">
+activatables('page', ['page-1', 'page-2', 'page-3','page-4']);
+</script>
+
+</div>
+ <div id="musictab">
+
+ <div class="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="www.freniz.com/developers">Developers</a></li>
+         <li><a href="www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+       
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+?>
+<users>
+<?php foreach ($this->results as $userid => $values){?>
+	<user>
+		<id><?php echo $userid;?></id>
+		<username><?php echo $values['username'];?></username>
+		<url><?php echo $values['url'];?></url>
+	</user>
+	<?php } ?>
+</users>

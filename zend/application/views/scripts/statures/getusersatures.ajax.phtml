@@ -1,0 +1,61 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+$session=(array)$this->mydetails;
+?>
+
+<statures>
+<maxcomment><?php echo $this->results['maxcommentid'];?></maxcomment>
+<?php foreach ($this->results['results'] as $row){?>
+<stature>
+<statureid><?php echo $row['statureid']?></statureid>
+<cpt><?php echo $row['cpt'];?></cpt>
+<userid><?php echo $row['userid']?></userid>
+<message><?php echo $row['stature']?></message>
+<vote><?php echo $row['vote']?></vote>
+<date_stature><?php echo $row['date']?></date_stature>
+<hiddenlist><?php echo $row['hiddenlist']?></hiddenlist>
+<specificlist><?php echo $row['specificlist']?></specificlist>
+<pt><?php echo $row['pt']?></pt>
+<commentcount><?php echo $row['commentcount']?></commentcount>
+<notifyusers><?php echo $row['notifyusers']?></notifyusers>
+<username><?php echo $row['fname'].' '.$row['lname']?></username>
+<myid><?php echo $session['userid'];?></myid>
+<propic><?php echo $row['propic']?></propic>
+<user_url><?php echo $row['user_url']?></user_url>
+<friends><?php echo $row['friendlist']?></friends>
+<vote_count> <?php $votes=unserialize($row['vote']); echo count($votes); ?> </vote_count>
+		
+<votecontains><?php if(in_array($session['userid'],$votes)){
+                            echo "yes";
+                     }
+                        else 
+                            echo "no";
+                            ?></votecontains>
+<propic_url><?php echo $row['propic_url']?></propic_url>
+<comments>
+<?php foreach ($row['comments'] as $comment){?>
+<comment>
+<commentid><?php echo $comment['commentid']?></commentid>
+<satureid><?php echo $comment['statureid']?></satureid>
+<cuserid><?php echo $comment['userid']?></cuserid>
+<comment-comment><?php echo $comment['comment']?></comment-comment>
+<vote><?php echo $comment['vote']?></vote>
+<date><?php echo $comment['date']?></date>
+<cusername><?php echo $comment['username'];?></cusername>
+<user_url><?php echo $comment['url']?></user_url>
+
+<commentpic_url><?php echo $comment['commentpic_url']?></commentpic_url>
+</comment>
+<?php }?>
+<loadprevious><?php if($this->results['results'][$row['statureid']]['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+</comments>
+
+
+</stature>
+<?php }?>
+
+<loadmore><?php if($this->results['loadmore']) echo 'yes'; else echo 'no';?></loadmore>
+
+</statures>

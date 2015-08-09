@@ -1,0 +1,236 @@
+<?php 
+$session=(array)$this->mydetails;
+?>
+
+
+<html>
+    
+    
+    <head>
+<script type="text/javascript" src="http://localhost/freniz_zend/public/js/jquery.js"></script> 
+<script type="text/javascript" src="http://localhost/freniz_zend/public/js/leaf.js"></script> 
+  <script src="http://localhost/freniz_zend/public/js/fileuploader.js" type="text/javascript"></script>
+    <link href="http://localhost/freniz_zend/public/css/fileuploader.css" rel="stylesheet" type="text/css"/>
+   
+<script src="http://localhost/freniz_zend/public/js/ajax.js" type="text/javascript"></script>
+   <link rel="stylesheet" href="http://localhost/freniz_zend/public/css/default.css" type="text/css" media="screen" charset="utf-8" />
+   <script type="text/javascript" src="http://localhost/freniz_zend/public/js/bsn.AutoSuggest_c_2.0.js"></script>
+<link rel="stylesheet" href="http://localhost/freniz_zend/public/css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+   
+  
+     <script>        
+        function createUploader(albumid,multiple,drag){ 
+            var uploader = new qq.FileUploader({
+                element: document.getElementById('image-uploader'),
+                action: 'http://localhost/freniz_zend/public/uploadimage',
+                multiple:multiple,
+		    showMessage: function(message){alert(message);},
+                    params:{album : albumid},
+                    onComplete:function(id, fileName, responseJSON){ 
+                  
+                   getimages(albumid);
+                   <?php if($session['propicalbum']==$_REQUEST['albumid'])  { ?>
+                   window.location.href="http://localhost/freniz_zend/public/crop/"+responseJSON.fileid+"?type=propic";
+                   <?php } elseif($session['secondarypicalbum']==$_REQUEST['albumid']){ ?>
+                   window.location.href="http://localhost/freniz_zend/public/crop/"+responseJSON.fileid+"?type=secd_1";
+                  <?php  } ?>
+                    
+                    },
+                debug: true,
+                drag:drag
+            });
+            
+        }
+        
+        // in your app create uploader as soon as the DOM is ready
+        // don't wait for the window to load  
+            
+    </script>
+   </head>
+    <body>
+ <img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+    <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://localhost/freniz_zend/public/images/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+<?php if(isset($session['userid']) && $session['type']!='none' && $session['type']!='leaf'){ ?>
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://localhost/freniz_zend/public/images/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+<?php } ?>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    <?php if(isset($session['userid']) && $session['type']=='user'){ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://localhost/freniz_zend/public/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://localhost/freniz_zend/public/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://localhost/freniz_zend/public/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://localhost/freniz_zend/public/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://localhost/freniz_zend/public/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://localhost/freniz_zend/public/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://localhost/freniz_zend/public/forum">Forum</a></li>
+                    <li><a href="http://localhost/freniz_zend/public/diary">Diary</a></li>
+					<li><a href="http://localhost/freniz_zend/public/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+<?php }else{ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://localhost/freniz_zend/public/<?php echo $session['userid']; ?>">Home</a></li>
+<ul>
+
+<?php } ?>
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<?php if($session['userid']){ ?> 
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" title="<?php echo $session['username']; ?>" class="active">
+				<?php 
+				$name = $session['username'];
+                 if(strlen($name) > 24 )
+                 {
+                 echo substr($name, 0, 26).'...' ;
+                                 }
+               else {
+                   echo $name;
+               } ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li title="<?php echo $value['username']; ?>" onclick="switchuser('<?php echo $value['userid'];?>')"  ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://localhost/freniz_zend/public/images/32/32_<?php echo $value['propic_url'];?>"/><a title="<?php echo $value['username']; ?>" style="font-size:10px;padding-left:4px;"><?php $leafname = $value['username'];
+                 if(strlen($leafname) > 15 )
+                 {
+                 echo substr($leafname, 0, 15).'...' ;
+                                 }
+               else {
+                   echo $leafname; } ?></a></label></div></li>
+                                 	<?php } 
+                                 	if($session['type']!='none' && $session['type']!='leaf'){
+                                 	?>
+                                 	 <li ><a href="http://localhost/freniz_zend/public/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://localhost/freniz_zend/public/index/privacysettings">Privacy Setting</a> </li>
+                                <?php }elseif($session['type']=='leaf'){ ?>
+                                   <li><a href="http://localhost/freniz_zend/public/leafedit/<?php echo $session['userid']; ?>#privacyinfo">Privacy Setting</a> </li>
+                                <?php } ?>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://localhost/freniz_zend/public/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+ <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://localhost/freniz_zend/public/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:250px; height:30px" ><span id="searchusers-load" style="margin-top:-24px; margin-left: 215px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -24px; margin-right:-45px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div> 
+        <div id="maincontainer" style="width: 1000px; margin-left:auto; margin-right:auto ">
+        <div style="float:left;margin-left:100px; width:500px; margin-top:10px;  " id="image-uploader"></div>
+            <div id="image-div" style="width: 740px; margin-top:10px; float: left">
+               
+               
+                
+              <script type="text/javascript">
+				getimages('<?php echo $_REQUEST['albumid'];?>');
+
+				
+              </script>  
+                
+                
+            </div>
+            <script type="text/javascript">
+
+				
+getcount();	
+								
+					function miniprofile(data,element){
+							var position=$(element).offset();
+							getminiprofile(data,position.top,position.left);
+						}
+
+
+					var options_xmlsearch = function(type,appendto){
+					     if(!appendto)
+					        appendto='body'; 
+					     var options={
+					                script:"http://localhost/freniz_zend/public/search?type="+type+"&",
+							varname:"key",
+					                type:type,
+					                appendto:appendto,
+					                callback:function(suggestion,fld){
+												window.location.href="http://localhost/freniz_zend/public/"+suggestion.id;
+					                       }
+					                
+					            };
+					            return options;
+						}
+           var options_xmlsearch = new AutoSuggest('searchusers', options_xmlsearch('all'));
+        
+        
+        
+</script>
+            <div style="width: 250px; margin-top:50px; height: 400px; float: right">
+                
+            </div>
+            
+        </div>    
+     
+        <div style="width:1000px;float:left; height:100px;">
+</div>
+                <div id="musictab">
+ <div class="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://localhost/freniz_zend/public/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://localhost/freniz_zend/public/createleaf">Create a leaf</a></li>
+          <li><a href="http://localhost/freniz_zend/public/developers">Developers</a></li>
+         <li><a href="http://localhost/freniz_zend/public/hireus">Hire Us</a></li>
+     </ul>
+       
+</div>
+</div>
+        
+    </body>
+    
+    
+    
+</html>

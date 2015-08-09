@@ -1,0 +1,635 @@
+<?php $ud=$this->leafdetails;
+$session=(array)$this->mydetails;
+?>
+
+<html>
+<head>
+<link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://css.freniz.com/theme.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript" src="http://js.freniz.com/jquery.js"></script> 
+<script src="http://js.freniz.com/ajax.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://js.freniz.com/unserialize.js"></script>
+	          <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script> 
+<script type="text/javascript" src="http://js.freniz.com/bsn.AutoSuggest_c_2.0.js"></script>
+<link rel="stylesheet" href="http://css.freniz.com/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+	          
+<style>
+#dark{
+	font-size:32px;
+	font-weight:bold;
+}
+#account-type label{
+	font-size:24px;
+	font-weight:bold;
+}
+
+#leaf-vote{
+	            
+	    	  cursor: pointer;
+			  font-weight: bold;
+			  padding: 6px 40px;
+			  text-decoration: none;
+			  color: #000;
+			  text-shadow: 0 1px 0 #fff; 
+			  -moz-border-radius: 6px;
+			  -webkit-border-radius: 6px;
+			  border-radius: 6px;
+	                  background-color: rgb(146,213,0);
+			  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(146,213,0)), to(rgb(146,213,0)));
+			  background-image: -webkit-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -moz-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -ms-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -o-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+	                   -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-ms-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-o-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	        
+	        }
+	        #leaf-vote:hover{
+	            color:#fff;
+	            
+	        }
+	        #pagesinfo td{
+	        	font-size:18px;
+	        	font-weight:bold;
+	        }
+ #create-leaf-div{
+            	     border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+             -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+            background-color:#eee;
+           
+            }
+          #pagesinfo a{
+            	margin-top:16px; margin-left:10px; float:right; color:#000; cursor:pointer;
+            }
+		 #pagesinfo a:hover{
+            	color:#eee;
+            }
+	navg ul {
+		  margin-top:0px;
+		  padding: 2px;
+		  list-style: none;
+		  position: relative;
+		  float: left;
+		  background: #eee;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;    
+		}
+		
+		navg li {
+		  float: left;      
+			   border-left:solid 1px; 
+		}
+     
+      navg li:first-child  a{
+		   
+			border-left:solid 1px #eee; 
+		}
+		
+		navg #acountmenu a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		navg #acountmenu a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+		
+		
+			navg #acountmenu-trigger {
+		  -moz-border-radius: 3px 0 0 3px;
+		  -webkit-border-radius: 3px 0 0 3px;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		navg #acountmenu a:hover {
+		  background: #fff;
+		}
+		.active{
+		  background: #fff;
+		}
+		input{
+			font-size:18px;
+			font-weight:bold;
+		}
+ .usersname{
+                		font-size:9px;
+	                    background-color:#ccc;
+	                    float:left;
+	                    padding:2px;
+	                    margin-left:2px;
+	                    border:  solid 1px;
+                }
+   .show-load{
+                position: absolute;
+                  margin-left:500px;
+                 display:none;
+           width: 100px;
+			height: 20px;
+			background-color: #fff;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+                }
+</style>
+<script type="text/javascript">
+            
+            var json={"1006":{"2506":"Airport","2508":"Arts/Entertainment","2523":"Attractions","2509":"Automobiles","2512":"Bank/Financial Services","2100":"Bar","1305":"Book store","2518":"Business Services","2264":"Religious organisation","2101":"Club","2519":"Community/Government","2250":"Education","2511":"Event planning/Event services","2513":"Food/Grocery","2514":"Health/Medical/Pharmacy","2515":"Home Interiors","2527":"Hospital/Clinic","2501":"Hotel","2503":"Landmark","1306":"Library","2500":"Local business","1111":"Cinemas","2528":"Museum/Art gallery","2231":"Outdoor gear/Sporting goods","2516":"Pet services","2517":"Professional services","2520":"Property","2522":"Public places","1900":"Restaurant/Cafe","2601":"School/University","2521":"Shopping/Retail","2510":"Beauty/Personal care","2524":"Sport/Recreation/Activities","2507":"Sports venue","2525":"Tours/Sightseeing","2505":"Couries/Cargoes","2526":"Transport","2602":"University"},"1007":{"1103":"Actor/Director","1601":"Artist","1600":"Athlete","1301":"Author","1609":"Business person","1606":"Chef","1802":"Coach","1610":"Comedian","1614":"Dancer","1608":"Doctor","1308":"Editor","1611":"Entertainer","1113":"Fictional character","1701":"Government official","1604":"Journalist","1607":"Lawyer","1612":"Monarch","1202":"Musician/Band","1605":"News personality","1700":"Politician","1108":"Producer","1602":"Public figure","1613":"Teacher","1109":"Writer"},"1000":{"1200":"Album","1209":"Concert venue","1212":"Music award","1213":"Music chart","1207":"Music video","1204":"Musical instrument","1202":"Musician/Band","1206":"Playlist","1210":"Radio station","1211":"Record label","1201":"Song"},"1001":{"1103":"Actor/Director","1113":"Fictional character","1105":"Movie","1111":"Cinemas","1108":"Producer","1110":"Studio","1112":"TV/Movie award","1109":"Writer"},"1015":{"1103":"Actor/Director","1405":"Episode","1113":"Fictional character","1110":"Studio","1404":"TV channel","1402":"TV network","1400":"TV show","1112":"TV/Movie award","1109":"Writer"},"1002":{"1301":"Author","1300":"Book","1305":"Book store","1308":"Editor","1306":"Library","1307":"Magazine","1304":"Publisher"},"1009":{"2215":"Appliances","2232":"Baby goods/Kids goods","2206":"Bags/Luggage","2216":"Building materials","2208":"Camera/Photo","2205":"Cars","2209":"Clothing","2217":"Commercial equipment","2210":"Computers","2263":"Drugs","2213":"Electronics","2252":"Food/Beverages","2219":"Furniture","2300":"Games/Toys","2214":"Health/Beauty","2218":"Home Interiors","2220":"Home Appliances","2226":"Jewellery/Watches","2221":"Kitchen/Cooking","2227":"Movies/Music","1204":"Musical instrument","2212":"Office supplies","2231":"Outdoor gear/Sporting goods","2222":"Park/Garden","2230":"Pet supplies","2201":"Product/Service","2211":"Software","2223":"Tools/Equipment","2262":"Vitamins/Supplements","2202":"Website","2224":"Wine/Spirits"},"1013":{"2244":"Aerospace/Defence","2240":"Automobiles and parts","2234":"Bank/Financial institution","2254":"Biotechnology","2247":"Chemicals","2264":"Religious organisation","2260":"Community organisation","2200":"Company","2255":"Computers/Technology","2248":"Consulting/Business Services","2250":"Education","2238":"Energy/Utility","2251":"Engineering/Construction","2246":"Farming/Agriculture","2252":"Food/Beverages","2604":"Government organisation","2214":"Health/Beauty","2243":"Medical/Pharmacy","2241":"Industrials","2236":"Insurance company","2256":"Internet/Software","2249":"Legal/Law","2233":"Media/News/Publishing","2245":"Mining/Materials","2235":"Non-governmental organisation (NGO)","2603":"Non-profit organisation","2600":"Organisation","2261":"Political organisation","2618":"Political party","2239":"Retail and consumer merchandise","2601":"School/University","2237":"Small business","2253":"Telecommunication","2242":"Transport/Freight","2258":"Travel/Leisure","2602":"University"},"1005":{"1803":"Sports team","1600":"Athlete","1802":"Coach","1804":"School sports team","1800":"Sports league","2507":"Sports venue"},"1016":{"2701":"Arts/Humanities","2702":"Business/Economy","2703":"Computers/Internet","2704":"Education","2705":"Entertainment","2706":"Government","2707":"Health/Wellness","2708":"Home/Garden","2715":"Local/Travel","2709":"News/Media","2700":"Personal blog","2717":"Personal website","2710":"Recreation/Sport","2711":"Reference","2712":"Regional","2713":"Science","2714":"Society/Culture","2716":"Teens/Kids"},"1018":{"2612":"Community"}};
+            var a=eval(json);
+            var b={"1006":"Businesses/places","1007":"Celebrities","1000":"Musics","1001":"Movies","1015":"Television","1002":"Books","1009":"Products","1013":"Organisations","1005":"Sports","1016":"Websites/blogs","1018":"Other"};
+            var c=new Array();
+for (var key in a)
+                {
+                    var d=new Array();
+                     for(var key1 in a[key])
+                        {
+                            value=a[key][key1];
+                            d[value]=value;
+                        }
+                        c[b[key]]=d;
+                }
+               window.onload=function(){
+                   var e=document.getElementById("category");
+                   for(var k in c)
+                       {
+                           var e1=document.createElement("option");
+                         e1.value=k;
+                         var cat='<?php echo $ud['category'];?>';
+                         if(k.toLowerCase()==cat.toLowerCase())
+                             $(e1).attr("selected", "selected");
+                          e1.innerHTML=k;
+                         e.appendChild(e1);
+                       }
+                   displaysubcategory('<?php echo $ud['category'];?>');
+               }
+function displaysubcategory(value)
+            {
+             value=value[0].toUpperCase() + value.slice(1);
+                if(value!=0){
+                    var e=document.getElementById("subcategory");
+                    e.innerHTML='';
+                    for(var k in c[value]){
+                        var e1=document.createElement("option");
+                        var sub='<?php echo $ud['subcategory'];?>';
+                        if(k.toLowerCase()==sub.toLowerCase())
+                            $(e1).attr("selected", "selected");
+                        e1.innerHTML=c[value][k];
+                        e.appendChild(e1);
+                    }
+                }
+            }
+        </script>
+<script type="text/javascript">
+
+        
+function addtextarea(value)
+{
+    if(value!=''){
+    var e=document.getElementById("pagesinfo");
+    var e1=document.createElement('tr');
+    var e2=document.createElement('td');
+    e2.innerHTML='<input type="text" value="'+value+'" style="width:150px; height:30px" />';
+    e1.appendChild(e2);
+    var e3=document.createElement('td');
+    var e4=document.createElement('textarea');
+    e4.name=value;
+    e4.style.width='600px';
+    e4.style.height='50px';
+    
+    e3.appendChild(e4);
+    $a='<a href"javascript:void(0)" onclick="$(this).parent().parent().remove()">x</a>';
+   $(e3).append($a);
+    e1.appendChild(e3);
+    e.appendChild(e1);}
+
+}
+
+function submit_form(leafid)
+{
+    var a=$('form').serialize();
+    var b= new Array();
+    for(var k in a)
+    {
+        b[a[k]['name']]=escape(a[k]['value']);
+    }
+   var parameters=a+'&leafid='+leafid;
+    $.ajax({
+	    url:'http://www.freniz.com/leaf/leafinfoupdate',
+	    cache:false,
+	    data:parameters,
+	    dataType:"json",
+	    success:function(json){
+	    	 alert(json.status);
+	    }
+    } );
+}
+function updateleaf(){
+	var leafname=document.getElementById('leafname').value;
+	var leafid=document.getElementById('leafid_hidden').value;
+	var leafplace=document.getElementById('leafplace-hidden').value;
+	var leafcontact=escape(document.getElementById('leafcontact').value);
+	var leafsite=document.getElementById('leafsite').value;
+	var leafurl=document.getElementById('leafurl').value;
+	var category=document.getElementById('category').value;
+	var subcategory=document.getElementById('subcategory').value;
+	var parameters="leafurl="+leafurl+"&leafcontact="+leafcontact+"&leafplace="+leafplace+"&leafsite="+leafsite+"&leafid="+leafid+"&leafname="+leafname+"&category="+category+"&subcategory="+subcategory;
+	 $.ajax({
+		    url:'http://www.freniz.com/leaf/leafupdate',
+		    cache:false,
+		    data:parameters,
+		    dataType:"json",
+		    success:function(json){
+		    	 alert(json.status);
+		    }
+	    } );
+}
+$(document).ready(function(event){
+
+	$('#leafplace').bind('keyup', function() { 
+		var value=$('#leafplace').val();
+		if(value==''){
+			$('#leafplace-hidden').val('');
+			}
+
+		 } );
+
+	
+			
+		$('#basicleaf a').click(function(){
+			$('#basic_leaf').css('display','block');
+			$('#info_leaf').css('display','none');
+			$('#privacy_leaf').css('display','none');
+			$('#basicleaf').addClass('active');
+			$('#leafinfo').removeClass('active');
+			$('#privacyinfo').removeClass('active');
+		
+	});
+		$('#leafinfo a').click(function(){
+			$('#basic_leaf').css('display','none');
+			$('#info_leaf').css('display','block');
+			$('#privacy_leaf').css('display','none');
+			$('#basicleaf').removeClass('active');
+			$('#leafinfo').addClass('active');
+			$('#privacyinfo').removeClass('active');
+		});
+		$('#privacyinfo a').click(function(){
+		$('#basic_leaf').css('display','none');
+		$('#info_leaf').css('display','none');
+		$('#privacy_leaf').css('display','block');
+		$('#basicleaf').removeClass('active');
+		$('#leafinfo').removeClass('active');
+		$('#privacyinfo').addClass('active');
+		});
+		 var hash = location.hash.replace('#', '');
+			switch(hash){
+		
+			case 'basic':
+				$('#basic_leaf').css('display','block');
+				$('#info_leaf').css('display','none');
+				$('#privacy_leaf').css('display','none');
+				$('#basicleaf').addClass('active');
+				$('#leafinfo').removeClass('active');
+				$('#privacyinfo').removeClass('active');
+				break;
+			case 'leafinfo':
+				$('#basic_leaf').css('display','none');
+				$('#info_leaf').css('display','block');
+				$('#privacy_leaf').css('display','none');
+				$('#basicleaf').removeClass('active');
+				$('#leafinfo').addClass('active');
+				$('#privacyinfo').removeClass('active');
+				break;
+			case 'privacyinfo':
+				$('#basic_leaf').css('display','none');
+				$('#info_leaf').css('display','none');
+				$('#privacy_leaf').css('display','block');
+				$('#basicleaf').removeClass('active');
+				$('#leafinfo').removeClass('active');
+				$('#privacyinfo').addClass('active');
+				break;	
+			default:
+				$('#basic_leaf').css('display','block');
+			$('#info_leaf').css('display','none');
+			$('#privacy_leaf').css('display','none');
+			$('#basicleaf').addClass('active');
+			$('#leafinfo').removeClass('active');
+			$('#privacyinfo').removeClass('active');
+			}	
+
+});
+</script>
+</head>
+<body>
+ <img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+    <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+<?php if(isset($session['userid']) && $session['type']!='none' && $session['type']!='leaf'){ ?>
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+<?php } ?>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    <?php if(isset($session['userid']) && $session['type']=='user'){ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://www.freniz.com/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+<?php }else{ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Home</a></li>
+<ul>
+
+<?php } ?>
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<?php if($session['userid']){ ?> 
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" title="<?php echo $session['username']; ?>" class="active">
+				<?php 
+				$name = $session['username'];
+                 if(strlen($name) > 24 )
+                 {
+                 echo substr($name, 0, 26).'...' ;
+                                 }
+               else {
+                   echo $name;
+               } ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li title="<?php echo $value['username']; ?>" onclick="switchuser('<?php echo $value['userid'];?>')"  ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a title="<?php echo $value['username']; ?>" style="font-size:10px;padding-left:4px;"><?php $leafname = $value['username'];
+                 if(strlen($leafname) > 15 )
+                 {
+                 echo substr($leafname, 0, 15).'...' ;
+                                 }
+               else {
+                   echo $leafname; } ?></a></label></div></li>
+                                 	<?php } 
+                                 	if($session['type']!='none' && $session['type']!='leaf'){
+                                 	?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                <?php }elseif($session['type']=='leaf'){ ?>
+                                   <li><a href="http://www.freniz.com/leafedit/<?php echo $session['userid']; ?>#privacyinfo">Privacy Setting</a> </li>
+                                <?php } ?>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+ <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://www.freniz.com/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:250px; height:30px" ><span id="searchusers-load" style="margin-top:-24px; margin-left: 215px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -24px; margin-right:-45px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div> 
+
+<div id="maincontainer" style="width: 1000px; margin-left:auto; margin-top:10px; margin-right:auto; ">
+<div style="width: 600px; margin-left:auto; height:10px; margin-right:auto; border-bottom:solid 1px; padding:20px;">
+<img src="http://images.freniz.com/32/32_<?php echo $ud['page_pageicurl']?>" style="height:32px; width::32px; float:left" alt="propic" />
+<navg>
+	<ul id="acountmenu" >
+		<li id="leaf_name"  style="border-left:solid 1px #eee; "><a title="<?php echo $ud['username']; ?>" href="http://www.freniz.com/<?php echo $ud['userid']?>" ><?php 
+		$leafnam = $ud['username'];
+                 if(strlen($leafnam) > 20 )
+                 {
+                 echo substr($leafnam, 0, 20).'...' ;
+                                 }
+               else {
+                   echo $leafnam; }
+		?></a></li>
+		<li class="active" id="basicleaf" ><a href="#basic" >Basic</a></li>
+		<li id="leafinfo"><a href="#leafinfo" >Leaf info</a></li>
+		<li id="privacyinfo"><a href="#privacyinfo" >Privacy</a></li>
+	</ul>
+</navg>
+</div>
+
+    
+    
+    <div id="basic_leaf" style="width: 800px; margin-left:auto; margin-right:auto; padding:20px;">
+    <div style="padding:10px; width:600px">
+<label id="dark">Name</label>-<input id="leafname" type="text" value="<?php echo $ud['username'];?>"style="width:300px; height:25px; outline:none"><input id="leafid_hidden" type="hidden" value="<?php echo $ud['userid'];?>">
+</div>
+<div style="padding:10px; width:600px">
+<label id="dark">category</label>-<select name="category" id="category" onchange="displaysubcategory(document.getElementById('category').value)" autocomplete="off"><option value="0" selected>Select Category:</option>
+   </select>
+</div>
+<div style="padding:10px; width:600px">
+<label id="dark">subcategory</label>-<select name="subcategory" id="subcategory"  autocomplete="off"><option value="0" selected>Select SubCategory:</option>
+</select>
+</div>
+
+<div style="padding:10px; width:600px">
+<label id="dark">Place</label>-<input id="leafplace" type="text" placeholder="place" value="<?php echo $ud['place_name'];?>" style="width:300px; height:25px; outline:none"><input id="leafplace-hidden" type="hidden" value="<?php echo $ud['place'];?>"><img style="display:none; float:right;margin-top:15px; margin-right:195px;" id="place-load" alt="loading" src="http://images.freniz.com/loading.gif">
+</div>
+
+<div style="padding:10px; width:600px">
+<label id="dark">Website</label>-<input id="leafsite" type="text" placeholder="website" value="<?php if($ud['website']){echo $ud['website'];}else echo 'http://';?>" style="width:300px; height:25px; outline:none">
+</div>
+<div style="padding:10px; width:600px">
+<label id="dark">Url</label>-<input id="leafurl" type="text" placeholder="your profile url" value="<?php echo $ud['url'];?>" style="width:300px; height:25px; outline:none">
+</div>
+<div style="padding:10px; width:600px">
+<label id="dark">Contacts</label>-<textarea id="leafcontact" placeholder="address" style="width:400px; font-size:16px; height:50px;outline:none"><?php echo $ud['contact'];?></textarea>
+</div>
+  <div style="width:600px; height:30px; border-bottom:solid 1px; padding:10px;">
+    <span id="leaf-vote" onclick="updateleaf();" style="float:right">Update</span>
+    </div>
+  
+     <div style="width:600px; height:30px; padding:10px;">
+    <a style="float:right; margin-right:10px; margin-top:10px; text-decoration:none; cursor:pointer" href="http://www.freniz.com/<?php echo $ud['userid']?>">-->Home</a>
+    
+    </div>
+ </div>
+    
+    
+    
+     <div id="info_leaf" style="width: 800px; display:none; margin-left:auto; margin-right:auto; padding:20px;">
+  <label style="font-size: 32px; font-weight:bold">Leaf info</label>
+  
+   <div style="margin-left: 70px; padding:10px;">
+   <input type="text" placeholder="Enter your title" id='title' style="width: 300px; height:30px; font-size:18px; font-weight:bold; outline:none" />
+    <input id="leaf-vote" type="button" onclick="addtextarea(document.getElementById('title').value);document.getElementById('title').value='';" value="Add titles" />
+</div>
+    <form name="pageinfo" action="">
+   
+    <table id="pagesinfo" cellpadding="3" cellspacing="3">
+    
+<?php if($ud['page_info']){
+foreach ($ud['page_info'] as $info=>$valu){
+	?>
+<tr><td ><input type="text" value="<?php
+$title=str_replace("_", " ", $info);
+echo $title;?>" style="width:150px; height:30px" /></td><td><textarea name='<?php echo $info;?>' style="width:600px; height:50px"><?php echo $valu;?></textarea><a href"javascript:void(0)" onclick="$(this).parent().parent().remove()">x</a></td></tr>
+
+<?php } }else{?>
+<tr><td><input type="text" value="About" style="width:150px; height:30px" /></td><td><textarea name='about' style="width:600px; height:50px"></textarea><a href"javascript:void(0)" onclick="$(this).parent().parent().remove()">x</a></td></tr>
+<?php }?>
+</table>
+    </form>
+    <div style="width:770px; height:30px; border-top:solid 1px; padding:10px;">
+    <span id="leaf-vote" onclick="submit_form('<?php echo $ud['userid'];?>')" style="float:right">Update</span>
+    <a style="float:right; margin-right:10px; margin-top:10px; text-decoration:none; cursor:pointer"href="http://www.freniz.com/<?php echo $ud['userid']?>">-->Home</a>
+    
+    </div>
+    </div>
+    
+     
+ <div id="privacy_leaf" style="width:800px; padding:10px; display:none; margin-left:auto; margin-right:auto; ">
+
+ <div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Post</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>Who can Post or comment?</td><td><select  id="leaf-comment-privacy" style="width:100px;" >
+<option <?php if($this->privacy['postvisi']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['postvisi']=='private'){echo 'selected';} ?> value="private">Winked</option>
+</select></td></tr>
+
+<tr id="banned">
+<td>Banned Users</td>
+<th><input id="post-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:25px;" /></th>
+</tr>
+<tr id="banned-user" >
+<td><?php foreach(unserialize($this->privacy['postspecificpeople']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+
+</table>
+
+
+</div>
+<div style="width:100%; padding:20px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updatePrivacy('scribbles');" id="leaf-vote" style="float: right" type="button" value="Update" />
+ <a style="float:right; margin-right:10px; margin-top:10px; text-decoration:none; cursor:pointer" href="http://www.freniz.com/<?php echo $ud['userid']?>">-->Home</a>
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+</div>
+    
+    
+    </div>
+    
+    
+ <script type="text/javascript">
+ 
+ var options_xmlsearch = function(type,elementid,appendto){
+     if(!appendto)
+        appendto='body'; 
+     var options={
+                script:"http://www.freniz.com/search?type="+type+"&",
+		varname:"key",
+                type:type,
+                elementid:elementid,
+                appendto:appendto,
+                callback:function(suggestion,fld){
+					$('#leafplace-hidden').val(suggestion.id);
+					$('#leafplace').val(suggestion.name);
+					
+                       }
+                
+            };
+            return options;
+	}
+    
+	     var as_xmlsearch = new AutoSuggest('leafplace', options_xmlsearch('places','place-load'));
+        </script>
+        <div id="musictab">
+<div class="foot-tab" id="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+       
+</div>
+</body>
+</html>

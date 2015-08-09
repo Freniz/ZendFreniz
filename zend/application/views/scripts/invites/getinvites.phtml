@@ -1,0 +1,26 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+$session=(array)$this->mydetails;
+?>
+
+<invites>
+
+	
+<?php foreach ($this->results as $row){?>
+   <invite>
+       <id><?php echo $row['inviteid'] ?></id>
+       <suserid><?php echo $row["suserid"]; ?></suserid>
+       <susername><?php echo $row["fname"].$row['lname']; ?></susername>
+       <suserpic><?php echo $row["propic"]; ?></suserpic>
+       <mutualfrnds><?php echo count(array_intersect(unserialize($row["friends"]), $session['friends'])); ?></mutualfrnds>
+       <suservotes><?php echo count(unserialize($row["vote"])); ?></suservotes>
+       <text><?php echo $row['text']; ?></text>
+       <songurl><?php echo $row['songurl']; ?></songurl>
+       <imageurl><?php echo $row['imageurl']; ?></imageurl>
+   </invite>
+    <?php }?> 
+</invites>
+    

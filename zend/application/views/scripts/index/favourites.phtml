@@ -1,0 +1,464 @@
+<?php $session=(array)$this->myDetails;  ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Favourites</title>
+<link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/leaf.js"></script>
+
+<script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/bsn.AutoSuggest_c_2.0.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/accountsettings.js"></script>
+<link rel="stylesheet" href="http://css.freniz.com/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+
+<style>
+.curve {
+    -moz-border-radius : 25px; /* Firefox */
+    -webkit-border-radius :25px; /* Safari & Chrome */
+    -khtml-border-radius : 25px; /* Linux browsers */
+    border-radius : 25px; /* CSS3 compatible browsers */
+}
+body {
+    margin: 0;
+    padding: 0;
+	width:99%;
+    text-align: center; /* !!! */
+}
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 1024px;
+	
+}
+
+.suggestion-list visible{
+		display:block;
+}
+.fav-show{
+display:block;
+}
+.fav-hidden{
+display:none;
+}
+.greenbutton{
+
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 20px;
+
+width: 50px;
+cursor: pointer;
+font: bold 12px Arial, Helvetica;
+color: white;
+}
+.foot-tab{
+width:99%;
+
+}
+.updatebutton{
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 25px;
+text-align:center;
+padding-bottom:10px;
+width: 100px;
+cursor: pointer;
+font: bold 14px Arial, Helvetica;
+color: white;
+}
+.foot-tab  ul{
+                    display:block;
+                    margin-top: -2px;
+                    text-align:left;
+                   margin-left: 10px;
+                   
+                }
+               .foot-tab ul li{
+                    display:inline-block; padding: 8px;
+                    font-size: 12px;
+                }
+                .foot-tab ul li a{
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                .foot-tab ul li a:hover{
+                   text-decoration: underline;
+                }
+                .foot-tab{
+                    border-top: solid 2px #ccc;
+                    margin-top: 50px;
+                  float: left;
+                  margin-left: 2px;
+                 
+                }
+                .foot-tab-pos{
+                    position: absolute;
+                }
+                .fav-load{
+                	display:none;
+                  position: absolute;
+              width: 1000px;
+			height: 420px;
+			background-color: #fff;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+			text-align:center;
+                }
+                
+               .create-load{
+               	display:none;
+                position: absolute;
+                  margin-left:630px;
+                  margin-top:-26px;
+           width: 70px;
+			height: 20px;
+			background-color: #fff;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+               }
+                .show-load{
+                	display:block;
+                }
+                .hide-load{
+                	display:none;
+                }
+                .span-res{
+                	display:block;
+                position:absolute;
+                margin-left:690px;
+                margin-top:-23px; 
+                }
+</style>
+ <link rel="stylesheet" href="http://css.freniz.com/login.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript">
+
+$('.show').mouseover(function() {
+  $('.add-fav').addClass('.suggestion-list visible');
+});
+</script>
+
+</head>
+
+<body>
+  <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:80px; ">
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+</div>
+<div id="top-menu-items" style=" float:left; height:80px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="#">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+
+
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:80px; ">
+  <?php if($session['userid']){ ?> 
+  <div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" class="active">
+				<?php echo  $session['username']; ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a onclick="switchuser('<?php echo $value['userid'];?>')" style="font-size:10px;padding-left:4px;"><?php echo $value['username'];?></a></label></div></li>
+                                 	<?php } ?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+</div>
+    <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://www.freniz.com/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+
+
+</div>
+
+
+</div> 
+
+<div class="centered" style="margin-top:20px; margin-left:auto; margin-right:auto">
+
+<?php if($_REQUEST['log_aug']=='true'){?>
+<div id="fourth" style="width:900px; margin-left:50px; height:60px;">
+<div style="width:100px;float:left; margin-top:20px; ">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">1</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">2</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">3</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px;  background-color:#3F0; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">4</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">5</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px;">
+
+</div>
+
+
+
+</div>
+
+<?php }?>
+<div style="width:1000px; float:left; border-top:solid 1px">
+
+<div id="favorite-details" style="padding:10px; float:left; border-bottom:solid 1px">
+<label style="font-size:24px; font-weight:bold">Favourites</label>-<select id="favorite-change"  style="width:100px"><option value="-1">Select:</option><option value="Books">books</option><option value="Musics">musics</option><option value="Movies">Movies</option><option value="Celebrities">Celebrities</option><option value="Games">Games</option><option value="Sports">Sports</option><option selected value="other">Extras</option></select>
+<input id="favourites-update" placeholder="write here to search" type="text" onkeyup="getfavsug()" style="width:400px; height:20px" />
+<input class="greenbutton" style="float:right; margin-left:5px; margin-top:-26px;" type="button" onclick="createfav()" value="create"/>
+<span id="loading" class="create-load">loading...</span>
+
+</div>
+
+<div style="width:1000px; float:left; margin-top:10px;">
+<div id="fav-load" class="fav-load">
+<div style="height:45%">
+</div>
+<label style="font-weight:bold; font-size:24px; color:#000">Loading...</label>
+</div>
+<div id="favor-list" style=" width:400px; padding:5px; float:left; overflow:auto; height:400px; border:solid 1px">
+
+
+</div>
+<div id="suggestion-list" style=" width:570px; padding:5px; overflow:auto; margin-left:5px;float:left; height:400px; border:solid 1px">
+
+<!--<div class="show" style=" width:100px; margin-left:5px;float:left; position:relative; height:100px; border:solid 1px">
+<a class="add-fav"style="margin:20px; font-size:18px;text-decoration:none; font-weight:bold" href="javascript:0">Add</a>
+<div style=" width:100px; position:absolute; bottom:0; border:solid 1px">
+harry potter harry potter
+</div>
+</div>
+-->
+
+</div>
+</div>
+
+</div>
+<?php if($_REQUEST['log_aug']=='true'){?>
+
+<div style="width:1000px; padding:10px;float:left;border-bottom:solid 1px">
+<input class="greenbutton" style="float:left; margin-left:3px;" type="button" onclick="window.location.href='http://www.freniz.com/index/otherinfo?log_aug=true'" value="Back"/>
+<a style="float:right; margin-right:5px; cursor:pointer" onclick="window.location.href='http://www.freniz.com/index/changedp?log_aug=true'">-->Skip</a>
+
+</div>
+<?php }?>
+
+</div>
+ <script type="text/javascript">
+     var options_xmlsearch = function(type,appendto){
+     if(!appendto)
+        appendto='body'; 
+     var options={
+                script:"http://www.freniz.com/search",
+		varname:"name",
+                type:type,
+                appendto:appendto
+                
+            };
+            return options;
+	}
+	 var options_xml = function(type,category,subcategory,fav,appendto){
+		 if(!appendto)
+        appendto='body'; 
+     var options={
+                script:"http://www.freniz.com/search?type="+type+"&category="+category+"&subcategory="+subcategory+"&",
+		varname:"name",
+                type:type,
+                category:category,
+                subcategory:subcategory,
+                fav:fav,
+                appendto:appendto
+                
+            };
+            return options;
+	}
+	 $(document).ready(function() {
+	 getuserfavinfo('other');
+	 getfavsug();
+		 $('#favorite-change').change(function(){
+			switch(document.getElementById('favorite-change').value){
+			case 'Books':
+				getuserfavinfo('books');
+				getfavsug();
+				break;
+			case 'Movies':
+				getuserfavinfo('movies');
+				getfavsug();
+				break;
+
+			case 'Musics':
+				getuserfavinfo('musics');
+				break;	
+			case 'Celebrities':
+				getuserfavinfo('celebrities');
+				getfavsug();
+				break;
+			case 'Games':
+				getuserfavinfo('games');
+				getfavsug();
+				break;
+			case 'Sports':
+				getuserfavinfo('sports');
+				getfavsug();
+				break;
+			case 'other':
+				getuserfavinfo('other');
+				getfavsug();
+				break;
+			
+				default:
+					getuserfavinfo('books');
+				   getfavsug();
+				break;
+			
+			}
+			});
+        
+		 function getuserfavinfo(where){
+				$.ajax({
+						url:"http://www.freniz.com/settings/getfav?category="+where,
+						dataType:'xml',
+						cache:false,
+						success:function(xml){
+							 var main=document.getElementById('favor-list');
+						    var b=document.createElement('div');
+						    var e=document.createElement('div');
+						    e.innerHTML='<label style="font-size:24px; border-bottom:solid 2px; font-weight:bold;">'+where+'</label>';
+						    $(b).append(e);
+						   
+							  $(xml).find('pages').each(function(){
+				                 $(this).find('page').each(function(){
+					               
+							var c=document.createElement('div');
+							if($(this).find('pageid').text()!='')	
+					  c.innerHTML='<div id="sug-'+$(this).find('pageid').text()+'" class="show"style="background-image:url(\'http://images.freniz.com/75/75_'+$(this).find('pagepic').text()+'\'); background-repeat:no-repeat;  width:100px;overflow:hidden; margin-top:5px; margin-left:5px;float:left; position:relative; height:100px; border:solid 1px"><a id="add-fav'+$(this).find('pageid').text()+'" class="fav-hidden"style="margin:20px; font-size:18px;text-decoration:none; font-weight:bold"onClick="addtofavr(\''+$(this).find('pageid').text()+'\',\''+where+'\')"href="#">Add</a><a id="remo-fav'+$(this).find('pageid').text()+'" class="fav-show"style="margin:20px; font-size:18px;text-decoration:none; font-weight:bold"onClick="removefromfavr(\''+$(this).find('pageid').text()+'\',\''+where+'\')"href="javascript:0">remove</a><div style=" width:100px; position:absolute; bottom:0; opacity:0.6; color:#000; background:#ccc;  filter:alpha(opacity=60);"><a style="text-decoration:none; color:#444;" href="http://www.freniz.com/'+$(this).find('pageid').text()+'">'+$(this).find('pagename').text()+'</a></div></div>';
+						else c.innerHTML='No '+where+' yet to be update';
+					  $(b).append($(c).html());
+						  
+				                 });
+						  });
+							  
+						   $(main).html($(b).html());
+							 
+								
+						}
+				
+				});
+				}
+      
+	 });
+</script>
+
+<div class="foot-tab" id="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+
+
+</body>
+</html>

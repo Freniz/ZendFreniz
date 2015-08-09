@@ -1,0 +1,260 @@
+<?php 
+$session=(array)$this->mydetails;
+?>
+<html>
+    
+    
+    <head>
+     <script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script> 
+	      
+ <script type="text/javascript" src="http://js.freniz.com/ajax.js"></script> 
+	       
+	        <link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+	          <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script> 
+	      <script src="http://js.freniz.com/jquery.timeago.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://js.freniz.com/bsn.AutoSuggest_c_2.0.js"></script>
+<link rel="stylesheet" href="http://css.freniz.com/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+      
+       <style>
+ .comment-pic{
+                
+                -moz-border-radius: 6px;
+		  -webkit-border-radius: 6px;
+		  border-radius: 6px;
+		  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+		  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+		  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;  
+                   width:45px; margin: 5px; float: left; height: 45px; border: solid 1px;
+
+            }
+            
+           .vote-bar {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 14px; font-weight: bold;
+                color: #000;
+            }
+           .vote-bar :hover{
+                color: #fff;
+            }
+            .close {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 12px; font-weight: bold;
+                color: #000;
+            }
+            .close:hover{
+                color: #ccc;
+            }
+            #comment-box-main{
+                width:550px;
+     border-radius: 30px;
+	-moz-border-radius: 30px;
+	-webkit-border-radius: 30px; 
+        background-color: #FFF0F0;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 15px; padding-bottom: 20px;
+        float: left;}
+        .coment-bar-tag{
+       width:550px; float: left; margin-top: 5px; border-bottom: solid 1px;
+            }
+            .comment-box{
+                width: 490px;  background-color: #eee; padding: 5px;  float: left; display:block; margin-left: 30px; margin-top: 5px;
+            }
+            #vote-div{
+               width:700px; float: left; margin-left: 30px; 
+            }
+            #comment-main-div{
+                width: 700px;  border-top: solid 1px; margin-top: 5px; margin-left: 30px; float: left;
+            }
+            #comment-sub-div{
+                  background-color: #eee; padding: 5px;  float: left;  
+            }
+</style>
+    </head>
+    <body>
+   <img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+    <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+<?php if(isset($session['userid']) && $session['type']!='none' && $session['type']!='leaf'){ ?>
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+<?php } ?>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    <?php if(isset($session['userid']) && $session['type']=='user'){ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://www.freniz.com/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+<?php }else{ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Home</a></li>
+<ul>
+
+<?php } ?>
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<?php if($session['userid']){ ?> 
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" title="<?php echo $session['username']; ?>" class="active">
+				<?php 
+				$name = $session['username'];
+                 if(strlen($name) > 24 )
+                 {
+                 echo substr($name, 0, 26).'...' ;
+                                 }
+               else {
+                   echo $name;
+               } ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li title="<?php echo $value['username']; ?>" onclick="switchuser('<?php echo $value['userid'];?>')"  ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a title="<?php echo $value['username']; ?>" style="font-size:10px;padding-left:4px;"><?php $leafname = $value['username'];
+                 if(strlen($leafname) > 15 )
+                 {
+                 echo substr($leafname, 0, 15).'...' ;
+                                 }
+               else {
+                   echo $leafname; } ?></a></label></div></li>
+                                 	<?php } 
+                                 	if($session['type']!='none' && $session['type']!='leaf'){
+                                 	?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                <?php }elseif($session['type']=='leaf'){ ?>
+                                   <li><a href="http://www.freniz.com/leafedit/<?php echo $session['userid']; ?>#privacyinfo">Privacy Setting</a> </li>
+                                <?php } ?>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+ <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://www.freniz.com/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:250px; height:30px" ><span id="searchusers-load" style="margin-top:-24px; margin-left: 215px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -24px; margin-right:-45px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div>     
+        <div id="maincontainer" style="width: 1000px; margin-top:5px; margin-left:auto; margin-right:auto; ">
+            <div id="video-div" style="width: 740px;  float: left">
+               
+            
+              <script type="text/javascript">
+              getsinglevideo('<?php echo $this->videoid; ?>');
+              </script>  
+                
+                
+            </div>
+            <div style="width: 250px; height: 400px; float:right">
+                
+            </div>
+           <div style="width: 1000px; height: 60px; float:left"></div>
+        </div>    
+      
+           <script type="text/javascript">
+
+				
+getcount();	
+								
+					function miniprofile(data,element){
+							var position=$(element).offset();
+							getminiprofile(data,position.top,position.left);
+						}
+
+
+					var options_xmlsearch = function(type,appendto){
+					     if(!appendto)
+					        appendto='body'; 
+					     var options={
+					                script:"http://www.freniz.com/search?type="+type+"&",
+							varname:"key",
+					                type:type,
+					                appendto:appendto,
+					                callback:function(suggestion,fld){
+												window.location.href="http://www.freniz.com/"+suggestion.id;
+					                       }
+					                
+					            };
+					            return options;
+						}
+           var options_xmlsearch = new AutoSuggest('searchusers', options_xmlsearch('all'));
+        
+        
+        
+</script>
+  <div id="musictab">
+
+ <div class="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+       
+</div>
+
+        
+        
+    </body>
+    
+    
+    
+</html>

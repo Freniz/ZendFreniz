@@ -1,20 +1,1054 @@
-
 <?php
-if(is_array($this->bodyContent)){
-	foreach($this->bodyContent as $key => $values){
-		echo $key.'<br>';
-		print_r($values);
-		echo "<br><br>";
-	}
+$ud=$this->bodyContent;
+$session=(array)$this->mydetails;
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title><?php echo $ud['username']; ?></title>
+        <script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script> 
+        <link rel="stylesheet" href="css/default.css" type="text/css" media="screen" charset="utf-8" />
+         <script src="http://js.freniz.com/ajax.js" type="text/javascript"></script>
+         <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script> 
+   <script src="http://js.freniz.com/jquery.timeago.js" type="text/javascript"></script>
+	  <script type='text/javascript' src="http://js.freniz.com/jquery.form.js"></script>
+	    <link type="text/css" href="http://css.freniz.com/left.css" rel="stylesheet" />
+        <script type="text/javascript" src="http://js.freniz.com/jquery.jcarousel.min.js"></script>
+	<script type="text/javascript" src="http://js.freniz.com/bsn.AutoSuggest_c_2.0.js"></script>
+<link rel="stylesheet" href="http://css.freniz.com/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript" src="http://js.freniz.com/jquery.pikachoose.js"></script>
+	    <script type="text/javascript" src="http://js.freniz.com/s3Slider.js"></script>
+		
+         <style>
+#pin-done{
+	cursor: pointer;
+			  font-weight: bold;
+			  padding: 3px 10px;
+			  text-decoration: none;
+			  color: #000;
+			  text-shadow: 0 1px 0 #fff; 
+			  -moz-border-radius: 6px;
+			  -webkit-border-radius: 6px;
+			  border-radius: 6px;
+	                  background-color: rgb(146,213,0);
+			  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(146,213,0)), to(rgb(146,213,0)));
+			  background-image: -webkit-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -moz-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -ms-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -o-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+	                   -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-ms-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-o-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+}
+#request-tags span a,#taglistdiv span a{
+	font-size:14px;
+	cursor:pointer;
+}
+#request-tags label a,#taglistdiv label a{
+	font-size:14px;
+	cursor:pointer;
+	text-decoration:none;
+	color:#444;
+}
+/* Main leaf-menu */
+#leaf-menu{
+    width:200px;
+    
 }
 
-echo $this->results;
-echo '<br><br><br><br>';
-print_r($this->results);
-?>
-<html>
-<head>
-<script type="text/javascript" src="js/bsn.AutoSuggest_c_2.0.js"></script>
-</head>
-<body></body>
+#leaf-menu ul{
+    display: block;
+    width:200px;
+    margin-top: -2px;
+    margin-left: -40px;
+    
+}
+#leaf-menu ul li{
+    width:200px;
+    display: inline-block;
+     padding: 4px 4px 3px 2px;
+     border-radius: 8px;
+    border: 2px inset;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px; 
+        background-color: #333;
+        color: #FFF;
+        
+font-size: 18px;
+font-weight: bold;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+-webkit-font-smoothing: antialiased;
+border: 1px solid rgba(0, 0, 0, 0.2);
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+-webkit-background-clip: padding-box;
+display: block;
+-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+-ms-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+-o-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+-ms-box-sizing: border-box;
+-o-box-sizing: border-box;
+box-sizing: border-box;
+        
+}
+#leaf-menu ul li:hover{
+     background-color: #444;
+     cursor: pointer;
+}
+
+#leaf-menu ul li a{
+    
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+.rate_widget {
+           
+            overflow:   visible;
+            position:   relative;
+            margin-top: -15px;
+            width:      180px;
+            height:     32px;
+        }
+        .ratings_stars {
+            background: url('images/star_empty.png') no-repeat;
+            float:      left;
+            height:     28px;
+            padding:    2px;
+            width:      32px;
+            cursor: pointer;
+        }
+        .ratings_vote {
+            background: url('images/star_full.png') no-repeat;
+        }
+        .ratings_over {
+            background: url('images/star_highlight.png') no-repeat;
+        }
+        .total_votes {
+            background: #eaeaea;
+            top: -25px;
+            left: 30;
+            padding: 5px;
+            position:   absolute;  
+        } 
+        .movie_choice {
+            font: 10px verdana, sans-serif;
+            position: absolute;
+            top: 358px;
+            width: 180px;
+        margin-left:20px;
+        }
+       
+          #profileleafpic{
+            border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+        -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+
+        }
+label{
+	font-size:14px;
+	color:#000;
+	font-weight:bold;
+	
+}
+
+#setting-span{
+	  cursor: pointer;
+	  position:absolute;
+			  font-weight: bold;
+			  padding: 6px 20px;
+			  text-decoration: none;
+			  color: #000;
+			  -moz-border-radius: 6px;
+			  -webkit-border-radius: 6px;
+			  border-radius: 6px;
+	                  background-color: #eee;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-ms-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-o-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+}
+#account-tab {
+width: 990px;
+float: left;
+height: 25px;
+margin-top: 10px;
+margin-left: 1px;
+padding: 10px 7px 0 0;
+list-style: none;
+background: #111;
+background: -moz-linear-gradient(#444, #111);
+background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));
+background: -webkit-linear-gradient(#444, #111);
+background: -o-linear-gradient(#444, #111);
+background: -ms-linear-gradient(#444, #111);
+background: linear-gradient(#444, #111);
+-moz-border-radius: 5px;
+-webkit-border-radius:5px;
+border-radius: 5px;
+}
+#list-info a{
+	text-decoration:none;
+	color:#000;
+	font-weight:bold;
+}
+#portfo-div{
+	 -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+}
+ #stature-stream{
+            	     border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+             -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+            background-color:#eee;
+           
+            }
+ .close {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 8px; font-weight: bold;
+                color: #000;
+            }
+            .close:hover{
+                color: #aaa;
+            }
+#user-pic{
+            	     border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+             -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);		
+	}
+  #video-add-div{
+            	
+        -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+            	
+            }
+#remove-items{
+			border-radius: 10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+-webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+-ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+		}
+#remove-items ul{
+		display:inline;
+		width:100px;
+            background-color:#eee;
+	}
+	#remove-items ul li{
+		display:block;
+		background-color:#FFF;
+		padding:10px;
+	background-color:#eee;
+		
+		
+	}
+	#remove-items ul li a{
+		text-decoration:none;
+		color:black;
+		position:absolute;
+		padding:2px;
+	}
+	#remove-items ul li a:hover{
+		background-color:#A4A4A4;
+		width:100px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);	
+		padding:2px;
+		
+		
+	}
+navg ul {
+		  margin-top:10px;
+		  padding: 2px;
+		  list-style: none;
+		  position: relative;
+		  float: left;
+		  background: #eee;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;    
+		}
+		
+		navg li {
+		  float: left;      
+			   border-left:solid 1px; 
+		}
+     
+      navg li:first-child  a{
+		   
+			border-left:solid 1px #eee; 
+		}
+		
+		navg #acountmenu a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		navg #acountmenu a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+		
+		
+			navg #acountmenu-trigger {
+		  -moz-border-radius: 3px 0 0 3px;
+		  -webkit-border-radius: 3px 0 0 3px;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		navg #acountmenu a:hover {
+		  background: #fff;
+		}
+		.active{
+		  background: #fff;
+		}
+
+</style>
+         <style type="text/css" media="screen">
+#slider1 {
+	margin-top:-20px;
+	width: 720px; /* important to be same as image width */
+     height: <?php if($ud['displaypic']!=8) echo '270px'; else echo '250px'; ?>;
+    /* important to be same as image height */
+    position: relative; /* important */
+	overflow: hidden; /* important */
+}
+
+#slider1Content {
+    width: 720px; /* important to be same as image width or wider */
+    position: absolute;
+	top: 0;
+	margin-left: 0;
+}
+.slider1Image {
+    float: left;
+    position: relative;
+	display: none;
+}
+.slider1Image span {
+    position: absolute;
+	font: 10px/15px Arial, Helvetica, sans-serif;
+    padding: 10px 13px;
+    width: 694px;
+    background-color: #000;
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+	-khtml-opacity: 0.7;
+    opacity: 0.7;
+    color: #fff;
+    display: none;
+}
+.clear {
+	clear: both;
+}
+.slider1Image span strong {
+    font-size: 14px;
+}
+
+.bottom {
+	bottom: 0;
+    left: 0;
+    width: 600px !important;
+	height: 50px;
+}
+
+#slider1 ul { list-style-type: none;}
+</style>
+         
+     <script type="text/javascript">
+
+    // This is the first thing we add ------------------------------------------
+    $(document).ready(function() {
+    	$('#post-image').ajaxForm({
+      	     dataType:'json',
+      	     cache:false,
+      	     success:function(json){
+   	    	     alert(json);
+   	    	     }
+   	     });
+        $('.album-add').toggle(function(){
+        	var pin='<div id="album-na" style="padding:10px; position:absolute; margin-left:450px; margin-top:35px; width:260px; background-color:#eee;"><input id="album-name"placeholder="album name"type="text"style="width:200px; height:25px;"/><span style="float:right; " onclick="createalbumname()"id="pin-done">done</span></div>';
+			 $('#album-div').html(pin);
+			 $('.album-add').html('cancel');
+
+        },function(){
+        	$('#album-na').remove();
+        	$('.album-add').html('create album');
+					
+        });
+        
+   	 $('#slider1').s3Slider({
+         timeOut: 4000 
+     });
+        $('.rate_widget').each(function(i) {
+            var widget = this;
+            var out_data = {
+                widget_id : $(widget).attr('id'),
+                fetch: 1
+            };
+          
+            $.post(
+                'ratings.php',
+                out_data,
+                function(INFO) {
+                    $(widget).data( 'fsr', INFO );
+                    set_votes(widget);
+                },
+                'json'
+            );
+        });
+    
+
+        $('.ratings_stars').hover(
+            // Handles the mouseover
+            function() {
+                $(this).prevAll().andSelf().addClass('ratings_over');
+                $(this).nextAll().removeClass('ratings_vote'); 
+            },
+            // Handles the mouseout
+            function() {
+                $(this).prevAll().andSelf().removeClass('ratings_over');
+                // can't use 'this' because it wont contain the updated data
+                set_votes($(this).parent());
+            }
+        );
+        
+        
+        // This actually records the vote
+        $('.ratings_stars').bind('click', function() {
+            var star = this;
+            var widget = $(this).parent();
+           
+            
+            var clicked_data = {
+                clicked_on : $(star).attr('class'),
+                widget_id : $(star).parent().attr('id')
+            };
+            $.post(
+                'ratings.php',
+                clicked_data,
+                function(INFO) {
+                    widget.data( 'fsr', INFO );
+                    set_votes(widget);
+                },
+                'json'
+            ); 
+        });
+        
+        $('.hover').live('mouseover',function(){
+			var data=$(this).attr('data');
+			miniprofile(data,this);
+			$(".hover-div").live('mouseover',function() {
+			    $('.hover-div').css('display','block');
+			  }).live('mouseout',function(){
+				  $('.hover-div').css('display','none');
+			  });
+			}).live('mouseout',function(){
+				 $('.hover-div').css('display','none');
+			  });
+		$('.mes-text').live('mouseover', function() {
+		    $('.mes-text').toggle(function() {
+		    	$('#mes-text').css('display','block');
+		    	$('.mes-text').html('cancel');
+		    },function(){
+		    	$('#mes-text').css('display','none');
+		    	$('.mes-text').html('send text');
+		    });
+		});
+		
+       
+    });
+    $('#text-post-link').live('click',function(){
+			$('#text-post').css('display','block');
+			$('#video-post').css('display','none');
+			$('#text-post-link').addClass('active');
+			$('#video-post-link').removeClass('active');
+			$('#image-post-link').removeClass('active');
+			$('#image-post').css('display','none');
+		
+	});
+		$('#video-post-link').live('click',function(){
+			$('#video-post').css('display','block');
+			$('#text-post').css('display','none');
+			$('#video-post-link').addClass('active');
+			$('#text-post-link').removeClass('active');
+			$('#image-post-link').removeClass('active');
+			$('#image-post').css('display','none');
+		
+	});
+		$('#image-post-link').live('click',function(){
+			$('#image-post').css('display','block');
+			$('#video-post').css('display','none');
+			$('#text-post').css('display','none');
+			$('#image-post-link').addClass('active');
+			$('#text-post-link').removeClass('active');
+			$('#video-post-link').removeClass('active');
+			
+	});
+
+    $('.video-add').live('click',function(){
+	$a='<div id="video-add-div" style="width: 400px; position:absolute; margin-left:250px; margin-top:40px; background-color:#eee; padding:10px; height:150px; "><div style="width:350px; float :left;padding:10px;"><input id="video-title" type="text"placeholder="Enter the Title"style="width:350px; height:30px;"/></div><div style="width:350px;float :left; padding:10px; height:30px;"><input id="video-embeddcode" type="text"placeholder="Enter the Embeddcode"style="width:350px; height:30px;"/></div><span style="float:right; margin-top:10px;"onclick="postvideos(\'<?php echo $ud['userid']; ?>\')"id="leaf-vote">Add</span><span style="float:right; margin-right:5px; margin-top:10px;"onclick="$(\'#video-add-div\').remove();"id="leaf-vote">cancel</span></div>';
+		$('#video-div').append($a);
+	});
+
+    $('.portfo-upload').live('mouseover', function() {
+        $('.portfo-upload').toggle(function() {
+         	var a='<div id="portfo-div" style="width:320px;position:absolute; margin-top:-385px; margin-left:400px; float:left; padding:5px; background-color:#eee; "><form name="portfo-name" action="http://www.freniz.com/leaf/addimages" method="post" id="portfo-id" enctype="multipart/form-data" ><div style="width:240px; padding-left:5px; margin-left:5px; float:left;  border-left:solid 1px #fff"><input type="text" style="width:250px; height:25px;" placeholder="enter image name" id="img-name" name="img-name"/><input type="file"value="upload" name="qqfile" style="float: right;  width:200px;"/></div><input class="greenbutton" style="float:right; margin-top:7px" type="submit" value="upload" /></form></div>'
+				$('#port-append').html(a);
+        	$('.portfo-upload').html('cancel');
+	       	 $('#portfo-id').ajaxForm({
+	      	     dataType:'json',
+	      	     cache:false,
+	      	     success:function(json){
+	     	    	  $('#portfo-div').css('display','none');
+	     	          	$('.portfo-upload').html('upload image');
+	     	          	getleafalbum(json.leafid);
+	      	     }
+	    	     });
+        },function(){
+        	$('#portfo-div').css('display','none');
+        	$('.portfo-upload').html('upload image');
+        });
+
+        });
+    function set_votes(widget) {
+
+        var avg = $(widget).data('fsr').whole_avg;
+        var votes = $(widget).data('fsr').number_votes;
+        var exact = $(widget).data('fsr').dec_avg;
+    
+        window.console && console.log('and now in set_votes, it thinks the fsr is ' + $(widget).data('fsr').number_votes);
+        
+        $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
+        $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote'); 
+        $(widget).find('.total_votes').text( (votes) + ' votes recorded (' + exact + ' rating)' );
+    }
+    // END FIRST THING
+    
+     
+</script>   
+    </head>
+    <body >
+    <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+<?php if(isset($session['userid']) && $session['type']!='none' && $session['type']!='leaf'){ ?>
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+<?php } ?>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    <?php if(isset($session['userid']) && $session['type']=='user'){ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://www.freniz.com/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+<?php }else{ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Home</a></li>
+<ul>
+
+<?php } ?>
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<?php if($session['userid']){ ?> 
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" title="<?php echo $session['username']; ?>" class="active">
+				<?php 
+				$name = $session['username'];
+                 if(strlen($name) > 24 )
+                 {
+                 echo substr($name, 0, 26).'...' ;
+                                 }
+               else {
+                   echo $name;
+               } ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li title="<?php echo $value['username']; ?>" onclick="switchuser('<?php echo $value['userid'];?>')"  ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a title="<?php echo $value['username']; ?>" style="font-size:10px;padding-left:4px;"><?php $leafname = $value['username'];
+                 if(strlen($leafname) > 15 )
+                 {
+                 echo substr($leafname, 0, 15).'...' ;
+                                 }
+               else {
+                   echo $leafname; } ?></a></label></div></li>
+                                 	<?php } 
+                                 	if($session['type']!='none' && $session['type']!='leaf'){
+                                 	?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                <?php }elseif($session['type']=='leaf'){ ?>
+                                   <li><a href="http://www.freniz.com/leafedit/<?php echo $session['userid']; ?>#privacyinfo">Privacy Setting</a> </li>
+                                <?php } ?>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+ <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://www.freniz.com/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:250px; height:30px" ><span id="searchusers-load" style="margin-top:-24px; margin-left: 215px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -24px; margin-right:-45px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div>     
+        <div style="width:1000px; background-color:#fff;  margin-left: auto; margin-right: auto;">
+           <div style="width:1000px; float:left">
+            <div style="width:1000px; float:left ">
+            <?php if($ud['displaypic']!=8) { ?>
+             <label style="font-size:24px; margin-left:5px"><?php echo $ud['username'];?></label>
+             <?php } ?>
+            <div style="width:1000px;  height:<?php if($ud['displaypic']==8) echo '230px'; else echo '290px';?>; padding-top:5px; float:left ">
+             <div  style="width:200px; height: 200px; margin:0 20px 20px 0px; float: left;">
+                <img id="profileleafpic" src="images/200/200_<?php echo $ud['page_pageicurl'];?>" height="200" width="200"/> 
+             </div>   
+             <div style="width:200px; font-size:14px; font-weight:bold; color:#aaa; height:50px; padding:2px; position:absolute; <?php if($ud['displaypic']==8) { ?> margin-left:210px;margin-top:50px <?php }else { ?> margin-top:200px; <?php } ?> ">
+             <label>category:</label><?php echo $ud['category']; ?><br/>
+             <label>subcategory:</label><?php echo $ud['subcategory']; ?><br/>
+             <label>Place:</label><?php echo $ud['place_name'];?><br/>
+              <label>Link:</label><a style="color:#aaa; font-size:14px" target="_new" href="<?php echo $ud['website'];?>"><?php echo $ud['website'];?></a>
+             </div>
+             <div style="margin-left:-50px;" <?php if($ud['displaypic']!=8){?> id="slider1" <?php } ?> >
+             <?php if($ud['displaypic']==8){?>
+               <label id="user-name" style="font-size:24px; margin-top:20px; float:left;"><?php echo $ud['username'];?></label>
+          <?php }else{?>
+        <ul id="slider1Content">
+             </ul>
+              <script type="text/javascript">
+           getwallphoto('<?php echo $ud['userid'];?>');
+           </script>
+           <?php } ?>
+    </div>
+    <?php if($session['userid']==$ud['userid']){?>
+           <span style="margin-left:260px;  margin-top:<?php if($ud['displaypic']!=8){ echo '5px'; }else { echo '190px'; } ?>; position:absolute; cursor:pointer; font-weight:bold; color:#444;"  onclick="window.location.href='http://www.freniz.com/leafedit/<?php echo $ud['userid'];?>'">Edit</span>
+   <?php }?>
+    <div style="width:200px; height: 50px; float: right; margin-top: <?php if($ud['displaypic']==8) { echo '10px'; } else { echo '-260px'; } ?>; ">
+                         <?php
+                         $categories=array('sports','games','books','celebrities','musics','movies');
+                         	$votes=count($ud['page_vote']);
+                         	if(!in_array(strtolower($ud['category']), $categories))
+                         		$category='Other';
+                         	else $category=$ud['category'];
+                         if(!in_array($session['userid'], $ud['page_vote'])){
+							?>  
+                           <span style="margin-top:-7px; float:right" onclick="addfavorites('<?php echo $ud['userid'];?>','<?php echo $category;?>','add')" id="leaf-vote">Wink(<?php echo $votes;?>)</span><?php }else{?>
+                            <span style="margin-top:-7px; float:right" onclick="addfavorites('<?php echo $ud['userid'];?>','<?php echo $category;?>','remove')"id="leaf-vote">Winked(<?php echo $votes;?>)</span>
+                           <?php }?>
+                            <div style="font-size: 14px;text-align:center; max-width:150px; font-weight: bold; margin-left:60px;margin-top:30px; position:absolute">
+                          <label style="font-size: 24px;">Views</label><br/><?php echo $ud['views'];?>
+                          
+                          
+                          
+                          
+                          
+                          
+             </div> 
+             </div> 
+                            
+            <?php $vot_vissible=array('Book','Movie','Music'); 
+              
+          if(in_array($ud['subcategory'], $vot_vissible)){
+            ?>
+                <div style="width:200px; font-weight: bold; margin-left:10px; float: right; ">
+                       <label style="float:left; margin-left:50px;margin-top:<?php if($ud['displaypic']==8) echo '-105px'; else echo '-55px';?>">Ratings</label>     
+                           <div <?php if($ud['displaypic']==8) { ?> style="margin-top:-50px" <?php } ?>class='movie_choice'>
+    <div id="" class="rate_widget">
+        <div class="star_1 ratings_stars"></div>
+        <div class="star_2 ratings_stars"></div>
+        <div class="star_3 ratings_stars"></div>
+        <div class="star_4 ratings_stars"></div>
+        <div class="star_5 ratings_stars"></div>
+        <div class="total_votes">vote data</div>
+    </div></div>
+             </div> 
+            <?php }?>
+             </div>    
+      
+            
+           <!-- main div close --> 
+              <div style="width:1000px; float: left;  ">
+                
+                  <div id="sub-tab-menu-items" style="width: 1000px; margin-top: -28px; float: left; height: 40px; ">
+           
+            <div id="account-tab" style="" >
+
+                <ul id="sub-menu" style="width: 600px; ">
+			                     <li ><a href="?">Streams</a></li>
+			        <li ><a href="?tab=gallery">Gallery</a></li>
+				<li ><a href="?tab=videos">Videos</a></li>
+			        <li><a href="?tab=article">Article</a></li>
+				<li><a href="?tab=link">Links</a></li>   
+				<li><a href="?tab=inlist">In list</a></li>   
+				<li><a href="?tab=portfolio">Portfolio</a></li> 
+				<li><a href="?tab=contacts">Contacts</a></li>             
+                </ul>
+               <ul id="sub-menu" style="float: right;  margin-top: -15px; ">
+				 <li style="position: relative" ><a href="streams.php">Feed back</a>
+                            <ul style=" margin-top: -15px;margin-left: -60px;">
+                                         <li><a href="#">Message</a></li>
+					                    <li><a href="#">Report</a></li>
+				</ul>	
+                           
+                        </li>
+                </ul>
+             
+            </div>
+            
+        </div>   
+            
+             </div> 
+            
+            <div id="displaycontainer" style="width:730px; padding:10px;  float: left; margin-top:5px;padding:5px;  ">
+            
+            <?php 
+            switch ($this->tab){
+			case 'videos':?>
+					<div id="video-div" style="width: 700px; padding:10px;  float: left">
+            <label style="font-size:32px; border-bottom:solid 1px; font-weight:bold"><?php echo $ud['username'];?>'s Videos</label>
+            <?php if ($ud['userid']==$session['userid']){?>
+               <div style="width: 700px;  float: left">
+                <span class="video-add" style="float:right" data="<?php echo $ud['userid'];?>"id="leaf-vote">Add video</span>
+               </div>
+               <?php }?>
+               <script type="text/javascript">
+				getvideos('<?php echo $ud['userid'];?>');
+              </script>  
+                
+            </div>
+				<?php 	break;
+			case 'gallery':?>
+			  <span class="album-add" data="<?php echo $ud['userid'];?>" style="float:right"id="leaf-vote">Create album</span>
+				<div id="album-div"></div>
+				<div id="userstream"  style="width:700px; float:left; ">
+				<script type="text/javascript">
+			
+					getalbums('<?php echo $ud['userid'];?>');
+				</script>
+				</div>
+			
+			<?php 		break;
+			case 'article': 
+			 if(sizeof($ud[page_info])>0)
+      			  { ?>
+                    <span id="setting-span" style="margin-left: 600px;"onclick="window.location.href='http://www.freniz.com/leafedit/<?php echo $ud['userid'];?>#leafinfo'">Edit</span>
+      
+            <div id="list-info" style="min-width:200px; margin:10px; padding:10px; float:left; border:solid 1px">
+        
+             <ul style="display:block; margin-left:-20px;">
+                <?php foreach (array_keys($ud[page_info]) as $title){
+                    ?>
+            <li style="display:block"> <a href="#<?php echo $title; ?>" ><?php 
+            $title=str_replace("_", " ", $title);
+            echo $title; ?></a> </li>
+             <?php } ?></ul>
+            </div> 
+			<?php
+            foreach(array_keys($ud[page_info]) as $title)
+            {
+			                
+			                ?>
+			<div style="width:100%; float:left; border-bottom:solid 1px">
+			
+			<div id="title-descrip" style="width:100%; float:left; ">
+			<div id="<?php echo $title; ?>" style="font-weight:bold; font-size:30px; float:left;">
+			    <?php 
+			    $title=str_replace("_", " ", $title);
+			    echo $title; ?>
+			</div>
+			<div id="des" style="width:100%; text-align:justify;  margin-top:0px; padding-bottom:5px; float:left;">
+			   <label style="white-space: pre">              </label><?php $title=str_replace(" ", "_", $title); echo $ud[page_info][$title];?>
+			</div>
+			</div></div>
+        <?php
+            }
+        }
+        else{
+            echo "No info has been provided"; ?>
+        <a id="leaf-vote"style='float:right; cursor:pointer' href="http://www.freniz.com/leafedit/<?php echo $ud['userid']; ?>#leafinfo" >Create Info</a>
+    
+        <?php }   
+				break;
+			case 'inlist': ?>
+			<div style="width:700px; float:left; ">
+			<div style="width:670px; padding:10px; float:left; ">
+			<div style="width:300px; height:25px; background-color:#eee; padding:5px; float:left"><input data="<?php echo $ud['userid'];?>" id="search-tags" placeholder="search your list" type="text" style="width:300px; height:25px;"/></div>
+	 		<?php if($session['type']=='leaf' && $session['userid']!=$ud['userid']){?>
+	  		 <span onclick="addtolist('<?php echo $ud['userid']?>')" id="leaf-vote">Add to list</span>
+             <?php }?>          
+				</div>
+			 <div id='taglistdiv' style="width:700px;float:left">
+               <script type="text/javascript">
+
+               getleaftaglist('<?php echo $ud['userid'];?>');
+               $( "#search-tags" ).bind( "keyup", function() {
+                   var leafid=$('#search-tags').attr('data');
+                   var key=$('#search-tags').val();
+	               		searchtags(key,leafid);
+	                
+	            })
+					</script>
+               </div>
+				</div>
+			<?php 	break;
+			case 'portfolio': ?>
+			<div style="width:700px;padding:10px; height:400px; float:left; ">
+			<label style="font-size: 32px; border-bottom:solid 1px">Portfolio</label>
+			<?php if($session['userid']==$ud['userid']){?>
+			<span class="portfo-upload" id="leaf-vote"style='float:right;'>upload image</span>
+			<?php }?>
+			<div id="leaf-gall">
+	        </div>
+	        <div id="port-append"></div>
+			
+			<script type="text/javascript">
+			getleafalbum('<?php echo $ud['userid'];?>');
+			</script>
+			</div>
+			<?php break;
+			case 'contacts':?>
+			
+					<div id="contact" style="width: 700px; white-space:pre-inline; padding:10px;  float: left">
+					<label style="font-size:24px;">Contacts</label>
+					<p><?php if($ud['contact']){ echo $ud['contact']; } else echo 'No contacts updated.'?></p>
+           </div>
+			
+			<?php break;
+			case 'link':?>
+				<iframe src="<?php echo $ud['website'];?>" width="1000" height="700"></iframe>	
+					
+			<?php 		break;
+			default:?>
+				<div style="width:700px; float: left; ">
+            
+             <div style="width:600px; margin-left:2px; padding-bottom:10px; float:left">
+				       <navg>
+							<ul id="acountmenu" >
+								
+								<li style="border-left:solid 1px #eee"><a class="active" href="javascript:void(0)" id="text-post-link" >Text</a></li>
+								<li ><a href="javascript:void(0)" id="video-post-link" >Video</a></li>
+								<li ><a href="javascript:void(0)" id="image-post-link" >Photo</a></li>
+							</ul>
+						</navg>
+						<?php if($session['userid']==$ud['userid']){?>
+						<div style="float: right; margin-top:20px; width:120px;height:20px;"><label style="float: left; padding-right:5px">post</label><select id="post-pt"><option <?php if( $ud['canpost']=='friends') {echo 'selected="selected"';} ?> value="friends">Friends</option><option <?php if( $ud['canpost']=='fof') {echo 'selected="selected"';} ?> value="fof">FOF</option><option <?php if( $ud['canpost']=='public') {echo 'selected="selected"';} ?> value="public">Public</option><option <?php if( $ud['canpost']=='private') {echo 'selected="selected"';} ?> value="private">Private</option><option <?php if( $ud['canpost']=='specific') {echo 'selected="selected"';} ?> value="specific">Specific</option></select></div>
+				
+						<div style="float:right; margin-top:20px; height:20px; width:150px"><label style="float: left;padding-right:5px">comment</label><select id="comment-pt"><option <?php if( $ud['canpost']=='friends') {echo 'selected="selected"';} ?> value="friends">Friends</option><option <?php if( $ud['canpost']=='fof') {echo 'selected="selected"';} ?> value="fof">FOF</option><option <?php if( $ud['canpost']=='public') {echo 'selected="selected"';} ?> value="public">Public</option><option <?php if( $ud['canpost']=='private') {echo 'selected="selected"';} ?> value="private">Private</option><option <?php if( $ud['canpost']=='specific') {echo 'selected="selected"';} ?> value="specific">Specific</option></select></div>
+					<?php }?>
+				        <div id="video-post" style="width:700px; margin-top:-20px;display:none; float:left; padding:10px; border-bottom:solid 1px">
+					      <input id="video-title" type="text" style="width: 300px; height:30px" placeholder="Title"/>
+					            <input id="video-embeddcode" type="text" style="width: 300px; height:30px" placeholder="Embeddcode"/>
+					      <span style="float:right; margin-top:10px;" onclick="postvideos('<?php echo $ud['userid']; ?>')"id="leaf-vote">Post</span>
+					      </div>
+					       <div id="text-post" style="width:700px; margin-top:-20px;  float:left; padding:10px;  border-bottom:solid 1px">
+					      <input id="scribble-content" type="text" style="width: 600px; height:30px" placeholder="Enter text to post"/>
+					      <span style="float:right; margin-top:10px;" id="leaf-vote"onclick="postscribbles('<?php echo $ud['userid'];?>')">Post</span>
+					      </div>
+					        <div id="image-post" style="width:700px; display:none;margin-top:-20px;  float:left; padding:10px;  border-bottom:solid 1px">
+		                   <form name="post-image" action="http://images.freniz.com/uploadimage" method="post" id="post-image" enctype="multipart/form-data" >
+		                  <input type="hidden" name="album" value="<?php echo $ud['chartpic'];?>" />
+		                   <input name="text" id="image-content" type="text" style="width: 600px; height:30px" placeholder="Enter your story"/>
+					      <input type="file" id="image_url" name="qqfile" value="Upload" size="40" />
+		                      <input style="float:right; margin-top:10px;" type="submit" id="leaf-vote"value="Post"/>
+		                   </form>
+					      </div>
+				</div>
+				
+				<div id="scribbles" style="width:600px;margin-left:20px; float:left">
+				
+				<script type="text/javascript">
+				getscribbles('<?php echo $ud['userid'];?>');
+				</script>
+				</div>
+
+            </div>
+       <?php break; }    ?>
+            
+        </div>
+        <?php if ($this->tab!='link'){?>
+        <div style="width:250px; float:left; border:solid 1px; height:400px">
+        
+        <div style="width:250px; margin-top:5px; float:left" id="request-tags">
+         <script type="text/javascript">
+        getrequesttags();
+        </script>
+        </div>
+       
+        </div>
+        <?php }?>
+        </div>
+        </div>
+          
+    <div id="remove-items" style="width:130px; display:none; background-color:#eee;float:left; ">
+<ul>
+<li class="delete" ><a href="javascript:void(0)">delete</a></li>
+<li><a href="javascript:void(0)">Settings</a></li>
+<li><a  href="javascript:void(0)">Report</a></li>
+</ul>
+</div> 
+  <div id="footer" style="width: 100%; height: 150px; float: left; ">
+    
+   <script type="text/javascript">
+
+		if ($.browser.mozilla) {
+	    //document.getElementById('user-name').style.marginLeft="260px";
+		document.getElementById('slider1').style.marginLeft="180px";
+  }		
+getcount();	
+								
+					function miniprofile(data,element){
+							var position=$(element).offset();
+							getminiprofile(data,position.top,position.left);
+						}
+
+
+					var options_xmlsearch = function(type,appendto){
+					     if(!appendto)
+					        appendto='body'; 
+					     var options={
+					                script:"http://www.freniz.com/search?type="+type+"&",
+							varname:"key",
+					                type:type,
+					                appendto:appendto,
+					                callback:function(suggestion,fld){
+												window.location.href="http://www.freniz.com/"+suggestion.id;
+					                       }
+					                
+					            };
+					            return options;
+						}
+           var options_xmlsearch = new AutoSuggest('searchusers', options_xmlsearch('all'));
+        
+        
+        
+</script> 
+    
+</div>
+<div id="musictab">
+
+ <div class="foot-tab">
+        <ul>
+		 <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+       
+</div> 
+<!-- 
+  <div style="border: solid 1px; width:100%; position:fixed; height:628px; background-image:url(images/banner1.png); background-position: 50% 0%; background-color:#000; background-repeat: no-repeat no-repeat; "></div>
+   -->      
+    </body>  
+    
+    
+    
+    
 </html>

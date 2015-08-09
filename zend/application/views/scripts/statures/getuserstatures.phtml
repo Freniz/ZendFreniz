@@ -1,0 +1,229 @@
+<?php
+
+	$session=(array)$this->mydetails;
+	$ud=$this->userDetails;
+
+	
+?>
+	<html>
+	    <head>
+	         <script type="text/javascript" src="http://localhost:10088/freniz_zend/public/js/ajax.js"></script> 
+	       
+	        <script type="text/javascript" src="http://localhost:10088/freniz_zend/public/js/jquery-latest.js"></script> 
+	        <link rel="stylesheet" href="http://localhost:10088/freniz_zend/public/css/theme.css" type="text/css" media="screen" charset="utf-8" />
+	        <link rel="stylesheet" href="http://localhost:10088/freniz_zend/public/css/default.css" type="text/css" media="screen" charset="utf-8" />
+	        <link rel="stylesheet" href="http://localhost:10088/freniz_zend/public/css/leaf.css" type="text/css" media="screen" charset="utf-8" />
+	          <script type="text/javascript" src="http://localhost:10088/freniz_zend/public/js/leaf.js"></script> 
+	      <script type="text/javascript" src="http://localhost:10088/freniz_zend/public/js/jquery.textarea-expander.js"></script>
+	      <style>
+ .comment-pic{
+                
+                -moz-border-radius: 6px;
+		  -webkit-border-radius: 6px;
+		  border-radius: 6px;
+		  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+		  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+		  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;  
+                   width:45px; margin: 5px; float: left; height: 45px; border: solid 1px;
+
+            }
+            
+           .vote-bar {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 14px; font-weight: bold;
+                color: #000;
+            }
+           .vote-bar :hover{
+                color: #fff;
+            }
+            .close {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 8px; font-weight: bold;
+                color: #000;
+            }
+            .close:hover{
+                color: #aaa;
+            }
+     
+            #stature-vote-div{
+               width:400px; float: left; margin-left: 30px; 
+            }
+            #stature-comment-main-div{
+                width: 500px; border-top: solid 1px; margin-top: 5px; padding-top:5px; margin-left: 30px; float: left;
+            }
+            #stature-comment-box{
+                width: 490px;  background-color: #eee; padding: 5px;  float: left;   
+            }
+</style>
+	       
+	           
+	    </head>
+	    <body>
+	    <div class="headerdiv">
+	<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+	    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="images/freniz.png"/></a>
+	</div>
+	<div id="smile-mood-change" style="width:40px; float:left; height:80px; ">
+	   <div class="moody" style="width:40px; margin-top: 10px; float:left; height:40px; "><img style="cursor: pointer;marin-top:10px" src="images/mood/<?php echo $session['mood'];?>" width="40" height="40"/></div>
+	<span-edit>
+	Click to Change
+	</span-edit>
+	
+	  <span-smiley id="mood-smile" >
+	
+	
+	</span-smiley>
+	    
+	</div>
+	<div id="top-menu-items" style=" float:left; height:80px; ">
+	<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+	    
+	<ul id="top-menu">
+		<li class="link-bord" id="top-underline"><a href="streams.php">Stream</a></li>
+		<li class="link-bord" id="top-underline"><a href="<?php echo $session['userid']; ?>">Bio</a></li>
+		<li class="link-bord" id="top-underline"><a href="message.php">Message</a></li>
+		<li class="link-bord" id="top-underline"><a href="profile.php?userid=<?php echo $session['userid']; ?>&tab=blogs">Blog</a></li>
+		
+		<li class="link-bord">
+			<a href="#">Alert</a>
+					<ul style=" margin-top: -5px;">
+						<li><a href="#">Notifications</a></li>
+						<li><a href="invitations.php">Invites</a></li>
+						<li><a href="#">Reviews</a></li>
+					</ul>				
+		</li>
+		<li class="link-bord">
+			<a href="#">Apps</a>	
+			<ul style=" margin-top: -5px;">
+						<li><a href="dairy.php">Diary</a></li>
+						<li><a href="slambook.php?userid=<?php echo $session['userid']; ?>">Slam book</a></li>
+						<li><a href="#">Musics</a></li>
+					</ul>		
+		</li>
+		
+	</ul>
+	
+	
+	</div>
+	
+	</div>
+	<div style=" width: 250px; margin-right: 10px; float:right; height:80px; ">
+	<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+	   
+	 <nav>
+	           <ul>
+			<li id="settings">
+				<a id="acount-trigger-setting" href="#" class="active">
+					<?php echo  $session['username']; ?> <span id="logspan">&#x25BC;</span>
+				</a>
+				<div id="acount-content-setting" >
+	                            <ul>
+	                                  <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+	                                <li><a href="accountsettings.php">Account Settings</a></li>
+	                                 <li><a href="#">Privacy Setting</a> </li>
+	                                 <li><a href="#">Help</a></li>
+	                                 <li><a href="index/logout">Take Out</a> </li>
+	                            </ul>
+				</div>                     
+			</li>
+	                
+	            </ul>
+	        </nav>
+	  
+	
+	</div>
+	<div style="width: 250px; float:right; "></div>
+	
+	<div id="search-option-items" style="width:200px; margin-top: -10px; float:right; height:20px; ">
+	    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:200px; height:20px" ><span id="search-top-loading" style="margin-top:-18px; margin-left: 165px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+	    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -18px; margin-right:6px">&#x25BC;</span>
+	</div>
+	</div>
+	
+	
+	</div>        
+	        <div  style="width:1000px; border:solid 1px; margin-left: auto;  margin-right: auto;">
+	        <div id="maincontainer">
+	           
+	           <!-- main div close --> 
+	              
+	            
+	            <div  style="width:1000px;float: left;  ">
+	         
+	            <div style="width:700px;float: left; ">
+	            
+	            <label style="font-size: 24px; 	text-transform: uppercase; "><?php echo $ud['username'];?>'s scribbles</label>
+	            
+	            <!-- text feild -->
+	            
+				  <div style="width:600px; margin-left:15px; float:left">
+				        <form name="postform" >
+				<div style="width:100%; margin-top: 10px; float:left; ">
+				<textarea id="scribble-content" placeholder="scribble here..." name="post" style="resize:none; margin-top:0px; margin-left:0px; width:99%"  class="expand" onclick="expand()" ></textarea>
+				</div>
+				
+				<div class="status-post-div">
+				<ul>
+				<li><a href="#" onclick="postscribbles('<?php echo $session['userid'];?>','user')">Post</a></li></ul>
+				
+				<div style="width:200px; float:left">
+				</div>
+				
+				<select style="float:right"><option value="-1">Select:</option><option value="1">Friends</option><option value="2">FOF</option><option value="3">Public</option><option value="4">Private</option><option value="5">Specific</option><option value="6">Hidden</option></select>
+				</div>
+				        </form>
+				</div>
+	            
+	           <!-- text feild close --> 
+	         <!-- blog start -->   
+	      
+	        <script type="text/javascript">
+	        getstatures('<?php echo $_REQUEST['userid'];?>');
+	        </script>
+	       <div id="statures" style="width: 700px; margin-top:5px; float: left;">
+            </div> 
+	         </div>
+	         
+	          <div style="width:250px; float:right; height: 300px; border:solid 1px">
+	          
+	          
+	            </div>
+	            
+	         
+	         </div>
+	            <!-- blog close -->
+	            
+	           <div id="footer" style="width: 100%; height: 100px; float: left; border: solid 1px">
+    
+    
+    
+</div>
+ 
+	            
+	            </div>
+	           </div> 
+	          
+	       <div id="musictab">
+
+ <div class="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://localhost:10088/freniz_zend/public/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://localhost:10088/freniz_zend/public/createleaf">Create a leaf</a></li>
+          <li><a href="http://localhost:10088/freniz_zend/public/developers">Developers</a></li>
+         <li><a href="http://localhost:10088/freniz_zend/public/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+       
+</div>    </body>  
+	    
+	    
+	    
+	    
+	</html>

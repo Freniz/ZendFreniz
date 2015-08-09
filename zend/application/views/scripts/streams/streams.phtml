@@ -1,0 +1,682 @@
+<?php 
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+?>
+<streams>
+	<maxId><?php echo max(array_keys($this->results['activity']));?></maxId>
+	<minId><?php echo min(array_keys($this->results['activity']));?></minId>
+	<maxcomment><?php echo $this->results['maxcomment']; ?></maxcomment>
+<?php 
+//print_r($this->results['results']['user']);
+$reversed_results=array_reverse($this->results['activity'],true);
+foreach($reversed_results as $activityid => $values){
+	$title='<a href="'.$values['userid'].'">'.$this->results['users'][$values['userid']]['username'].'</a> ';
+	switch($values['contenttype']){
+		case 'post':
+			if($values['title']=='posted on'){
+				$title.='posted on ';
+				if($values['userid']==$values['ruserid'])
+					$title.=' own chart';
+				else
+					$title.='<a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s chart';
+			}
+			else if($values['title']=='commented on'){
+				$comments=$this->results['results']['post'][$values['contentid']]['comments'];
+				$commentedusers=array();
+				foreach ($comments as $comment){
+					array_push($commentedusers, $comment['userid']);
+				}
+				$commentedusers=array_unique($commentedusers);
+				$mutual=array_intersect($commentedusers, $this->mydetails->friends);
+				if(count($mutual)>1){
+					$title.= 'and '.(count($mutual)-1).' other friends ';
+				}
+				$title.=' Commented on <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s post';
+				
+			}
+			else if($values['title']=='Winked on')
+			{
+				$mutual=array_intersect(unserialize($this->results['results']['post'][$values['contentid']['vote']]), $this->mydetails->friends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.=' Winked on <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s post';
+			}
+			
+			?>
+			<stream>
+				<type>post</type>
+				<alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<title><?php echo htmlspecialchars($title);?></title>
+				<contentid><?php echo $values['contentid'];?></contentid>
+				<suserid><?php echo $values['userid']; ?></suserid>
+				<susername><?php echo $this->results['users'][$values['userid']]['username'];?></susername>
+				<suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+									echo $this->results['users'][$values['userid']]['user_imageurl'];
+								else if($this->results['users'][$values['userid']]['user_type']=='page')
+									echo $this->results['users'][$values['userid']]['page_imageurl'];
+								?></suserpic>
+				<ruserid><?php echo $values['ruserid']?></ruserid>
+				<rusername><?php echo $this->results['users'][$values['ruserid']]['username'];?></rusername>
+				<sex><?php echo $this->results['users'][$values['userid']]['sex'];?></sex>
+				
+				<status><?php echo $this->results['results']['post']['results'][$values['contentid']]['status'];?></status>
+				<comments>
+					<?php foreach ($this->results['results']['post']['results'][$values['contentid']]['comments'] as $commentid => $comment){?>
+					<comment>
+						<comment-id><?php echo $commentid;?></comment-id>
+						<comment-userid><?php echo $comment['userid'];?></comment-userid>
+						<comment-username><?php echo $comment['username'];?></comment-username>
+						<comment-propic><?php echo $comment['commentpic_url'];?></comment-propic>
+						<comment-message><?php echo $comment['comment'];?></comment-message>
+						<comment-date><?php echo $comment['date'];?></comment-date>
+					</comment>
+					<?php }?>
+					<loadprevious><?php if($this->results['results']['post']['results'][$values['contentid']]['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+				</comments>
+				<iscommentable><?php if($this->results['results']['post']['results'][$values['contentid']]['iscommentable']) echo 'yes'; else echo 'no';?></iscommentable>
+				<vote><?php $votes= unserialize($this->results['results']['post']['results'][$values['contentid']]['vote']); echo count($votes);?></vote>
+				<vote-contains><?php if(!in_array($votes, $this->mydetails->userid)) echo 'no'; else echo 'yes';?></vote-contains>
+				
+				<date><?php echo $values['date'];?></date>
+			</stream>
+			<?php 
+			break;
+		case 'stature':
+			if($values['title']=='update stature'){
+				$title.='updated  ';
+				switch($this->results['users'][$values['userid']]['sex'])
+				{
+					case 'male':
+						$title.='his ';
+						break;
+					case 'female':
+						$title.='her ';
+						break;
+					default:
+						$title.='its ';
+						break;
+				}
+				$title.='stature';
+			}
+			else if($values['title']=='commented on'){
+				$comments=$this->results['results']['stature']['results'][$values['contentid']]['comments'];
+				$commentedusers=array();
+				foreach ($comments as $comment){
+					array_push($commentedusers, $comment['userid']);
+				}
+				$commentedusers=array_unique($commentedusers);
+				$mutual=array_intersect($commentedusers, $this->mydetails->friends);
+				if(count($mutual)>1){
+					$title.= 'and '.(count($mutual)-1).' other friends ';
+				}
+				$title.=' Commented on <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s stature';
+		
+			}
+			else if($values['title']=='Winked on')
+			{
+				$mutual=array_intersect(unserialize($this->results['results']['stature']['results'][$values['contentid']['vote']]), $this->mydetails->friends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.=' Winked on <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s stature';
+			}
+				
+			?>
+			<stream>
+				<type>stature</type>
+				<alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<title><?php echo htmlspecialchars($title);?></title>
+				<contentid><?php echo $values['contentid'];?></contentid>
+				<suserid><?php echo $values['userid']; ?></suserid>
+				<susername><?php echo $this->results['users'][$values['userid']]['username'];?></susername>
+				<suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+									echo $this->results['users'][$values['userid']]['user_imageurl'];
+								else if($this->results['users'][$values['userid']]['user_type']=='page')
+									echo $this->results['users'][$values['userid']]['page_imageurl'];
+								?></suserpic>
+				<sex><?php echo $this->results['users'][$values['userid']]['sex'];?></sex>
+				<status><?php echo $this->results['results']['stature']['results'][$values['contentid']]['stature'];?></status>
+				<comments>
+					<?php foreach ($this->results['results']['stature']['results'][$values['contentid']]['comments'] as $commentid => $comment){?>
+					<comment>
+						<comment-id><?php echo $commentid;?></comment-id>
+						<comment-userid><?php echo $comment['userid'];?></comment-userid>
+						<comment-username><?php echo $comment['username'];?></comment-username>
+						<comment-propic><?php echo $comment['commentpic_url'];?></comment-propic>
+						<comment-message><?php echo $comment['comment'];?></comment-message>
+						<comment-date><?php echo $comment['date'];?></comment-date>
+					</comment>
+					<?php }?>
+					<loadprevious><?php if($this->results['results']['stature']['results'][$values['contentid']]['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+				</comments>
+				<iscommentable><?php if($this->results['results']['stature']['results'][$values['contentid']]['iscommentable']) echo 'yes'; else echo 'no';?></iscommentable>
+				<vote><?php $votes= unserialize($this->results['results']['stature']['results'][$values['contentid']]['vote']); echo count($votes);?></vote>
+				<vote-contains><?php if(!in_array($votes, $this->mydetails->userid)) echo 'no'; else echo 'yes';?></vote-contains>
+				<date><?php echo $values['date'];?></date>
+			</stream>
+			<?php 
+			break;
+		case 'blog':
+			if($values['title']=='write blog')
+			{
+				$title.='updated ';
+				switch($this->results['users'][$values['userid']]['sex'])
+				{
+					case 'male':
+						$title.='his ';
+						break;
+					case 'female':
+						$title.='her ';
+						break;
+					default:
+						$title.='its ';
+						break;
+				}
+			}
+			else if($values['title']=='Winked on')
+			{
+				$mutual=array_intersect(unserialize($this->results['results']['blog'][$values['contentid']]['vote']), $this->mydetails->friends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.=' Winked on <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s ';
+			}
+			$title.='blog';
+			?>
+			<stream>
+				<type>blog</type>
+				<alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<title><?php echo htmlspecialchars($title); ?></title>
+				<contentid><?php echo $values['contentid']; ?></contentid>
+				<suserid><?php echo $values['userid']; ?></suserid>
+				<susername><?php echo $this->results['users'][$values['userid']]['username'];  ?></susername>
+		        <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+								echo $this->results['users'][$values['userid']]['user_imageurl'];
+							else if($this->results['users'][$values['userid']]['user_type']=='page')
+								echo $this->results['users'][$values['userid']]['page_imageurl'];
+							?></suserpic>
+		        <blog><?php echo $this->results['results']['blog'][$values['contentid']]['blog']; ?></blog>
+		        <vote-contains><?php $votes=  unserialize($this->results['results']['blog'][$values['contentid']]['vote']);if(!in_array($_SESSION['userid'], $votes)) echo 'no'; else echo 'yes'; ?></vote-contains>
+		       <vote><?php echo count($votes); ?></vote>
+		       
+		        <date><?php echo $values['date']; ?></date>
+			</stream>
+			<?php 
+			break;
+		case 'admire':
+			if($values['title']=='write an admire on')
+			{
+				$title.='write an admire on <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s chart';
+			}
+			else if($values['title']='Winked on')
+			{
+				$mutual=array_intersect(unserialize($this->results['results']['admire'][$values['contentid']]['vote']), $this->mydetails->friends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.=' Winked on <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s admire';
+			}
+			?>
+			<stream>
+		        <type>admire</type>
+		        <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<title><?php echo htmlSpecialChars($title); ?></title>
+		        <contentid><?php echo $values['contentid']; ?></contentid>
+		        <suserid><?php echo $values['userid']; ?></suserid>
+		        <susername><?php echo $this->results['users'][$values['userid']]['username'];  ?></susername>
+		        <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+								echo $this->results['users'][$values['userid']]['user_imageurl'];
+							else if($this->results['users'][$values['userid']]['user_type']=='page')
+								echo $this->results['users'][$values['userid']]['page_imageurl'];
+							?></suserpic>
+		        <ruserid><?php echo $values['ruserid']; ?></ruserid>
+		        <rusername><?php echo $this->results['users'][$values['ruserid']]['username']; ?></rusername>
+		        <sex><?php //print_r($this->results['users'][$values['userid']]);
+							echo $this->results['users'][$values['userid']]['sex'];?></sex>
+		        <message><?php echo $this->results['results']['admire'][$values['contentid']]['message']; ?></message>
+		         <vote-contains><?php $votes=  unserialize($this->results['results']['admire'][$values['contentid']]['vote']);if(!in_array($_SESSION['userid'], $votes)) echo 'no'; else echo 'yes'; ?></vote-contains>
+		       <vote><?php echo count($votes); ?></vote>
+		       
+		        <date><?php echo $values['date']; ?></date>
+		    </stream>
+			<?php 
+			break;
+		case 'image':
+			if($values['title']=='post image')
+			{
+				if($values['userid']==$values['ruserid'])
+				{
+					$title.='posted a image';
+				}
+				else
+				{
+					$title.='posted a image on <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>\'s chart';
+				}
+					
+			}
+			else if($values['title']=='commented on')
+			{
+				$comments=$this->results['results']['image'][$values['contentid']]['comments'];
+				$commentedusers=array();
+				foreach($comments as $commentid => $comment)
+				{
+					array_push($commentedusers, $comment['userid']);
+				}
+				$commentedusers=array_unique($commentedusers);
+				$mutual=array_intersect($commentedusers, $this->mydetails->myfriends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.= " Commented on <a href='".$values['ruserid']."' > ".$this->results['users'][$values['ruserid']]['username']."</a>'s photo";
+				
+			}
+			else if($values['title']=='Winked on'){
+				$mutual=array_intersect(unserialize($this->results['results']['image'][$values['contentid']]['vote']), $this->mydetails->friends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.= " Winked on <a href='".$values['ruserid']."' > ".$this->results['users'][$values['ruserid']]['username']."</a>'s photo";
+			
+			}
+			else if($values['title']=='pinned'){
+				$mutual=array_intersect(unserialize($this->results['results']['image'][$values['contentid']]['pinnedpeople']), $this->mydetails->friends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.= " pinned in <a href='".$values['ruserid']."' > ".$this->results['users'][$values['ruserid']]['username']."</a>'s photo";
+					
+			}
+			
+			?>
+			<stream>
+		        <type>image</type>
+		        <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<title><?php echo htmlSpecialChars($title); ?></title>
+		        <contentid><?php echo $values['contentid']; ?></contentid>
+		        <albumid><?php echo $this->results['results']['image'][$values['contentid']]['albumid']; ?></albumid>
+		        <albumname><?php echo $this->results['results']['image'][$values['contentid']]['name']; ?></albumname>
+		        <suserid><?php echo $values['userid']; ?></suserid>
+		        <susername><?php echo $this->results['users'][$values['userid']]['username'];  ?></susername>
+		        <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+								echo $this->results['users'][$values['userid']]['user_imageurl'];
+							else if($this->results['users'][$values['userid']]['user_type']=='page')
+								echo $this->results['users'][$values['userid']]['page_imageurl'];
+							?></suserpic>
+		        <ruserid><?php echo $values['ruserid']; ?></ruserid>
+		        <rusername><?php echo $this->results['users'][$values['ruserid']]['username']; ?></rusername>
+		        <sex><?php echo $this->results['users'][$values['userid']]['sex']; ?></sex>
+		        <imageurl><?php echo $this->results['results']['image'][$values['contentid']]['url']; ?></imageurl>
+		        <imagetitle><?php echo $this->results['results']['image'][$values['contentid']]['title']; ?></imagetitle>
+		        <imagedes><?php echo $this->results['results']['image'][$values['contentid']]['description']; ?></imagedes>
+		        <comments>
+		            <?php foreach($this->results['results']['image'][$values['contentid']]['comments']['result'] as $id=>$comment){ ?>
+		            <comment>
+		                <comment-id><?php echo $id; ?></comment-id>
+		                <comment-userid><?php echo $comment['userid']; ?></comment-userid>
+		                <comment-username><?php echo $comment['username'];?></comment-username>
+		                <comment-userpic><?php if($comment['type']=='user') echo $comment['user_imgurl']; else echo $comment['page_imgurl'];?></comment-userpic>
+		                <comment-message><?php echo $comment['comment'];?></comment-message>
+		                <comment-date><?php echo $comment['date'];?></comment-date>
+		            </comment>
+		            <?php } ?>
+		            <loadprevious><?php if($this->results['results']['image']['results'][$values['contentid']]['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+		        </comments>
+		         <vote-contains><?php $votes=  unserialize($this->results['results']['image'][$values['contentid']]['vote']);if(!in_array($this->mydetails->userid, $votes)) echo 'no'; else echo 'yes'; ?></vote-contains>
+		       <vote><?php echo count($votes); ?></vote>
+		       
+		        <date><?php echo $values['date']; ?></date>
+		    </stream>
+			<?php
+			break;
+		case 'video':
+			if($values['title']=='post a video on')
+			{
+				if($values['userid']==$values['ruserid'])
+					$title.='posted a video';
+				else $title.='posted a video on <a href="http://www.freniz.com/'.$values['ruserid'].'" > '.$this->results['users'][$values['ruserid']]['username'].'</a>\'s chart';
+			}
+			else if($values['title']=='commented on')
+			{
+				$comments=$this->results['results']['video']['results'][$values['contentid']]['comments'];
+				$commentedusers=array();
+				foreach($comments as $commentid => $comment)
+				{
+					array_push($commentedusers, $comment['userid']);
+				}
+				$commentedusers=array_unique($commentedusers);
+				$mutual=array_intersect($commentedusers, $this->mydetails->friends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.= " Commented on <a href='".$values['ruserid']."' > ".$this->results['users'][$values['ruserid']]['username']."</a>'s video";
+				
+			}
+			else if($values['title']=='Winked on'){
+				$mutual=array_intersect(unserialize($this->results['results']['video']['results'][$values['contentid']]['vote']), $this->mydetails->friends);
+				if(count($mutual)>1)
+					$title.=" and ".(count($mutual)-1). " other friends ";
+				$title.= " Winked on <a href='".$values['ruserid']."' > ".$this->results['users'][$values['ruserid']]['username']."</a>'s video";
+			
+			}
+			?>
+			<stream>
+		        <type>video</type>
+		        <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<title><?php echo htmlSpecialChars($title); ?></title>
+		        <contentid><?php echo $values['contentid']; ?></contentid>
+		        <suserid><?php echo $values['userid']; ?></suserid>
+		        <susername><?php echo $this->results['users'][$values['userid']]['username'];  ?></susername>
+		        <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+								echo $this->results['users'][$values['userid']]['user_imageurl'];
+							else if($this->results['users'][$values['userid']]['user_type']=='page')
+								echo $this->results['users'][$values['userid']]['page_imageurl'];
+							?></suserpic>
+		        <ruserid><?php echo $values['ruserid']; ?></ruserid>
+		        <rusername><?php echo $this->results['users'][$values['ruserid']]['username']; ?></rusername>
+		        <sex><?php echo $this->results['users'][$values['userid']]['sex']; ?></sex>
+		        <videotitle><?php echo $this->results['results']['video']['results'][$values['contentid']]['title']; ?></videotitle>
+		        <url><?php echo htmlspecialchars($this->results['results']['video']['results'][$values['contentid']]['embeddcode']); ?></url>
+		        <vote-contains><?php $votes=  unserialize($this->results['results']['video']['results'][$values['contentid']]['vote']);if(!in_array($this->mydetails->userid, $votes)) echo 'no'; else echo 'yes'; ?></vote-contains>
+		        <vote><?php echo count($votes); ?></vote>
+		       
+		        <date><?php echo $values['date']; ?></date>
+		    </stream>
+			<?php 
+			break;
+		case 'forum':
+			
+			?>
+			<stream>
+				<type>forum</type>
+				<alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<title><?php echo htmlspecialchars($title.' '.$values['title']);?></title>
+				<contentid><?php echo $values['contentid'];?></contentid>
+				<suserid><?php echo $values['userid'] ?></suserid>
+				<susername><?php echo $this->results['users'][$values['userid']]['username'];?></susername>
+				<suserpic><?php echo $this->results['users'][$values['userid']]['user_imageurl']?></suserpic>
+				
+				<question><?php echo $this->results['results']['forum'][$values['contentid']]['question'];?></question>
+				<description><?php echo $this->results['results']['forum'][$values['contentid']]['description'];?></description>
+				  <vote-contains><?php $votes=  unserialize($this->results['results']['forum'][$values['contentid']]['vote']);if(!in_array($this->mydetails->userid, $votes)) echo 'no'; else echo 'yes'; ?></vote-contains>
+		      	<vote><?php echo count($votes); ?></vote>
+		      <date><?php echo $values['date'];?></date>
+			</stream>
+			<?php 
+			break;
+		case 'user':
+			if(count($this->results['results']['user'][$activityid]['recendusers'])>1)
+				$title.='and '.(count($this->results['results']['user'][$activityid]['recendusers'])-1).' other friend(s) are now friends with ';
+			else
+				$title.='is now friends with <a href="'.$values['ruserid'].'">'.$this->results['users'][$values['ruserid']]['username'].'</a>';
+			?>
+			<stream>
+		        <type>friends</type>
+		        <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<title><?php echo htmlSpecialChars($title); ?></title>
+		        <suserid><?php echo $values['userid']; ?></suserid>
+		        <susername><?php echo $this->results['users'][$values['userid']]['username'];  ?></susername>
+		        <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+								echo $this->results['users'][$values['userid']]['user_imageurl'];
+							else if($this->results['users'][$values['userid']]['user_type']=='page')
+								echo $this->results['users'][$values['userid']]['page_imageurl'];
+							?></suserpic>
+				<rusers>
+		            <?php foreach($this->results['results']['user'][$activityid]['recendusers'] as $userid){  ?>
+		            <ruser>
+		        <ruserid><?php echo $userid; ?></ruserid>
+		        <rusername><?php echo $this->results['users'][$userid]['username']; ?></rusername>
+		        <userpic><?php if($this->results['users'][$userid]['user_type']=='user') 
+								echo $this->results['users'][$userid]['user_imageurl'];
+							else if($this->results['users'][$userid]['user_type']=='page')
+								echo $this->results['users'][$userid]['page_imageurl'];
+							?></userpic>
+		            </ruser>
+		        <?php } ?>
+		        </rusers>
+		        <sex><?php $this->results['users'][$values['userid']]['sex']; ?></sex>
+		        
+		    </stream>
+			<?php 
+			break;
+		case 'propic':
+			if(count($this->results['results']['propic'][$activityid]['recendusers'])>1)
+				$title.=" and ".(count($this->results['results']['propic'][$activityid]['recendusers'])-1)." friends recendly updated their profile picture";
+			else{
+				$title.= " updated ";
+				switch($this->results['users'][$values['userid']]['sex']){
+					case 'male':
+						$title.="his ";
+						break;
+					case 'female':
+						$title.="her ";
+						break;
+					default :
+						$title.= "its ";
+						break;
+				}
+				$title.= "profile picture";
+			}
+			?>
+			<stream>
+	            <type>propic</type>
+	            <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+				<suserid><?php echo $values['userid']; ?></suserid>
+	            <susername><?php echo $this->results['users'][$values['userid']]['username']; ?></susername>
+	            <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+								echo $this->results['users'][$values['userid']]['user_imageurl'];
+							else if($this->results['users'][$values['userid']]['user_type']=='page')
+								echo $this->results['users'][$values['userid']]['page_imageurl'];
+							?></suserpic>
+	            <title><?php echo htmlSpecialChars($title); ?></title>
+	            <users>
+	                <?php foreach ($this->results['results']['propic'][$activityid]['recendusers'] as $userid){
+	                    ?>
+	                <user>
+	                    <userid><?php echo $userid; ?></userid>
+	                    <username><?php echo $this->results['users'][$userid]['username']; ?></username>
+	                    <userpic><?php if($this->results['users'][$userid]['user_type']=='user') 
+										echo $this->results['users'][$userid]['user_imageurl'];
+									else if($this->results['users'][$userid]['user_type']=='page')
+										echo $this->results['users'][$userid]['page_imageurl'];
+								?></userpic>
+	                </user>
+	                <?php 
+	                } ?>
+	            </users>
+	        </stream>
+			<?php 
+			break;
+		case 'basic info':
+			if(count($this->results['results']['basic info'][$activityid]['recendusers'])>1)
+				$title.=" and ".(count($this->results['results']['basic info'][$activityid]['recendusers'])-1)." friends recendly updated their basic info";
+			else{
+				$title.= " updated ";
+				switch($this->results['users'][$values['userid']]['sex']){
+					case 'male':
+						$title.="his ";
+						break;
+					case 'female':
+						$title.="her ";
+						break;
+					default :
+						$title.= "its ";
+						break;
+				}
+				$title.= "basic info";
+			}
+			?>
+						<stream>
+				            <type>basic info</type>
+				            <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+							<suserid><?php echo $values['userid']; ?></suserid>
+				            <susername><?php echo $this->results['users'][$values['userid']]['username']; ?></susername>
+				            <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+											echo $this->results['users'][$values['userid']]['user_imageurl'];
+										else if($this->results['users'][$values['userid']]['user_type']=='page')
+											echo $this->results['users'][$values['userid']]['page_imageurl'];
+										?></suserpic>
+				            <title><?php echo htmlSpecialChars($title); ?></title>
+				            <users>
+				                <?php foreach ($this->results['results']['basic info'][$activityid]['recendusers'] as $userid){
+				                    ?>
+				                <user>
+				                    <userid><?php echo $userid; ?></userid>
+				                    <username><?php echo $this->results['users'][$userid]['username']; ?></username>
+				                    <userpic><?php if($this->results['users'][$userid]['user_type']=='user') 
+													echo $this->results['users'][$userid]['user_imageurl'];
+												else if($this->results['users'][$userid]['user_type']=='page')
+													echo $this->results['users'][$userid]['page_imageurl'];
+											?></userpic>
+				                </user>
+				                <?php 
+				                } ?>
+				            </users>
+				        </stream>
+						<?php 
+			break;
+		case 'personal info':
+			if(count($this->results['results']['personal info'][$activityid]['recendusers'])>1)
+				$title.=" and ".(count($this->results['results']['personal info'][$activityid]['recendusers'])-1)." friends recendly updated their personal info";
+			else{
+				$title.= " updated ";
+				switch($this->results['users'][$values['userid']]['sex']){
+					case 'male':
+						$title.="his ";
+						break;
+					case 'female':
+						$title.="her ";
+						break;
+					default :
+						$title.= "its ";
+						break;
+				}
+				$title.= "personal info";
+			}
+			?>
+						<stream>
+				            <type>personal info</type>
+				            <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+							<suserid><?php echo $values['userid']; ?></suserid>
+				            <susername><?php echo $this->results['users'][$values['userid']]['username']; ?></susername>
+				            <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+											echo $this->results['users'][$values['userid']]['user_imageurl'];
+										else if($this->results['users'][$values['userid']]['user_type']=='page')
+											echo $this->results['users'][$values['userid']]['page_imageurl'];
+										?></suserpic>
+				            <title><?php echo htmlSpecialChars($title); ?></title>
+				            <users>
+				                <?php foreach ($this->results['results']['personal info'][$activityid]['recendusers'] as $userid){
+				                    ?>
+				                <user>
+				                    <userid><?php echo $userid; ?></userid>
+				                    <username><?php echo $this->results['users'][$userid]['username']; ?></username>
+				                    <userpic><?php if($this->results['users'][$userid]['user_type']=='user') 
+													echo $this->results['users'][$userid]['user_imageurl'];
+												else if($this->results['users'][$userid]['user_type']=='page')
+													echo $this->results['users'][$userid]['page_imageurl'];
+											?></userpic>
+				                </user>
+				                <?php 
+				                } ?>
+				            </users>
+				        </stream>
+						<?php 
+			break;
+		case 'mood':
+			if(count($this->results['results']['mood'][$activityid]['recendusers'])>1)
+				$title.=" and ".(count($this->results['results']['mood'][$activityid]['recendusers'])-1)." friends recendly updated their mood";
+			else{
+				$title.= " updated ";
+				switch($this->results['users'][$values['userid']]['sex']){
+					case 'male':
+						$title.="his ";
+						break;
+					case 'female':
+						$title.="her ";
+						break;
+					default :
+						$title.= "its ";
+						break;
+				}
+				$title.= "mood";
+			}
+			?>
+						<stream>
+				            <type>mood</type>
+				            <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+							<suserid><?php echo $values['userid']; ?></suserid>
+							  <mood><?php $mood=explode(',', $this->results['users'][$values['userid']]['mood']); echo $mood[0]; ?></mood>
+				           <mood-description><?php echo $mood[1];?></mood-description>
+				              <susername><?php echo $this->results['users'][$values['userid']]['username']; ?></susername>
+				            <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+											echo $this->results['users'][$values['userid']]['user_imageurl'];
+										else if($this->results['users'][$values['userid']]['user_type']=='page')
+											echo $this->results['users'][$values['userid']]['page_imageurl'];
+										?></suserpic>
+				            <title><?php echo htmlSpecialChars($title); ?></title>
+				            <users>
+				                <?php foreach ($this->results['results']['mood'][$activityid]['recendusers'] as $userid){
+				                    ?>
+				                <user>
+				                    <userid><?php echo $userid; ?></userid>
+				                    <username><?php echo $this->results['users'][$userid]['username']; ?></username>
+				                    <userpic><?php if($this->results['users'][$userid]['user_type']=='user') 
+													echo $this->results['users'][$userid]['user_imageurl'];
+												else if($this->results['users'][$userid]['user_type']=='page')
+													echo $this->results['users'][$userid]['page_imageurl'];
+											?></userpic>
+				                </user>
+				                <?php 
+				                } ?>
+				            </users>
+				        </stream>
+						<?php 
+			break;
+		case 'education info':
+			if(count($this->results['results']['education info'][$activityid]['recendusers'])>1)
+				$title.=" and ".(count($this->results['results']['education info'][$activityid]['recendusers'])-1)." friends recendly updated their education info";
+			else{
+				$title.= " updated ";
+				switch($this->results['users'][$values['userid']]['sex']){
+					case 'male':
+						$title.="his ";
+						break;
+					case 'female':
+						$title.="her ";
+						break;
+					default :
+						$title.= "its ";
+						break;
+				}
+				$title.= "education info";
+			}
+			?>
+						<stream>
+				            <type>education info</type>
+				            <alternateId><?php echo $values['alternate_contentid'];?></alternateId>
+							<suserid><?php echo $values['userid']; ?></suserid>
+				            <susername><?php echo $this->results['users'][$values['userid']]['username']; ?></susername>
+				            <suserpic><?php if($this->results['users'][$values['userid']]['user_type']=='user') 
+											echo $this->results['users'][$values['userid']]['user_imageurl'];
+										else if($this->results['users'][$values['userid']]['user_type']=='page')
+											echo $this->results['users'][$values['userid']]['page_imageurl'];
+										?></suserpic>
+				            <title><?php echo htmlSpecialChars($title); ?></title>
+				            <users>
+				                <?php foreach ($this->results['results']['education info'][$activityid]['recendusers'] as $userid){
+				                    ?>
+				                <user>
+				                    <userid><?php echo $userid; ?></userid>
+				                    <username><?php echo $this->results['users'][$userid]['username']; ?></username>
+				                    <userpic><?php if($this->results['users'][$userid]['user_type']=='user') 
+													echo $this->results['users'][$userid]['user_imageurl'];
+												else if($this->results['users'][$userid]['user_type']=='page')
+													echo $this->results['users'][$userid]['page_imageurl'];
+											?></userpic>
+				                </user>
+				                <?php 
+				                } ?>
+				            </users>
+				        </stream>
+						<?php 
+			break;
+	}
+}
+
+?>
+</streams>

@@ -1,0 +1,36 @@
+	<?php
+	header("Cache-Control: no-cache, must-revalidate" );
+	header("Pragma: no-cache" );
+	header("Content-Type: text/xml; charset=utf-8");
+	$session=(array)$this->mydetails;
+	?>
+	
+	
+	<forum_search>
+	<?php foreach ($this->result as $key => $results){?>
+	 <search>
+	 	<count><?php echo count($this->result);?></count>
+	     <id><?php echo $results['id']; ?></id>
+	     <tags><?php echo $results['tags'];?></tags>
+	     <question><?php echo $results['question'];?></question> 
+	     <askedby><?php echo $results['fname'].' '.$results['lname'];?></askedby>
+	     <ask_url><?php echo $results['url'];?></ask_url> 
+	     <image_url><?php echo $results['user_imageurl'];?></image_url>
+	     <date><?php echo $results['date'];?></date>
+	     <views><?php echo $results['views']?></views>
+	     <vote><?php 
+	     $vote=unserialize($results['vote']);
+	     $count=count($vote);
+	     echo $count;
+	     ?></vote>
+	     <solved><?php 
+	     if ($results['bestanswer']==NULL){
+	      echo 'no';
+	     }else {
+	     	echo 'yes';
+	     }
+	     ?></solved>
+	     </search>
+	      <?php }?>
+	</forum_search>
+	    

@@ -1,0 +1,379 @@
+<?php $session=(array)$this->myDetails;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Basicinfo</title>
+<style>
+.curve {
+    -moz-border-radius : 25px; /* Firefox */
+    -webkit-border-radius :25px; /* Safari & Chrome */
+    -khtml-border-radius : 25px; /* Linux browsers */
+    border-radius : 25px; /* CSS3 compatible browsers */
+}
+.usersname{
+                		font-size:9px;
+	                    background-color:#ccc;
+	                    float:left;
+	                    padding:2px;
+	                    margin-left:2px;
+	                    border:  solid 1px;
+                }
+body {
+	width:99%;
+    margin: 0;
+    padding: 0;
+    text-align: center; /* !!! */
+}
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 1024px;
+	
+}
+
+.greenbutton{
+
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 20px;
+padding: ;
+width: 100px;
+cursor: pointer;
+font: bold 12px Arial, Helvetica;
+color: white;
+}
+.foot-tab{
+width:99%;
+
+}
+.foot-tab  ul{
+                    display:block;
+                    margin-top: -2px;
+                    text-align:left;
+                   margin-left: 10px;
+                   
+                }
+               .foot-tab ul li{
+                    display:inline-block; padding: 8px;
+                    font-size: 12px;
+                }
+                .foot-tab ul li a{
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                .foot-tab ul li a:hover{
+                   text-decoration: underline;
+                }
+                .foot-tab{
+                    border-top: solid 2px #ccc;
+                    margin-top: 50px;
+                  float: left;
+                  margin-left: 2px;
+                 
+                }
+                .foot-tab-pos{
+                    position: absolute;
+                }
+                
+                  .show-load{
+                position: absolute;
+                  margin-left:500px;
+                 display:none;
+           width: 100px;
+			height: 20px;
+			background-color: #fff;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+                }
+                
+</style>
+<style>
+	#side-menu ul{
+		display:inline;
+		width:150px;
+		margin-top:-50px;
+	}
+	#side-menu ul li{
+		display:block;
+		background-color:#FFF;
+		padding:20px;
+		
+		
+	}
+	#side-menu ul li a{
+		text-decoration:none;
+		color:black;
+		position:absolute;
+		padding:5px;
+	}
+	#side-menu ul li a:hover{
+		background-color:#A4A4A4;
+		width:150px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);	
+		padding:5px;
+		
+		
+	}
+	.show-selected{
+		background-color:#A4A4A4;
+		width:150px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		padding:5px;
+	}
+	nav ul {
+		  margin-top:0px;
+		  padding: 2px;
+		  list-style: none;
+		  position: relative;
+		  float: left;
+		  background: #eee;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;    
+		}
+		
+		nav li {
+		  float: left;      
+			   border-left:solid 1px; 
+		}
+     
+      nav li:first-child  a{
+		   
+			border-left:solid 1px #eee; 
+		}
+		
+		nav #acountmenu a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		nav #acountmenu a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+		
+		
+			nav #acountmenu-trigger {
+		  -moz-border-radius: 3px 0 0 3px;
+		  -webkit-border-radius: 3px 0 0 3px;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		nav #acountmenu a:hover {
+		  background: #fff;
+		}
+		.active{
+		  background: #fff;
+		}
+	</style>
+	       
+<script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+	
+     <link rel="stylesheet" href="http://css.freniz.com/login.css" type="text/css" media="screen" charset="utf-8" />
+      <link rel="stylesheet" href="http://css.freniz.com/autocom.css" />
+        <script src="http://js.freniz.com/autocom.js"></script>
+	</head>
+
+<body>
+ <div class="header-div-top" style="height:50px;">
+             <a href="/"><div class="headername-font" style="width:220px; float:left; background-image: url(images.freniz.com/freniz.png); margin-top: -10px; height:60px; "></div></a>
+     
+</div>
+        
+<div class="centered" style="margin-top:20px;">
+<?php if ($_REQUEST['log_aug']=='true'){?>
+
+<div id="second" style="width:900px; margin-left:50px; height:60px;">
+<div style="width:100px;float:left; margin-top:20px;">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">1</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; background-color:#3F0; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">2</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">3</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">4</p>
+</div>
+<div style="width:100px;float:left; margin-top:20px; border:solid 1px">
+</div>
+<div class="curve" style="width:50px; height:50px;float:left; border:solid 1px">
+<p style="text-align:center; margin-top:15px">5</p>
+</div>
+</div>
+<?php }else{?>
+<div style="width:600px; height:50px;margin-left:auto;margin-right:auto;">
+<nav>
+	<img style="width:32px; float:left; height:32px; " src="http://images.freniz.com/32/32_<?php echo $session['propic_url'];?>"/>
+	<ul>
+			<li id="acountmenu" style="border-left:solid 1px #eee"><a  href="http://www.freniz.com/<?php echo $session['userid'];?>" ><?php echo $session['fname'];?></a></li>
+		<li class="active" id="acountmenu" ><a href="#" >Account Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/privacysettings" >Privacy Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/advancedsettings" >Advanced Privacy</a></li>
+	</ul>
+</nav>
+</div>
+<?php }?>
+ <div style=" width:1000px; margin-left:auto; margin-right:auto; padding:10px; ">
+ <?php if ($_REQUEST['log_aug']!='true'){?>
+
+ <div id="side-menu" style="width:200px; float:left; ">
+<ul>
+<li><a class="show-selected" href="javascript:void(0)">Basic info</a></li>
+<li><a href="http://www.freniz.com/index/changepassword">Password</a></li>
+<li><a  href="http://www.freniz.com/index/personalinfo">Personal Info</a></li>
+<li><a  href="http://www.freniz.com/index/otherinfo">other Info</a></li>
+<li><a  href="http://www.freniz.com/index/changedp">change photo</a></li>
+</ul>
+</div>  
+<?php }?> 
+<div style="width:500px; margin-left:auto; margin-right:auto;">
+ <div style="width:500px; margin-left:auto; margin-right:auto;  padding:10px; margin-top:10px; border-bottom:solid 1px; font-size:18px; font-weight:bold; height:40px;">
+    Name:<input style="width:200px; font-size:16px; font-weight:bold; height:25px" type="text" value="<?php echo $session['fname']; ?>" id="fname" name="fname" style="height:20px; width:200px;" />
+    <input style="width:200px; font-size:16px; font-weight:bold; height:25px" type="text" value="<?php echo $session['lname']; ?>" id="lname" name="lname" style="height:20px; width:200px;" />
+
+</div>
+ <div style="width:500px; margin-left:auto; margin-right:auto;  padding:10px; margin-top:30px; border-bottom:solid 1px; font-size:18px; font-weight:bold; height:40px;">
+
+    <?php $bdd;$bdy;$bdm;
+    if(isset($session['dob']))
+    {
+        $bdd=substr($session['dob'], 8,2);
+        $bdy=substr($session['dob'], 0,4);
+        $bdm=substr($session['dob'], 5,2);
+    }
+    ?>
+    
+    D.O.B:<select class="" id="bdm" name="birthday_month"><?php if(isset($bdm)) { ?><option value="">Month:</option><?php } ?>
+<option <?php if(isset($bdm)) { if($bdm=="01") echo "selected"; } ?> value="01">Jan</option>
+<option <?php if(isset($bdm)) { if($bdm=="02") echo "selected"; } ?> value="02">Feb</option>
+<option <?php if(isset($bdm)) { if($bdm=="03") echo "selected"; } ?> value="03">Mar</option>
+<option <?php if(isset($bdm)) { if($bdm=="04") echo "selected"; } ?> value="04">Apr</option>
+<option  <?php if(isset($bdm)) { if($bdm=="05") echo "selected"; } ?> value="05">May</option>
+<option <?php if(isset($bdm)) { if($bdm=="06") echo "selected"; } ?>  value="06">Jun</option>
+<option <?php if(isset($bdm)) { if($bdm=="07") echo "selected"; } ?>  value="07">Jul</option>
+<option <?php if(isset($bdm)) { if($bdm=="08") echo "selected"; } ?>  value="08">Aug</option>
+<option <?php if(isset($bdm)) { if($bdm=="09") echo "selected"; } ?>  value="09">Sep</option>
+<option <?php if(isset($bdm)) { if($bdm=="10") echo "selected"; } ?>  value="10">Oct</option>
+
+<option <?php if(isset($bdm)) { if($bdm=="11") echo "selected"; } ?>  value="11">Nov</option>
+<option <?php if(isset($bdm)) { if($bdm=="12") echo "selected"; } ?>  value="12">Dec</option>
+</select> <select name="birthday_day" id="bdd"  onchange="bagofholding" autocomplete="off"><option value="">Day:</option>
+<?php for($i=1;$i<=31;$i++){ ?>
+    <option <?php if(isset($bdd)) { if(intval($bdd)==$i) echo "selected"; } ?>  value="<?php echo $i ?>"><?php echo $i ?></option><?php }?>
+</select> <select name="birthday_year" id="bdy"  autocomplete="off"><option value="-1">Year:</option>
+    <?php for($i=2012;$i>=1905;$i--){ ?>
+<option <?php if(isset($bdy)) { if(intval($bdy)==$i) echo "selected"; } ?> value="<?php echo $i ?>"><?php echo $i ?></option><?php }?>
+
+</select>
+
+</div>
+ <div style="width:500px; margin-left:auto; margin-right:auto;  padding:10px; margin-top:30px; border-bottom:solid 1px; font-size:18px; font-weight:bold; height:40px;">
+    Gender:<select class="select" name="sex" id="sex"><?php if(!isset($session['sex'])){  ?><option value="0">Select Sex:</option><?php } ?><option <?php if(isset($session['sex'])){ if($session['sex']=="female") echo "selected"; } ?> value="female">Female</option><option <?php if(isset($session['sex'])){ if($session['sex']=="male") echo "selected"; } ?> value="male">Male</option></select>
+</div>
+ <div style="width:500px; margin-left:auto; margin-right:auto;  padding:10px; margin-top:30px; border-bottom:solid 1px; font-size:18px; font-weight:bold; height:40px;">
+    Religious:<input style="width:250px; font-size:16px; font-weight:bold; height:25px" type="text" value="<?php if(isset($session['religion'])) echo $session['religion']; ?>" id="religious" name="religious" />
+</div>
+ <div style="width:500px; margin-left:auto; margin-right:auto;  padding:10px; margin-top:30px; border-bottom:solid 1px; font-size:18px; font-weight:bold; height:40px;">
+Status:<select class="select" name="Status" id="status"><?php if(isset($session['rstatus'])) { ?><option value="">Select status:</option><?php } ?><option <?php if(isset($session['rstatus'])){ if($session['rstatus']=="single") echo "selected"; } ?> value="single">Single</option><option <?php if(isset($session['rstatus'])){ if($session['rstatus']=="commited") echo "selected"; } ?> value="commited">commited</option><option <?php if(isset($session['rstatus'])){ if($session['rstatus']=="married") echo "selected"; } ?> value="married">Married</option></select>
+</div>
+<div style="width:500px; float:left;  padding:10px; margin-top:30px; border-bottom:solid 1px; font-size:18px; font-weight:bold; ">
+   Skills:<input onkeyup="findskills(this,event)"  type="text" style="width:250px; font-size:16px; font-weight:bold; height:25px" id="skills" name="skills" />
+	
+   <div id="tag-div" style="width:330px;float :left; padding-top:5px">
+   <?php 
+   if(!empty($session['skills'])){
+$skills=explode(',', $session['skills']);
+foreach ($skills as $val){
+  echo '<div class="usersname" name="'.$val.'">'.$val.'<a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>';
+}
+}
+	?>
+   </div>
+   </div>
+<div style="width:500px; margin-left:auto; margin-right:auto; padding:10px;  border-top:solid 1px">
+<div id="basic-details" style="width:500px;  height:20px;">
+<input onclick="basicaccount();" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+
+ </div>
+</div>
+
+<?php if ($_REQUEST['log_aug']=='true'){?>
+<div style="width:1000px; padding:10px;float:left;border-bottom:solid 1px">
+<a style="float:right; margin-right:5px; cursor:pointer" onclick="window.location.href='http://www.freniz.com/index/personalinfo?log_aug=true'">-->Skip</a>
+</div>
+<?php }?>
+
+</div>
+
+
+<div class="foot-tab" id="foot-tab">
+    <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+
+</body>
+</html>
+

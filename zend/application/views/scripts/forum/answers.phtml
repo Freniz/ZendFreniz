@@ -1,0 +1,37 @@
+
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+?>
+
+<answers>
+<?php
+foreach($this->results as $id=>$ans){
+	?>
+	<answer>
+		<id> <?php echo $id; ?> </id>
+		<ans><?php echo htmlentities($ans['answer']);?></ans>
+		<ansby><?php echo $ans['fname'].' '.$ans['lname'];?></ansby>
+		<url><?php echo $ans['user_url'];?></url>
+		<user_image><?php echo $ans['user_imageurl'];?></user_image>
+		<votecount><?php echo $ans['votecount'];?></votecount>
+		<date><?php echo $ans['date'];?></date>
+		<modified><?php echo $ans['modified'];?></modified>
+		 <comments>
+           <?php foreach($ans['comments'] as $commentid => $comment){ ?>
+           <comment>
+           <comment-id><?php echo $commentid; ?></comment-id>
+           <comment-userid><?php echo $comment['userid']; ?></comment-userid>
+           <comment-comment><?php echo htmlentities($comment['comment']); ?></comment-comment>
+           <comment-date><?php echo $comment['date']; ?></comment-date>
+           <com_votecount><?php echo $comment['votecount'];?></com_votecount>
+           <com_modified><?php echo $comment['modified'];?></com_modified>
+           </comment>
+           <?php } ?>
+       </comments>
+		</answer>
+<?php 
+	}
+	?>
+</answers>

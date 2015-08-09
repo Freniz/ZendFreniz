@@ -1,0 +1,251 @@
+/* 
+    Document   : login
+    Created on : Nov 5, 2012, 9:49:30 AM
+    Author     : abdulnizam
+    Description:
+        Purpose of the stylesheet follows.
+*/
+  body{
+  
+  background-color: #fff;
+   color: #000;
+   font-family: arial, helvetica, geneva, sans-serif;
+   margin-left:1px;
+   margin-top:0px;
+}
+
+   .header-div-top{
+                   width: 100%;
+	margin: 0;
+	padding: 10px 7px 0 0;
+	list-style: none;  
+	background: #111;
+	background: -moz-linear-gradient(#444, #111); 
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));	
+	background: -webkit-linear-gradient(#444, #111);	
+	background: -o-linear-gradient(#444, #111);
+	background: -ms-linear-gradient(#444, #111);
+	background: linear-gradient(#444, #111);
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0 2px 1px #9c9c9c;
+	-webkit-box-shadow: 0 2px 1px #9c9c9c;
+	box-shadow: 0 2px 1px #9c9c9c;
+                }
+                
+  .headername-font{
+                    font-family:  cursive;
+                    font-size: 40px;
+                    font-weight: bold;
+                    color: #0C0;
+                }
+     .reset-button{
+                background-color: #3D8B5F;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#6BB38A));
+background-image: -webkit-linear-gradient(top, #3D8B5F, #6BB38A);
+background-image: -moz-linear-gradient(top, #3D8B5F, #6BB38A);
+background-image: -ms-linear-gradient(top, #3D8B5F, #6BB38A);
+background-image: -o-linear-gradient(top, #3D8B5F, #6BB38A);
+background-image: linear-gradient(top, #3D8B5F, #6BB38A);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+margin-left: 20px;
+
+height: 30px;
+width: 150px;
+padding-left: 10px;
+padding-right: 10px;
+cursor: pointer;
+font: bold 14px Arial, Helvetica;
+color: white;
+            }
+            .freniz-header{
+              width: 100%;
+              margin-left: -1px;
+              margin-top: 0px;
+	padding: 7px 4px 0 0;
+	list-style: none;  
+	background: #111;
+	background: -moz-linear-gradient(#444, #111); 
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));	
+	background: -webkit-linear-gradient(#444, #111);	
+	background: -o-linear-gradient(#444, #111);
+	background: -ms-linear-gradient(#444, #111);
+	background: linear-gradient(#444, #111);
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0 2px 1px #9c9c9c;
+	-webkit-box-shadow: 0 2px 1px #9c9c9c;
+	box-shadow: 0 2px 1px #9c9c9c;
+        color: #C1DF79;
+        text-align: center;
+            }
+            .sign-main{
+                width:100%;
+                margin-top: -20px;
+            }
+            .sign-outer{
+                margin-left: auto;
+                margin-right: auto;
+                padding-right: 2px;
+                margin-top: 50px;
+                border: solid 1px;
+                width: 450px;
+                -moz-box-shadow: 0 2px 1px #9c9c9c;
+	-webkit-box-shadow: 0 2px 1px #9c9c9c;
+	box-shadow: 0 2px 1px #9c9c9c;
+               
+            }
+            .login-details{
+                margin-left: 30px;
+            }
+            .login-details label{
+                font-size: 24px;
+            }
+             #email-id{
+                   
+                    width: 400px;
+                    font-size: 20px;
+                    margin-left: 30px;
+                    padding: 5px;
+                }
+           
+             #login{
+                float: right;
+		  padding: 3px;
+		  list-style: none;
+		  position: relative;
+		  float: right;
+		  background: #eee;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;  
+            }
+            #login a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		#login a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+                
+                
+                 
+            .login-main{
+                width:100%;
+                margin-top: -20px;
+            }
+            .login-outer{
+                margin-left: auto;
+                margin-right: auto;
+                padding-right: 2px;
+                margin-top: 100px;
+                border: solid 1px;
+                width: 400px;
+                -moz-box-shadow: 0 2px 1px #9c9c9c;
+	-webkit-box-shadow: 0 2px 1px #9c9c9c;
+	box-shadow: 0 2px 1px #9c9c9c;
+               
+            }
+            .login-details{
+                margin-left: 30px;
+            }
+          
+            .login-details input{
+                width: 200px;height: 20px;
+            }
+            .form-actions input{
+                width: 100px;
+               height: 25px;
+            }
+            #signup{
+                float: right;
+                  margin-left: 5px;
+		  padding: 3px;
+		  list-style: none;
+		  position: relative;
+		  float: right;
+		  background: #eee;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;  
+            }
+            #signup a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		#signup a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+                .reset-main{
+                width:60%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .reset-main header{
+                border-bottom: solid 1px;
+            }
+            .reset-main header p{
+                font-size: 20px;
+            }
+            .error-message h1{
+			color:red;
+            }
+            .error-message{
+            	width:300px;
+			margin-left:auto;
+            margin-right:auto;
+            }
+            .black_overlay{
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+		}
+		.white_content {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+                       padding: 16px;
+			border: 4px solid black;
+			background-color: white;
+			z-index:1002;
+			overflow: auto;
+		}

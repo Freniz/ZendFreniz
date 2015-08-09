@@ -1,0 +1,34 @@
+<?php header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+$session=(array)$this->mydetails;
+?>
+
+<admires>
+<?php
+foreach($this->admire['results'] as $id=>$row){
+	?>
+	<admire>
+       <id><?php echo $row['testyid'] ?></id>
+       <suserid><?php echo $row['suserid']; ?></suserid>
+       <susername><?php echo $row['fname'].$row['lname']; ?></susername>
+       <suserpic><?php echo $row["user_imageurl"]; ?></suserpic>
+       <suserfrnds><?php echo serialize($row["friendlist"]); ?></suserfrnds>
+       <myid><?php echo $session['userid'];?></myid>
+       <message><?php echo $row['message']; ?></message>
+       <vote_count><?php $votes=unserialize($row['vote']); echo count($votes); ?></vote_count>
+       <votecontains><?php if(in_array($session['userid'], $votes)){
+                            echo "yes";
+                     }
+                        else 
+                            echo "no";
+                            ?></votecontains>
+                            
+       <date><?php echo $row['date']; ?></date>
+       <accepted><?php echo $row['accepted'];?></accepted>
+       </admire>
+       <?php 
+	}
+	?>
+	<loadmore><?php if($this->admire['loadmore']) echo 'yes'; else echo 'no';?></loadmore>
+   </admires>

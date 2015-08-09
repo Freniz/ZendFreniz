@@ -1,0 +1,32 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+	$session=(array)$this->mydetails;
+?>
+<images>
+	<loadmore><?php if($this->results['loadmore']) echo 'yes'; else echo 'no';?></loadmore>
+	<?php foreach($this->results['results'] as $imageid => $values){?>
+	<image>
+		<imageid><?php echo $imageid; ?></imageid>
+		<title><?php echo htmlspecialchars($values['title']);?></title>
+		<description><?php echo htmlspecialchars($values['description']);?></description>
+		<suserid><?php echo $values['suserid'];?></suserid>
+		<susername><?php echo $values['susername'];?></susername>
+		<suserpic><?php echo $values['suserpic']?></suserpic>
+		<suser-url><?php echo $values['surl']?></suser-url>
+		<date><?php echo $values['date'];?></date>
+		<url><?php echo $values['url'];?></url>
+		<users>
+			<?php foreach($values['users'] as $userid => $user){?>
+			<user>
+				<userid><?php echo $userid?></userid>
+				<username><?php echo $user['username'];?></username>
+				<userpic><?php echo $user['propic'];?></userpic>
+				<user-url><?php echo $user['url'];?></user-url>
+			</user>
+			<?php } ?>
+		</users>
+	</image>
+	<?php }?>
+</images>

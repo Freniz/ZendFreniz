@@ -1,0 +1,305 @@
+<?php $session=(array)$this->mydetails;?>
+
+<html>
+<head>
+ <script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script> 
+ <script type="text/javascript" src="http://js.freniz.com/ajax.js"></script> 
+	        <link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+	          <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script> 
+	      <script src="http://js.freniz.com/jquery.timeago.js" type="text/javascript"></script>
+         <script type="text/javascript" src="http://js.freniz.com/s3Slider.js"></script>
+	 <style type="text/css" media="screen">
+#slider1 {
+	margin-top:-20px;
+	margin-left:-50px;
+    width: 920px; /* important to be same as image width */
+    height: 270px; /* important to be same as image height */
+    position: relative; /* important */
+	overflow: hidden; /* important */
+}
+
+#slider1Content {
+    width: 920px; /* important to be same as image width or wider */
+    position: absolute;
+	top: 0;
+	margin-left: 0;
+}
+.slider1Image {
+    float: left;
+    position: relative;
+	display: none;
+}
+.slider1Image span {
+    position: absolute;
+	font: 10px/15px Arial, Helvetica, sans-serif;
+    padding: 10px 13px;
+    width: 694px;
+    background-color: #000;
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+	-khtml-opacity: 0.7;
+    opacity: 0.7;
+    color: #fff;
+    display: none;
+}
+.clear {
+	clear: both;
+}
+.slider1Image span strong {
+    font-size: 14px;
+}
+
+.bottom {
+	bottom: 0;
+    left: 0;
+    width: 900px !important;
+	height: 400px;
+}
+
+#slider1 ul { list-style-type: none;}
+</style>
+         <script type="text/javascript">
+
+    // This is the first thing we add ------------------------------------------
+    $(document).ready(function() {
+    	getdeveloper();
+   	 $('#slider1').s3Slider({
+         timeOut: 4000 
+     });
+        
+        });
+
+    function getdeveloper(){
+    var url='http://www.freniz.com/developers/developers?format=xml&from='+postsfrom.blogs;
+    $.ajax({
+					url:url,
+					dataType:'xml',
+					cache:false,
+					success:function(xml){
+					postsfrom.blogs+=limit_default;
+     		    	 blogdeveloper(xml);
+					}
+					});
+     	
+     	}
+    function blogdeveloper(xml)
+	    {
+	       $('#loadingblogs').remove();
+  	  var main=document.getElementById('blog-div');
+  	  $(xml).find('blogs').each(function(){
+			  //alert($(this).find('blog').length);
+            $(this).find('blog').each(function(){
+          	  var top=document.createElement('div');
+          	  top.className='user-pic'+$(this).find('id').text().trim();
+          	  top.id='user-pic';
+    	        top.style.width='700px';
+    				top.style.padding='10px';
+    				 top.style.cssFloat='left';  
+    				top.style.marginTop='10px';
+    				top.style.backgroundColor='#eee';
+	   				 var pic=document.createElement('div');
+	            	 pic.className='user-pic'+$(this).find('id').text();
+	           	 pic.style.width='75px';
+	           	 pic.style.height='75px';
+	           	 pic.innerHTML='<img id="user-pic" src="http://images.freniz.com/75/75_'+$(this).find('suserpic').text().trim()+'"/>';
+	           	  pic.style.cssFloat='left';
+	           	   $(top).append(pic);
+    	          var b=document.createElement('div');
+    	             b.className='comment-tab';
+    	             b.innerHTML='<div style="width:600px; float:left; "><label style="font-size:24px;color:#444; padding:5px; font-weight:bold">'+$(this).find('susername').text()+'</label><br/><span style="font-size:14px; margin-left:10px; font-weight:bold; color:#ccc;"><div class="timeago" style="float:left;margin-left:5px; width:600px; margin-top:-5px;" title="'+$(this).find('date').text()+'">'+$(this).find('date').text()+'</div></span><label style="font-size:24px; padding:5px; font-weight:bold">'+$(this).find('title').text()+'</label><br/></div><div style="width:540px; padding:5px; text-align:justify; margin-left:10px; float:left;">'+$(this).find('blog1').text()+'</div>';
+    	        if($(this).find('imgurl').text().trim()!=''){
+    	             var b1=document.createElement('div');
+    	         $(b1).css({'margin-left':'20px','background-color': '#c1d8a9','float':'left','margin-top':'5px'});
+    	         b1.innerHTML='<img alt="image"src="http://images.freniz.com/'+$(this).find('imgurl').text().trim()+'"width="500">';
+    	        b.appendChild(b1);
+    	        }
+    	         var c=document.createElement('div');
+    	              c.style.width='700px';
+    	              c.style.cssFloat='left';    
+    	            if($(this).find('votecontains').text()=='no'){
+                  	 c.innerHTML='<a onclick="voteblog(\''+$(this).find('id').text().trim()+'\',this)"class="vote-bar"href="javascript:void(0)"style="float: right">wink('+$(this).find('vote_count').text()+')</a>';
+                   }else{
+                  	 c.innerHTML='<a onclick="unvoteblog(\''+$(this).find('id').text().trim()+'\',this)"class="vote-bar"href="javascript:void(0)"style="float: right">unwink('+$(this).find('vote_count').text()+')</a>';
+                       
+                   }   
+    	            b.appendChild(c);
+    	          $(".remove").toggle(function(){
+  		    		var data=$(this).attr('data');
+  		    		var position = $("#blog-del"+data).offset();
+  		    	$('#remove-items').css({'position':'absolute','display':'block','top':+(position.top+16),'left':+(position.left-120)});
+  		    	$("#remove-items a:first").attr("onclick","deleteblog('"+data+"')");
+  		    	$("#remove-items a:last").attr("onclick","report('"+data+"')");
+  		    		
+  		    	},function(){
+  		    		$('#remove-items').css({'position':'none','display':'none'});
+  		    	});
+    	        
+    	        	top.appendChild(b);
+    	        	$(main).append(top);
+    	        	
+    	          
+    	        	$('.delete').css('display','none');
+    	 
+            });
+             if($(this).find('loadmore').text()=='yes'){
+						var loading=document.createElement('div');
+						loading.id='loadingblogs';
+						loading.innerHTML='<div style="width:600px; padding:10px; margin-top:20px;text-align:center; background-color:#eee;float:left">loading...</div>';
+						$(main).append(loading);
+						
+						setTimeout(function(){getdeveloper();},5000);
+					}
+        });
+  	 
+  	  prettyLinks();
+	    }
+    
+    
+         </script>
+<style>
+body{
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
+}
+
+td{
+	font-weight:bold;
+	font-size:16px;
+}
+#title{
+	color:#444;
+	font-size:18px;
+}
+label{
+	font-weight:bold;
+	font-size:16px;
+	color:#aaa;
+}
+#prog{
+	border-radius: 10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+-webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+-ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+background-color: #EEE;
+}
+
+</style>
+</head>
+<body>
+  <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="#">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+
+
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:0" class="active">
+				<?php echo  $session['username']; ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a onclick="switchuser('<?php echo $value['userid'];?>')" style="font-size:10px;padding-left:4px;"><?php echo $value['username'];?></a></label></div></li>
+                                 	<?php } ?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+
+</div>
+
+
+</div> 
+<div style="width:1000px; margin-left:auto; margin-right:auto; ">
+
+<div style="width:900px; float:left; padding:10px;  border-bottom:solid 1px">
+<div style="width:800px;  padding:5px; float:left; margin-left:5px;">
+ <div id="slider1">
+        <ul id="slider1Content">
+        <li class="slider1Image"><a href="javascript:void(0)"><img width="925" src="http://images.freniz.com/bannerpost5.png" alt="1" /></a><span class="bottom"><strong>hello world</strong></li>
+             </ul>
+              
+</div>
+
+
+</div>
+<!-- next -->
+
+</div>
+<div id="blog-div"></div>
+        <div style="width:1000px;float:left; height:100px;">
+</div>
+</div>
+   <div id="musictab">
+ <div class="foot-tab">
+     <ul>
+         <li><a href="#">About</a></li>
+         <li><a href="#">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="#">Create a leaf</a></li>
+          <li><a href="#">Developers</a></li>
+         <li><a href="#">Hire Us</a></li>
+     </ul>
+       
+</div>
+</div> 
+</body>
+
+
+</html>

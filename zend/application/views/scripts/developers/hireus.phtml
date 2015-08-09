@@ -1,0 +1,237 @@
+<?php $session=(array)$this->mydetails;?>
+
+<html>
+<head>
+ <script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script> 
+
+	        <link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+          <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script> 
+	    
+<style>
+body{
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
+}
+
+td{
+	font-weight:bold;
+	font-size:16px;
+}
+#title{
+	color:#444;
+	font-size:18px;
+}
+label{
+	font-weight:bold;
+	font-size:16px;
+	color:#aaa;
+}
+#prog{
+	border-radius: 10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+-webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+-ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+background-color: #EEE;
+}
+
+</style>
+</head>
+<body>
+  <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="#">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+
+
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:0" class="active">
+				<?php echo  $session['username']; ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a onclick="switchuser('<?php echo $value['userid'];?>')" style="font-size:10px;padding-left:4px;"><?php echo $value['username'];?></a></label></div></li>
+                                 	<?php } ?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+
+</div>
+
+
+</div> 
+<div style="width:1000px; margin-left:auto; margin-right:auto; ">
+
+<div style="width:900px; float:left; padding:10px;  border-bottom:solid 1px">
+<div style="width:200px; float:left; height:200px; border:solid 1px">
+<img src="http://images.freniz.com/200/200_male.png" />
+</div>
+
+<div style="width:600px;  padding:5px; float:left; height:200px; margin-left:5px;">
+<div style="width:400px; padding:5px; float:left; ">
+             <label id="title">Abdul Nizam . A .</label><br/>
+             <label style="margin-left:20px;">freniz</label><br/>
+              <label id="title" style="margin-left:20px;">contact:</label><label style="margin-left:10px;">abdulnizam89@gmail.com</label><br/>
+             </div>
+</div>
+<div id="prog"style=" padding:5px; float:left; margin-left:-5px; margin-top:10px;">
+<label>Programming Language</label>
+<table cellpadding="1" cellspacing="1">
+<tr><td>Language:</td><td id="title">Php, Jsp, C, C++</td></tr>
+<tr><td>Markup:</td><td id="title">HTML, XML</td></tr>
+<tr><td>Database:</td><td id="title">Mysql 5.5</td></tr>
+<tr><td>Framework:</td><td id="title">Zend Framework</td></tr>
+</table>
+</div>
+<div id="prog"style=" padding:5px; height:120px; float:left; margin-left:10px; margin-top:10px;">
+<label>Area Of Specialization</label>
+<table cellpadding="1" cellspacing="1">
+<tr><td>Programming</td></tr>
+<tr><td>Web designing</td></tr>
+</table>
+</div>
+<div id="prog"style=" padding:5px; height:120px; float:left; margin-left:10px; margin-top:10px;">
+<label>Operating System</label>
+<table cellpadding="1" cellspacing="1">
+<tr><td>Mac Os X</td></tr>
+<tr><td>Window Xp/Vista/7</td></tr>
+<tr><td>Linux</td></tr>
+</table>
+</div>
+<div id="prog"style=" padding:5px; height:120px; float:left; margin-left:10px; margin-top:10px;">
+<label>Worked IDEs</label>
+<table cellpadding="1" cellspacing="1">
+<tr><td>Net Beans IDE 6.9</td></tr>
+<tr><td>Zend Studio 9.0.3</td></tr>
+</table>
+</div>
+</div>
+<!-- next -->
+
+
+<div style="width:900px; float:left; padding:10px;  border-bottom:solid 1px">
+<div style="width:200px; float:left; height:200px; border:solid 1px">
+<img src="http://images.freniz.com/200/200_male.png" />
+</div>
+
+<div style="width:600px;  padding:5px; float:left; height:200px;  margin-left:5px;">
+<div style="width:400px;  padding:5px; float:left;">
+             <label id="title">Mohamed Meeran . S .</label><br/>
+             <label style="margin-left:20px;">freniz</label><br/>
+             <label id="title" style="margin-left:20px;">contact:</label><label style="margin-left:10px;">s.mohamedmeeran@gmail.com</label><br/>
+             </div>
+</div>
+<div id="prog"style=" padding:5px; float:left; margin-left:-5px; margin-top:10px;">
+<label>Programming Language</label>
+<table cellpadding="1" cellspacing="1">
+<tr><td>Language:</td><td id="title">Java, Php, Jsp, C, C++</td></tr>
+<tr><td>Markup:</td><td id="title">HTML, XML</td></tr>
+<tr><td>Database:</td><td id="title">Mysql 5.5, oracle 10g</td></tr>
+<tr><td>Framework:</td><td id="title">Zend Framework</td></tr>
+</table>
+</div>
+<div id="prog"style=" padding:5px; height:120px; float:left; margin-left:10px; margin-top:10px;">
+<label>Area Of Specialization</label>
+<table cellpadding="1" cellspacing="1">
+<tr><td>Programming</td></tr>
+<tr><td>Database Administration</td></tr>
+<tr><td>Web designing</td></tr>
+</table>
+</div>
+<div id="prog"style=" padding:5px; height:120px; float:left; margin-left:10px; margin-top:10px;">
+<label>Operating System</label>
+<table cellpadding="1" cellspacing="1">
+<tr><td>Mac Os X</td></tr>
+<tr><td>Window Xp/Vista/7</td></tr>
+<tr><td>Linux</td></tr>
+</table>
+</div>
+<div id="prog"style=" padding:5px; height:120px; float:left; margin-left:10px; margin-top:10px;">
+<label>Worked IDEs</label>
+<table cellpadding="1" cellspacing="1">
+<tr><td>Net Beans IDE 6.9</td></tr>
+<tr><td>Zend Studio 9.0.3</td></tr>
+</table>
+</div>
+</div>
+
+
+
+        <div style="width:1000px;float:left; height:100px;">
+</div>
+</div>
+
+   <div id="musictab">
+ <div class="foot-tab">
+     <ul>
+         <li><a href="#">About</a></li>
+         <li><a href="#">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="#">Create a leaf</a></li>
+          <li><a href="#">Developers</a></li>
+         <li><a href="#">Hire Us</a></li>
+     </ul>
+       
+</div>
+</div> 
+</body>
+
+
+</html>

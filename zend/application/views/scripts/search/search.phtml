@@ -1,0 +1,102 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+$result=$this->results;
+		?>
+		<?php if ($_REQUEST['type']=='page' ){ ?>
+	        <pages>
+	        <?php foreach ($result as $key=>$row){
+		if($row['type']=='page')
+	{
+	?>
+	            <page>
+	            <pageid><?php echo $row['userid']; ?></pageid>
+	            <pagename><?php echo $row['username']; ?></pagename>
+	            <pagepic><?php echo $row['pagepic_url']; ?></pagepic>
+	            <category><?php echo htmlspecialchars($row['category']); ?></category>
+	             <subcategory><?php echo htmlspecialchars($row['subcategory']); ?></subcategory>
+	            <vote><?php echo $row['vote']; ?></vote>
+	             <votecount><?php $votes=  unserialize($row['vote']); echo sizeof($votes); ?></votecount>
+	             <url><?php echo $row['userid']; ?></url>
+	            </page>
+	       
+	        <?php  } }
+	            ?>
+	         </pages>
+	     
+<?php }?>
+	        
+	      <?php if ($_REQUEST['type']=='user' || $_REQUEST['type']=='skills' || $_REQUEST['type']=='friends' ){ ?>  
+ 				<users>
+	     <?php foreach ($result as $key=>$row){
+		if($row['type']=='user')
+			{
+			?>
+			     <user>
+	            <userid><?php echo $row['userid']; ?></userid>
+	            <username><?php echo $row['username']; ?></username>
+	            <skills><?php echo $row['skills'];?></skills>
+	            <employer><?php echo $row['employer'];?></employer>
+	            <college><?php 
+	            $college=unserialize($row['college']);
+	            foreach ($college as $key=>$col){
+					echo $key;
+	            } ?></college>
+	            <school><?php echo $row['school'];?></school>
+	            <propic><?php echo $row['propic_url']; ?></propic>
+	            <votes><?php
+					$vote=unserialize($row['vote']);
+	            echo count($vote); ?></votes>
+	            <votecount><?php $votes=  unserialize($row['vote']); echo sizeof($votes); ?></votecount>
+	            <ccity><?php  echo $row['cc_name']; ?></ccity>
+	            <htown><?php echo $row['ht_name'];?></htown>
+	            <url><?php echo $row['user_url']; ?></url>
+	            </user>
+	        <?php  } }
+	            ?>
+	        </users>
+	        <?php }?>
+	        <?php if($_REQUEST['type']=='all'){?>
+	        <results>
+    <?php
+    foreach ($result as $key=>$row1)
+    {?>
+    <result>
+        <id><?php echo $row1['userid']; ?></id>
+        <name><?php echo $row1['username']; ?></name>
+        <?php if($row1['type']=='user'){?>
+        <pic><?php echo $row1['propic_url']; $votes=$row1['user_vote'];?></pic>
+        <?php } else if($row1['type']=='page'){?>
+        <pic><?php echo $row1['pagepic'];$votes=$row1['page_vote'];?></pic>
+        <?php }?>
+        <type><?php echo $row1['type'];?></type>
+        <votes><?php echo $votes; ?></votes>
+        <votecount><?php $votes=  unserialize($votes); echo sizeof($votes);   ?></votecount>
+        <url><?php echo $row1['user_url']; ?></url>
+    </result>
+    <?php }?>
+  </results>
+	        <?php }?>
+	        
+	        
+	        
+	        <?php if($_REQUEST['type']=='places'){?>
+	        <places>
+    <?php
+    foreach ($result as $key=>$row)
+    {?>
+    <place>
+    	<id><?php echo $row['id']; ?></id>
+            <name><?php echo $row['name']; ?></name>
+            <province><?php echo $row['province']; ?></province>
+            <country><?php echo $row['country']; ?></country>
+            <placepic><?php echo $row['placepic_url']; ?></placepic>
+            <votes><?php echo $row['vote']; ?></votes>
+            <votecount><?php echo count(unserialize($row['vote'])); ?></votecount>
+            <url><?php echo $row['id']; ?></url>
+        </place>
+    <?php }?>
+  </places>
+	        <?php }?>

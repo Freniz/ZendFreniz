@@ -1,0 +1,64 @@
+Image_Upload Object
+(
+    [allowedExtensions:Image_Upload:private] => Array
+        (
+        )
+
+    [sizeLimit:Image_Upload:private] => 2097152
+    [file:Image_Upload:private] => qqUploadedFileXhr Object
+        (
+        )
+
+)
+\n\n AlbumDetails\nsql : SELECT `album`.`userid`, `album`.`canupload`, `album`.`pt`, `album`.`specificlist`, `album`.`hiddenlist`, `album`.`cpt`, `album`.`ciu`, `album`.`csu`, `freniz`.`type`, `privacy`.`advancedprivacyimage`, `privacy`.`autoacceptusers`, `privacy`.`blockactivityusers`, `pages`.`bannedusers`, `pages`.`admins`, `pages`.`vote` FROM `album`
+ LEFT JOIN `freniz` ON album.userid=freniz.userid
+ LEFT JOIN `privacy` ON freniz.userid=privacy.userid and freniz.type='user'
+ LEFT JOIN `pages` ON freniz.userid=pages.pageid and freniz.type='page' WHERE (albumid='4') \n Result: Array
+(
+    [userid] => abdulnizam
+    [canupload] => friends
+    [pt] => public
+    [specificlist] => a:0:{}
+    [hiddenlist] => a:0:{}
+    [cpt] => friends
+    [ciu] => a:0:{}
+    [csu] => a:0:{}
+    [type] => user
+    [advancedprivacyimage] => on
+    [autoacceptusers] => a:5:{s:4:"post";a:0:{}s:5:"image";a:0:{}s:6:"admire";a:0:{}s:3:"pin";a:0:{}s:5:"video";a:0:{}}
+    [blockactivityusers] => a:5:{s:4:"post";a:0:{}s:5:"image";a:0:{}s:6:"admire";a:0:{}s:3:"pin";a:0:{}s:5:"video";a:0:{}}
+    [bannedusers] => 
+    [admins] => 
+    [vote] => 
+)
+\n\n row updateArray
+(
+    [title] => title
+    [description] => description
+    [albumid] => 4
+    [userid] => abdulnizam
+    [date] => Zend_Db_Expr Object
+        (
+            [_expression:protected] => now()
+        )
+
+    [pinnedpeople] => a:0:{}
+    [vote] => a:0:{}
+    [specificlist] => a:0:{}
+    [hiddenlist] => a:0:{}
+    [notifyusers] => a:0:{}
+    [reqpinusers] => a:0:{}
+    [pinmereq] => a:0:{}
+    [comments] => a;0:{}
+    [dontnotify] => a:0:{}
+    [accepted] => yes
+    [pt] => public
+    [ciu] => a:0:{}
+    [csu] => a:0:{}
+    [cpt] => friends
+)
+\n\nyesArray
+(
+    [success] => true
+    [imgurl] => 6a383ae226aa18a84fb62e46e8c7c172.jpg
+)

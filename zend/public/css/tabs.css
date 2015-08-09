@@ -16,8 +16,9 @@ ol#toc {
 }
 
 ol#toc a {
-	background: #fff url(tabs.png);
-	color: #CCC;
+	background: #fff ;
+	color: #606;
+	font-weight:bold;
 	display: block;
 	float: left;
 	height: 2em;
@@ -44,6 +45,7 @@ ol#toc li a.active {
 	background-position: 0 -60px;
 	color: #fff;
 	font-weight: bold;
+	
 }
 
 ol#toc li a.active span {
@@ -51,15 +53,19 @@ ol#toc li a.active span {
 }
 
 ol#toc span {
-    background: url(tabs.png) 100% 0;
+    background-color:#3CC;
+	    border-radius: 8px 8px 0 0;
+	-moz-border-radius: 8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0; 
     display: block;
     line-height: 2em;
-    padding-right: 10px;
+    padding-right: 2px;
+	padding-left:5px;
 }
-.roundbuttons {
-	position:absolute;
-	
-	width:200px;
+
+.set-edu ul{
+	display:block;
+	width:50px;
 	height:40px;
 padding: 3px 0;
 
@@ -67,18 +73,11 @@ font: bold 13px Verdana;
 list-style-type: none;
 text-align: center; 
 }
-
-.roundbuttons li{
-display: inline;
-
+.set-edu ul li{
+	display: inline-block;
 }
-.roundbuttons li a:hover{
-color: black;
-}
-
-
-.roundbuttons li a{
-text-decoration: none;
+.set-edu ul li a{
+	text-decoration: none;
 padding: 5px 7px;
 
 border: 1px solid #778;
@@ -89,9 +88,15 @@ box-shadow: 3px 3px 4px rgba(0,0,0,.5);
 -moz-border-radius: 8px; 
 -moz-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
 font-size:12px;
-background: green;
+background-color:#0C3;
 -webkit-border-radius: 8px; 
 -webkit-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
  
+}
+.set-per{
+	height:50px;
+	float:right;
+	margin-top:30px;
+	margin-right:20px;
 }
 

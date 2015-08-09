@@ -34,20 +34,6 @@ class PostController extends Zend_Controller_Action
     	$this->_redirect('');
     }
 
-    public function addblogAction(){
-    	$this->_helper->viewRenderer->setNoRender(true);
-    	if($this->auth->hasIdentity()){
-    		$text=trim($this->request->getParam('text'));
-    		$title=trim($this->request->getParam('title'));
-    		$imgurl=$this->request->getParam('imgurl');
-    		
-    		if((count_chars($text)>0) && (count_chars($title)>0)){
-    			$blog=new Application_Model_Stature($this->registry['DB']);
-    			$blog->addBlog($title,$text,$imgurl);
-    		}
-    	}
-    	$this->_redirect('');
-    }
 
 }
 

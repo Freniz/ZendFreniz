@@ -1,0 +1,26 @@
+<?php 
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+$result=$this->results;
+		?>
+		    <pages>
+	        <?php foreach ($result as $key=>$row){
+	?>
+	            <page>
+	            <pageid><?php echo $key; ?></pageid>
+	            <pagename><?php echo $row['pagename']; ?></pagename>
+	            <pagepic><?php echo $row['pagepic_url']; ?></pagepic>
+	            <category><?php echo htmlspecialchars($row['category']); ?></category>
+	             <subcategory><?php echo htmlspecialchars($row['subcategory']); ?></subcategory>
+	             <from><?php echo $this->years[$key]['from'];?></from>
+	             <end><?php echo $this->years[$key]['end'];?></end>
+	            <vote><?php echo $row['vote']; ?></vote>
+	             <votecount><?php $votes=  unserialize($row['vote']); echo sizeof($votes); ?></votecount>
+	             <url><?php echo $key; ?></url>
+	            </page>
+	       
+	        <?php } ?>
+	         </pages>
+	     

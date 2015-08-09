@@ -1,44 +1,453 @@
-<style>
-    a:link,
-    a:visited
-    {
-        color: #0398CA;
-    }
+<?php
 
-    span#zf-name
-    {
-        color: #91BE3F;
-    }
-
-    div#welcome
-    {
-        color: #FFFFFF;
-        background-image: url(http://framework.zend.com/images/bkg_header.jpg);
-        width:  600px;
-        height: 400px;
-        border: 2px solid #444444;
-        overflow: hidden;
-        text-align: center;
-    }
-
-    div#more-information
-    {
-        background-image: url(http://framework.zend.com/images/bkg_body-bottom.gif);
-        height: 100%;
-    }
-</style>
-<div id="welcome">
-    <h1>Welcome <?php echo $this->userid;?>, to the <span id="zf-name">Zend Framework!</span></h1>
-
-    <h3>This is your project's main page</h3>
-
-    <div id="more-information">
-        <p><img src="http://framework.zend.com/images/PoweredBy_ZF_4LightBG.png" /></p>
-        <p>
-            Helpful Links: <br />
-            <a href="http://framework.zend.com/">Zend Framework Website</a> |
-            <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
-        </p>
-    </div>
+	
+	$session=(array)$this->mydetails;
+	$defaultLists=array();
+	foreach($this->defaultListIds as $id){
+		$defaultLists[$id]=$this->lists[$id];
+		unset($this->lists[$id]);
+	}
+		
+?>
+	<html>
+	    <head>
+	    <title>Home | Freniz</title>
+	         <script type="text/javascript" src="http://js.freniz.com/jquery.js"></script> 
+	        <script type="text/javascript" src="http://js.freniz.com/ajax.js"></script> 
+	        <link rel="stylesheet" href="http://css.freniz.com/theme.css" type="text/css" media="screen" charset="utf-8" />
+	        <link rel="stylesheet" href="http://css.freniz.com/default.css" type="text/css" media="screen" charset="utf-8" />
+	          <script type="text/javascript" src="http://js.freniz.com/leaf.js"></script> 
+	      <script src="http://js.freniz.com/jquery.timeago.js" type="text/javascript"></script>
+	      
+        
+         <script type="text/javascript">
+			var activitylist=new Array();
+			var minId=0,maxId=0;
+	     $(document).ready(function(event){
+	    	 $('.mes-text').live('mouseover', function() {
+	    		    $('.mes-text').toggle(function() {
+	    		    	$('#mes-text').css('display','block');
+	    		    	$('.mes-text').html('cancel');
+	    		    },function(){
+	    		    	$('#mes-text').css('display','none');
+	    		    	$('.mes-text').html('send text');
+	    		    });
+	    		});
+	    		
+	    		
+	    		$('.hover').live('mouseover',function(){
+	    			var data=$(this).attr('data');
+	    			miniprofile(data,this);
+	    			$(".hover-div").live('mouseover',function() {
+	    			    $('.hover-div').css('display','block');
+	    			  }).live('mouseout',function(){
+	    				  $('.hover-div').css('display','none');
+	    			  });
+	    			}).live('mouseout',function(){
+	    				 $('.hover-div').css('display','none');
+	    			  });
+	    	
+	     });
+	     function miniprofile(data,element){
+				var position=$(element).offset();
+				getminiprofile(data,position.top,position.left);
+			}
+	     </script>
+	      <style>
+#remove-items{
+			border-radius: 10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+-webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+-ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+		}
+#remove-items ul{
+		display:inline;
+		width:70px;
+            background-color:#eee;
+		
+	}
+	#remove-items ul li{
+		display:block;
+		background-color:#FFF;
+		padding:7px;
+	
+	background-color:#eee;
+		
+		
+	}
+	#remove-items ul li a{
+		margin-top:-10px;
+		text-decoration:none;
+		color:black;
+		position:absolute;
+	font-size:12px;
+		padding:2px;
+	}
+	#remove-items ul li a:hover{
+		background-color:#A4A4A4;
+		width:70px;
+		display:block;
+		color:#FFF;
+		 -moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+		  box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);	
+		padding:2px;
+		
+		
+	}
+#user-pic{
+            	     border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+             -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);		
+	}
+  #stature-stream{
+            	     border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+             -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        -webkit-box-shadow: 0px 0px 5px 5px rgba(68, 68, 68, 0.6);
+	        -ms-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	        box-shadow: 1px 1px 2px 2px rgba(68, 68, 68, 0.6);
+            background-color:#eee;
+           
+            }
+.vote-bar {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 14px; font-weight: bold;
+                color: #000;
+            }
+           .vote-bar :hover{
+                color: #fff;
+            }
+            .close {
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 8px; font-weight: bold;
+                color: #000;
+            }
+            .close:hover{
+                color: #aaa;
+            }
+#leaf-vote{
+	            
+	    	  cursor: pointer;
+			  font-weight: bold;
+			  padding: 6px 20px;
+			  text-decoration: none;
+			  color: #000;
+			  text-shadow: 0 1px 0 #fff; 
+			  -moz-border-radius: 6px;
+			  -webkit-border-radius: 6px;
+			  border-radius: 6px;
+	                  background-color: rgb(146,213,0);
+			  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(146,213,0)), to(rgb(146,213,0)));
+			  background-image: -webkit-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -moz-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -ms-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: -o-linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+			  background-image: linear-gradient(top, rgb(146,213,0), rgb(146,213,0));
+	                   -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-ms-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	-o-box-shadow: 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(255,255,255,0.07) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07),0 1px 0 rgba(255, 255, 255, 0.07) inset;
+	        
+	        }
+	        #leaf-vote:hover{
+	            color:#fff;
+	            
+	        }
+	         #home-stream ul{
+	        	display:inline;
+	        
+	        }
+	        #home-stream ul li{
+	        	display:block;
+	        float:left;
+	      
+	        margin-top:3px;
+	        width:200px;
+	        }
+ #home-stream ul li:hover{
+	        	
+	        background-color:#ccc;
+	      
+	        }       
+		 #home-stream ul li a{
+			        	cursor:pointer;
+			          width:200px;
+	       float:left;
+			        }
+		  
+	         #home-stream ul li a div{
+	          margin-top:3px;
+	        }
+      .selected{
+	          background-color:#aaa;
+	        float:left;
+	        }
+	        
+	        
+	     </style>
+	     <script type="text/javascript">
+	     
+	     $('#create-lists').live('click',function(){
+	     		 $a='<div id="list-create"><div style="width:200px; display:block; position:relative; margin-left:2px; float:left; padding:5px; background-color:#ccc; border:solid 1px"><input id="list-name" style="width:200px; outline:none; height:25px"placeholder="create your list"/></div><a onclick="$(\'#list-create\').remove()" style="float:left;cursor:pointer; font-weight:bold">cancel</a><a style="float:right; cursor:pointer; cursor:pointer;font-weight:bold"onclick="createlists()">create</a></div>';   
+                  
+                  $('#create-lists-div').html($a);
+                  
+                  });
+                  
+                  function createlists(){
+                  var name=$('#list-name').val();
+                  $.ajax({
+	    		    url:'http://www.freniz.com/list/create?name='+name,
+	    		    cache:false,
+	    		    dataType:"json",
+	    		    success:function(json){
+	    		    	 if(json.status=='success'){
+	    		    	  $a='<li><a><span><div style="width:20px;  float:left; height:20px;"><img src="'+json.picture+'" height="20" width="20"/></div><div style="width:175px; margin-left:2px;  float:left; height:20px; ">'+json.name+'</div></span></a></li>';
+	    		    	 $('#lists-items').after($a);
+	    		     }
+	    		     $('#list-create').remove();
+	    		    }
+	 		    } );
+                  }
+			
+			
+	     </script>
+	     
+	    </head>
+	    <body>
+ <img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+    <div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="http://images.freniz.com/freniz.png"/></a>
 </div>
-<?php print_r($this->onlineusers);?>
+<div id="smile-mood-change" style="width:40px; float:left; height:60px; ">
+<?php if(isset($session['userid']) && $session['type']!='none' && $session['type']!='leaf'){ ?>
+   <div style="width:40px; margin-top: 10px; float:left; height:40px; "><img id="top-smiley" style="cursor: pointer;marin-top:10px" src="http://images.freniz.com/mood/32/<?php $smood=explode(',', $session['mood']); echo $smood[0];?>" width="40" height="40"/></div>
+<?php } ?>
+</div>
+<div id="top-menu-items" style=" float:left; height:60px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    <?php if(isset($session['userid']) && $session['type']=='user'){ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a id="mes-a" href="http://www.freniz.com/messages">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/blog/<?php echo $session['userid']; ?>">Blog</a></li>
+	
+	<li class="link-bord">
+		<a id="alert-a" href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a id="noti-a" href="http://www.freniz.com/notification">Notifications</a></li>
+					<li><a id="revi-a" href="http://www.freniz.com/review/reviews">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					 <li ><a href="http://www.freniz.com/forum">Forum</a></li>
+                    <li><a href="http://www.freniz.com/diary">Diary</a></li>
+					<li><a href="http://www.freniz.com/slambook">Slam book</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+<?php }else{ ?>
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="http://www.freniz.com/<?php echo $session['userid']; ?>">Home</a></li>
+<ul>
+
+<?php } ?>
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:60px; ">
+<?php if($session['userid']){ ?> 
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="javascript:void(0)" title="<?php echo $session['username']; ?>" class="active">
+				<?php 
+				$name = $session['username'];
+                 if(strlen($name) > 24 )
+                 {
+                 echo substr($name, 0, 26).'...' ;
+                                 }
+               else {
+                   echo $name;
+               } ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <?php 
+                                $val=$session['adminpages_details'];
+                                unset($val[$session['userid']]);
+                                foreach ($val as $value){
+                                	?>
+                            		<li title="<?php echo $value['username']; ?>" onclick="switchuser('<?php echo $value['userid'];?>')"  ><div style="border-bottom:solid 1px #ccc; padding:3px; height:16px"><label  style="color:#999; height:16px;float:left;font-weight: bold"><img style="width:16px; height:16px; float:left" src="http://images.freniz.com/32/32_<?php echo $value['propic_url'];?>"/><a title="<?php echo $value['username']; ?>" style="font-size:10px;padding-left:4px;"><?php $leafname = $value['username'];
+                 if(strlen($leafname) > 15 )
+                 {
+                 echo substr($leafname, 0, 15).'...' ;
+                                 }
+               else {
+                   echo $leafname; } ?></a></label></div></li>
+                                 	<?php } 
+                                 	if($session['type']!='none' && $session['type']!='leaf'){
+                                 	?>
+                                 	 <li ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis">Account Settings</a></li>
+                                 <li><a href="http://www.freniz.com/index/privacysettings">Privacy Setting</a> </li>
+                                <?php }elseif($session['type']=='leaf'){ ?>
+                                   <li><a href="http://www.freniz.com/leafedit/<?php echo $session['userid']; ?>#privacyinfo">Privacy Setting</a> </li>
+                                <?php } ?>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="http://www.freniz.com/index/logout">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+
+    
+ 
+</div>
+ <?php }else {?>
+      <div style="width:250px; height: 40px; float:right">
+             <a style=" padding:3px 10px; float:right" href="http://www.freniz.com/loginattempt" id="leaf-vote">Login</a>
+          </div>
+    <?php } ?>
+ 
+<div id="search-option-items" style="width:200px; margin-top: -10px;margin-right:50px;  float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:250px; height:30px" ><span id="searchusers-load" style="margin-top:-24px; margin-left: 215px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -24px; margin-right:-45px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div>          
+	        <div style="width:1000px; margin-left: auto; margin-right: auto;">
+	        <div id="maincontainer">
+	        	 
+	           <!-- main div close --> 
+	              
+	                  <div id="home-stream" style="width:200px; border-right:solid 1px; float: left; ">
+	             <div style="width:190px; padding:5px; height:60px; ">
+	             <div style="width:50px; height:50px; float:left; border:solid 1px">
+	             <img src="http://images.freniz.com/50/50_<?php echo $session['propic_url']; ?>" />
+	             </div>
+	             <div style="width:130px; margin-left:3px; height:50px; float:left; ">
+	             <label><?php echo $session['username']; ?></label>
+	             </div>
+	             
+	             
+	             </div>
+	             
+	             <ul>
+	             <li id="lists-items"><a><span class="selected"><div style="width:20px;  float:left; height:20px;"><img src="j.png" height="20" width="20"/></div><div style="width:175px; margin-left:2px;  float:left; height:20px; ">Stream</div></span></a></li>
+	              <?php foreach($defaultLists as $lis){
+	               ?>
+	           <li><a href="http://www.freniz.com/list/display?id=<?php echo $lis['id'];  ?>"><span><div style="width:20px;  float:left; height:20px;"><img src="<?php echo $lis['picture']; ?>" height="20" width="20"/></div><div style="width:175px; margin-left:2px;  float:left; height:20px; "><?php echo $lis['name']; ?></div></span></a></li>
+	             <?php } ?>  
+	             
+	               </ul>
+	                
+	                
+	                
+	                 <ul>
+	             
+	              <?php foreach($this->lists as $list){
+	               ?>
+	           <li><a href="http://www.freniz.com/list/display?id=<?php echo $list['id'];  ?>"><span><div style="width:20px;  float:left; height:20px;"><img src="<?php echo $list['picture']; ?>" height="20" width="20"/></div><div style="width:175px; margin-left:2px;  float:left; height:20px; "><?php echo $list['name']; ?></div></span></a></li>
+	             <?php } ?>     
+	              <li><a id="create-lists" style="width:200px; text-align:center; font-weight:bold">Add list +</a></li>
+	                </ul>
+	             <div id="create-lists-div">
+	             
+	             </div>
+	             </div>
+	         
+	            <div style="width:700px; padding:3px; float: left; ">
+	            
+	            <label style="font-size: 24px; 	text-transform: uppercase; "><?php echo  $session['username']; ?>'s Streams</label>
+	            
+	            <!-- text feild -->
+	            
+	           <!-- text feild close --> 
+	         <!-- blog start -->   
+	         <script type="text/javascript">
+				getstreams();
+				setTimeout(function(){loadcomments();},2000);
+	         </script>
+	         <div id="new-streams" style='width:700px; margin-top:5px; float: left; display:none;'><a href='javascript:void(0)' onclick='setStreamsVisible()'><div id="new-streams-count" style="float:left" >0</div><div style="float:left">new streams</div></a></div>
+	 <div id="streams" style="width: 700px; margin-top:5px; float: left;">
+             </div>
+             </div>
+             <div style="width:250px; height:100px; float: left; ">
+	            </div>
+	            <!-- blog close -->
+	            <div id="footer" style="width: 100%; height: 100px; float: left; ">
+    
+    
+    
+</div>
+ 
+	            </div>
+	           </div> 
+	         
+	   
+        <div id="light" class="white_content"></div>
+    <div id="fade" onClick="document.getElementById('light').style.display='none';  document.getElementById('fade').style.display='none'" class="black_overlay">
+        </div>
+	<!-- 
+	  <div id="remove-items" style="width:130px; display:none; background-color:#eee;float:left; ">
+<ul>
+<li class="delete" ><a href="javascript:void(0)">delete</a></li>
+<li><a href="javascript:void(0)">Settings</a></li>
+<li><a  href="javascript:void(0)">Report</a></li>
+</ul>
+</div> 
+	 -->  
+	 
+	      <!-- <div style="border: solid 1px; width:100%; height:270px; background-image:url(images/banner.png)"></div>  --> 
+	 <div id="musictab">
+
+ <div class="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+ </div> 
+       
+</div>
+ <div id="hover-data"></div>
+	    </body>  
+	    
+	    
+	    
+	    
+	</html>

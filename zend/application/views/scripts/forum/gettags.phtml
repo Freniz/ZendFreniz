@@ -1,0 +1,21 @@
+
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+?>
+
+<tags>
+<?php
+foreach($this->result as $id=>$tags){
+	?>
+	<tag>
+		<tag_name> <?php echo $tags['tag']; ?></tag_name>
+		<noq><?php echo $tags['noq'];?></noq>
+		
+	</tag>
+<?php 
+	}
+	?>
+</tags>
+

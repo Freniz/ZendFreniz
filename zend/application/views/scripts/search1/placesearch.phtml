@@ -1,0 +1,29 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+
+header("Pragma: no-cache" );
+
+header("Content-Type: text/xml; charset=utf-8");
+
+
+$result=$this->results;
+		?>
+		    <places>
+	        <?php foreach ($result as $key=>$row){
+	?>
+	            <place>
+
+	            <placename><?php echo $row->placename; ?></placename>
+
+	           
+
+	            </place>
+
+	       
+
+	        <?php  } 
+
+	            ?>
+
+	         </places>
+	

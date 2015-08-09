@@ -369,8 +369,8 @@ qq.FileUploaderBasic.prototype = {
         }
         if(this._filesInProgress==0)
             {
-                var php_array=php_serialize(this._filesId);
-                updateimagedata(php_array);
+                //var php_array=php_serialize(this._filesId);
+                //updateimagedata(php_array);
             }
     },
     _onCancel: function(id, fileName){
@@ -484,7 +484,7 @@ qq.FileUploaderBasic.prototype = {
  * @inherits qq.FileUploaderBasic
  */
 qq.FileUploader = function(o){
-    // call parent constructor
+	// call parent constructor
     qq.FileUploaderBasic.apply(this, arguments);
     
     // additional options    
@@ -539,7 +539,6 @@ qq.FileUploader = function(o){
     this._button = this._createUploadButton(this._find(this._element, 'button'));        
     
     this._bindCancelEvent();
-    
     this._setupDragDrop();
     
 };
@@ -610,7 +609,7 @@ qq.extend(qq.FileUploader.prototype, {
         var item = this._getItemByFileId(id);
         var size = this._find(item, 'size');
         size.style.display = 'inline';
-        
+         
         var text; 
         if (loaded != total){
             text = Math.round(loaded / total * 100) + '% from ' + this._formatSize(total);
@@ -621,13 +620,12 @@ qq.extend(qq.FileUploader.prototype, {
         qq.setText(size, text);         
     },
     _onComplete: function(id, fileName, result){
-        qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
+		qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
 
         // mark completed
         var item = this._getItemByFileId(id);                
         qq.remove(this._find(item, 'cancel'));
         qq.remove(this._find(item, 'spinner'));
-        
         if (result.success){
             qq.addClass(item, this._classes.success);    
         } else {
@@ -1074,6 +1072,7 @@ qq.extend(qq.UploadHandlerForm.prototype, {
         this.log("innerHTML = " + doc.body.innerHTML);
                         
         try {
+			//alert(doc.body.innerHTML);
             response = eval("(" + doc.body.innerHTML + ")");
         } catch(err){
             response = {};
@@ -1198,7 +1197,8 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
             }
         };
 
-        xhr.onreadystatechange = function(){            
+        xhr.onreadystatechange = function(){   
+		//	alert(xhr.status);         
             if (xhr.readyState == 4){
                 self._onComplete(id, xhr);                    
             }
@@ -1208,6 +1208,7 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         params = params || {};
         params['qqfile'] = name;
         var queryString = qq.obj2url(params, this._options.action);
+        //alert(queryString);
         xhr.open("POST", queryString, true);
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));
@@ -1215,14 +1216,16 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         xhr.send(file);
     },
     _onComplete: function(id, xhr){
-        // the request was aborted/cancelled
+    	  // the request was aborted/cancelled
+    	 var fileids; 
+    	 fileids = eval("(" + xhr.responseText + ")");
+    	 
+    	//window.location.href='http://localhost:10088/freniz_zend/public/crop/'+fileids.fileid+'?type=propic';
         if (!this._files[id]) return;
-        
+       
         var name = this.getName(id);
         var size = this.getSize(id);
-        
         this._options.onProgress(id, name, size, size);
-                
         if (xhr.status == 200){
             this.log("xhr - server response received");
             this.log("responseText = " + xhr.responseText);
@@ -1231,11 +1234,11 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
                     
             try {
                 response = eval("(" + xhr.responseText + ")");
-               
+                
             } catch(err){
                 response = {};
             }
-            
+           // alert(this._options.onComplete);
         this._options.onComplete(id, name, response);
                         
         } else {                   
@@ -1244,7 +1247,9 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
                 
         this._files[id] = null;
         this._xhrs[id] = null;    
-        this._dequeue(id);                    
+        this._dequeue(id); 
+       
+        
     },
     _cancel: function(id){
         this._options.onCancel(id, this.getName(id));

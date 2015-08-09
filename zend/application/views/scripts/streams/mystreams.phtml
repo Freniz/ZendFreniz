@@ -1,0 +1,170 @@
+<?php 
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+?>
+<streams>
+	<maxcomment><?php echo $this->results['maxcomment'];?></maxcomment>
+	<?php
+		foreach($this->results['mystream'] as $id => $values){
+		switch($values['contenttype']){
+			case 'post':
+				?>
+		<stream>
+			<type>post</type>
+			<id><?php echo $id; ?></id>
+			<suserid><?php echo $this->results['results']['post']['results'][$values['contentid']]['suserid'];?></suserid>
+			<susername><?php echo $this->results['results']['post']['results'][$values['contentid']]['susername'];?></susername>
+			<suserurl><?php echo $this->results['results']['post']['results'][$values['contentid']]['suser_url'];?></suserurl>
+			<suserpropic><?php echo $this->results['results']['post']['results'][$values['contentid']]['spropic_url'];?></suserpropic>
+			<status><?php echo $this->results['results']['post']['results'][$values['contentid']]['status'];?></status>
+			<comments>
+					<?php foreach ($this->results['results']['post']['results'][$values['contentid']]['comments'] as $commentid => $comment){?>
+					<comment>
+						<comment-id><?php echo $commentid;?></comment-id>
+						<comment-userid><?php echo $comment['userid'];?></comment-userid>
+						<comment-username><?php echo $comment['username'];?></comment-username>
+						<comment-propic><?php echo $comment['commentpic_url'];?></comment-propic>
+						<comment-message><?php echo $comment['comment'];?></comment-message>
+						<comment-date><?php echo $comment['date'];?></comment-date>
+					</comment>
+					<?php }?>
+					<loadprevious><?php if($this->results['results']['post']['results'][$values['contentid']]['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+				</comments>
+				<iscommentable><?php if($this->results['results']['post']['results'][$values['contentid']]['iscommentable']) echo 'yes'; else echo 'no';?></iscommentable>
+				<vote><?php $votes= unserialize($this->results['results']['post']['results'][$values['contentid']]['vote']); echo count($votes);?></vote>
+				<vote-contains><?php if(!in_array($this->mydetails->userid,$votes)) echo 'no'; else echo 'yes';?></vote-contains>
+				<date><?php echo $values['date'];?></date>
+		</stream>
+		<?php 	break;
+			case 'image':
+				print_r($this->results['image'][$values['contentid']]);
+				?>
+		<stream>
+			<type>image</type>
+			<id><?php echo $id;?></id>
+			<suserid><?php echo $this->results['results']['image'][$values['contentid']]['suserid'];?></suserid>
+			<susername><?php echo $this->results['results']['image'][$values['contentid']]['susername'];?></susername>
+			<suserurl><?php echo $this->results['results']['image'][$values['contentid']]['suser_url'];?></suserurl>
+			<suserpropic><?php echo $this->results['results']['imge'][$values['contentid']]['spropic_url'];?></suserpropic>
+			<imageurl><?php echo $this->results['results']['image'][$values['contentid']]['url']; ?></imageurl>
+		        <imagetitle><?php echo $this->results['results']['image'][$values['contentid']]['title']; ?></imagetitle>
+		        <imagedes><?php echo $this->results['results']['image'][$values['contentid']]['description']; ?></imagedes>
+		        <comments>
+		            <?php foreach($this->results['results']['image'][$values['contentid']]['comments']['result'] as $id=>$comment){ ?>
+		            <comment>
+		                <comment-id><?php echo $id; ?></comment-id>
+		                <comment-userid><?php echo $comment['userid']; ?></comment-userid>
+		                <comment-username><?php echo $comment['username'];?></comment-username>
+		                <comment-userpic><?php if($comment['type']=='user') echo $comment['user_imgurl']; else echo $comment['page_imgurl'];?></comment-userpic>
+		                <comment-message><?php echo $comment['comment'];?></comment-message>
+		                <comment-date><?php echo $comment['date'];?></comment-date>
+		            </comment>
+		            <?php } ?>
+		            <loadprevious><?php if($this->results['results']['image']['results'][$values['contentid']]['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+		        </comments>
+		        <iscommentable><?php if($this->results['results']['image'][$values['contentid']]['iscommentable']) echo 'yes'; else echo 'no';?></iscommentable>
+				<vote><?php $votes=  unserialize($this->results['results']['image'][$values['contentid']]['vote']); echo count($votes); ?></vote>
+		        <vote-contains><?php if(!in_array($this->mydetails->userid, $votes)) echo 'no'; else echo 'yes'; ?></vote-contains>
+		        <date><?php echo $values['date']; ?></date>	
+		</stream>
+		<?php 
+				break;
+			case 'video':
+				?>
+		<stream>
+			<type>video</type>
+			<id><?php echo $id;?></id>
+			<suserid><?php echo $this->results['results']['video']['results'][$values['contentid']]['suserid'];?></suserid>
+			<susername><?php echo $this->results['results']['video']['results'][$values['contentid']]['susername'];?></susername>
+			<suserurl><?php echo $this->results['results']['video']['results'][$values['contentid']]['suser_url'];?></suserurl>
+			<suserpropic><?php echo $this->results['results']['video']['results'][$values['contentid']]['spropic_url'];?></suserpropic>
+			<videotitle><?php echo $this->results['results']['video']['results'][$values['contentid']]['title']; ?></videotitle>
+		    <url><?php echo htmlspecialchars($this->results['results']['video']['results'][$values['contentid']]['embeddcode']); ?></url>
+		    <comments>
+					<?php foreach ($this->results['results']['video']['results'][$values['contentid']]['comments'] as $commentid => $comment){?>
+					<comment>
+						<comment-id><?php echo $commentid;?></comment-id>
+						<comment-userid><?php echo $comment['userid'];?></comment-userid>
+						<comment-username><?php echo $comment['username'];?></comment-username>
+						<comment-propic><?php echo $comment['commentpic_url'];?></comment-propic>
+						<comment-message><?php echo $comment['comment'];?></comment-message>
+						<comment-date><?php echo $comment['date'];?></comment-date>
+					</comment>
+					<?php }?>
+					<loadprevious><?php if($this->results['results']['video']['results'][$values['contentid']]['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+				</comments>
+				<iscommentable><?php if($this->results['results']['video']['results'][$values['contentid']]['iscommentable']) echo 'yes'; else echo 'no';?></iscommentable>
+				<vote><?php $votes= unserialize($this->results['results']['video']['results'][$values['contentid']]['vote']); echo count($votes);?></vote>
+				<vote-contains><?php if(!in_array($this->mydetails->userid,$votes)) echo 'no'; else echo 'yes';?></vote-contains>
+				<date><?php echo $values['date'];?></date>
+		</stream>
+				<?php 
+				break;
+			case 'propic':
+				?>
+			<stream>
+				<type>propic</type>
+				<userid><?php echo $values['ruserid'];?></userid>
+				<username><?php echo $values['rusername'];?></username>
+				<userpic><?php echo $values['ruserimageurl']?></userpic>
+				<userurl><?php echo $values['ruserurl']?></userurl>
+				<date><?php echo $values['date'];?></date>
+			</stream>
+				<?php 
+				break;
+			case 'basicinfo':
+				?>
+				<stream>
+					<type>basicinfo</type>
+					<userid><?php echo $values['ruserid'];?></userid>
+					<username><?php echo $values['rusername'];?></username>
+					<userpic><?php echo $values['ruserimageurl'];?></userpic>
+					<userurl><?php echo $values['userurl'];?></userurl>
+					<date><?php echo $values['date'];?></date>
+				</stream>
+				<?php 
+				break;
+			case 'personalinfo':
+				?>
+			<stream>
+				<type>personalinfo</type>
+				<userid><?php echo $values['ruserid'];?></userid>
+				<username><?php echo $values['rusername'];?></username>
+				<userpic><?php echo $values['ruserimageurl']?></userpic>
+				<userurl><?php echo $values['ruserurl']?></userurl>
+				<date><?php echo $values['date'];?></date>
+			</stream>
+				<?php 
+				break;
+			case 'mood':
+				?>
+			<stream>
+				<type>mood</type>
+				<userid><?php echo $values['ruserid'];?></userid>
+				<username><?php echo $values['rusername'];?></username>
+				<userpic><?php echo $values['ruserimageurl']?></userpic>
+				<userurl><?php echo $values['ruserurl']?></userurl>
+				<date><?php echo $values['date'];?></date>
+			</stream>
+				<?php 
+				break;
+			case 'city':
+				?>
+			<stream>
+				<type>city</type>
+				<userid><?php echo $values['ruserid'];?></userid>
+				<username><?php echo $values['rusername'];?></username>
+				<userpic><?php echo $values['ruserimageurl']?></userpic>
+				<userurl><?php echo $values['ruserurl']?></userurl>
+				<date><?php echo $values['date'];?></date>
+			</stream>
+				<?php 
+				break;
+		?>		
+				
+	<?php }
+	}?>
+	
+</streams>

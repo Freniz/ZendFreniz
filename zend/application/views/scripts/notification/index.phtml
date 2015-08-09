@@ -1,0 +1,17 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+?>
+<notifications>
+	<?php foreach($this->results as $notification){?>
+	<notification>
+		<id><?php echo $notification['notification_id'];?></id>
+		<userpic><?php echo $notification['userpic_url'];?></userpic>
+		<message><?php echo htmlspecialchars($notification['notification']);?></message>
+		<contenturl><?php echo $notification['contenturl'];?></contenturl>
+		<read><?php echo $notification['read1'];?></read>
+		<date><?php echo $notification['time'];?></date>
+	</notification>
+	<?php }?>
+</notifications>

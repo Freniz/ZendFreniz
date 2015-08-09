@@ -1,0 +1,53 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+$result=$this->results;
+		?>
+		<?php if ($_REQUEST['type']=='page' ){ ?>
+	        <pages>
+	        <?php foreach ($result as $key=>$row){
+		if($row->type=='page')
+	{
+	?>
+	            <page>
+	            <pageid><?php echo $row->userid; ?></pageid>
+	            <pagename><?php echo $row->username; ?></pagename>
+	            <pagepic><?php echo $row->propic; ?></pagepic>
+	            <category><?php echo htmlspecialchars($row->category); ?></category>
+	             <subcategory><?php echo htmlspecialchars($row->subcategory); ?></subcategory>
+	            <vote><?php echo $row->vote; ?></vote>
+	             <votecount><?php $votes=  unserialize($row->vote); echo sizeof($votes); ?></votecount>
+	             <url><?php echo $row->user_url; ?></url>
+	            </page>
+	       
+	        <?php  } }
+	            ?>
+	         </pages>
+	     
+<?php }?>
+	        
+	      <?php if ($_REQUEST['type']=='user' || $_REQUEST['type']=='skills' ){ ?>  
+ 				<users>
+	     <?php foreach ($result as $key=>$row){
+		if($row->type=='user')
+			{
+			?>
+			     <user>
+	            <userid><?php echo $row->userid; ?></userid>
+	            <username><?php echo $row->username; ?></username>
+	            <skills><?php echo $row->skills;?></skills>
+	            <employer><?php echo $row->employer;?></employer>
+	            <college><?php echo $row->college;?></college>
+	            <school><?php echo $row->school;?></school>
+	            <propic><?php echo $row->propic; ?></propic>
+	            <votes><?php echo $row->vote; ?></votes>
+	            <votecount><?php $votes=  unserialize($row->vote); echo sizeof($votes); ?></votecount>
+	            <ccity> <?php  echo $row->livingin; ?></ccity>
+	            <url><?php echo $row->user_url; ?></url>
+	            </user>
+	        <?php  } }
+	            ?>
+	        </users>
+	        <?php }?>

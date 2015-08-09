@@ -1,0 +1,55 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+$session=(array)$this->mydetails;
+$results=$this->results['results'];
+?>
+<videos>
+	<maxcommentid><?php echo $this->results['maxcommentid']?></maxcommentid>
+		<?php foreach ($results as $row){?>
+		<video>
+		<videoid><?php echo $row['videoid'];?></videoid>
+		<title><?php echo $row['title'];?></title>
+		<embeddcode><?php echo htmlspecialchars($row['embeddcode']);?></embeddcode>
+	 	<vote_count> <?php $votes=unserialize($row['vote']); echo count($votes); ?> </vote_count>
+		<votecontains><?php if(in_array($session['userid'], $votes)){
+                            echo "yes";
+                     }
+                        else 
+                            echo "no";
+                            ?></votecontains>
+		<date><?php echo $row['date'];?></date>
+		<suserid><?php echo $row['suserid'];?></suserid>
+		<ruserid><?php echo $row['ruserid'];?></ruserid>
+		<commentcount><?php echo $row['commentcount'];?></commentcount>
+		<notifyusers><?php echo $row['notifyusers'];?></notifyusers>
+		<susername><?php echo $row['susername'];?></susername>
+		<suser_url><?php echo $row['suser_url'];?></suser_url>
+		<spropic><?php echo $row['spropic'];?></spropic>
+		<spropic_url><?php echo $row['spropic_url'];?></spropic_url>
+		<rusername><?php echo $row['rusername'];?></rusername>
+		<ruser_url><?php echo $row['ruser_url'];?></ruser_url>
+		<rpropic><?php echo $row['rpropic'];?></rpropic>
+		<rpropic_url><?php echo $row['rpropic_url'];?></rpropic_url>
+		<iscommentable><?php if($row['iscommentable']) echo 'yes'; else echo 'no';?></iscommentable>
+		<comments><?php
+			foreach ($row['comments'] as $comment){
+			?>
+				<comment>
+				<commentid><?php echo $comment['commentid'];?></commentid>
+				<coment_videoid><?php echo $comment['videoid'];?></coment_videoid>
+				<coment_userid><?php echo $comment['userid'];?></coment_userid>
+				<comment_name><?php echo $comment['username'];?></comment_name>
+				<comment_userurl><?php echo $comment['user_url'];?></comment_userurl>
+				<comment-comment><?php echo $comment['comment'];?></comment-comment>
+				<comment_vote><?php echo $comment['vote'];?></comment_vote>
+				<commentpic_url><?php echo $comment['commentpic_url'];?></commentpic_url>
+				<comment_date><?php echo $comment['date'];?></comment_date>
+				</comment>
+				<?php }?>
+				<loadprevious><?php if($row['loadprevcomments']) echo 'yes'; else echo 'no';?></loadprevious>
+			</comments>
+		</video>
+		<?php }?>
+		</videos>

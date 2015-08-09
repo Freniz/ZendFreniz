@@ -1,0 +1,876 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$session=(array)$this->myDetails;
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Privacysettings</title>
+<style>
+.curve {
+    -moz-border-radius : 25px; /* Firefox */
+    -webkit-border-radius :25px; /* Safari & Chrome */
+    -khtml-border-radius : 25px; /* Linux browsers */
+    border-radius : 25px; /* CSS3 compatible browsers */
+}
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center; /* !!! */
+	width:99%;
+}
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 1000px;
+	
+}
+
+.greenbutton{
+
+background-color: #C1DF79;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#C1DF79), to(#C1DF79));
+background-image: -webkit-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -moz-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -ms-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: -o-linear-gradient(top, #C1DF79, #C1DF79);
+background-image: linear-gradient(top, #C1DF79, #C1DF79);
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+border: 1px solid #7E1515;
+float:right;
+height: 20px;
+padding: ;
+width: 100px;
+cursor: pointer;
+font: bold 12px Arial, Helvetica;
+color: white;
+}
+.foot-tab{
+width:99%;
+
+}
+.foot-tab  ul{
+                    display:block;
+                    margin-top: -2px;
+                    text-align:left;
+                   margin-left: 10px;
+                   
+                }
+               .foot-tab ul li{
+                    display:inline-block; padding: 8px;
+                    font-size: 12px;
+                }
+                .foot-tab ul li a{
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                .foot-tab ul li a:hover{
+                   text-decoration: underline;
+                }
+                .foot-tab{
+                    border-top: solid 2px #ccc;
+                    margin-top: 50px;
+                  float: left;
+                  margin-left: 2px;
+                 
+                }
+                .foot-tab-pos{
+                    position: absolute;
+                }
+                
+                  .show-load{
+                position: absolute;
+                  margin-left:500px;
+                 display:none;
+           width: 100px;
+			height: 20px;
+			background-color: #fff;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+                }
+           
+
+                .usersname{
+                		font-size:9px;
+	                    background-color:#ccc;
+	                    float:left;
+	                    padding:2px;
+	                    margin-left:2px;
+	                    border:  solid 1px;
+                }
+                
+                
+
+</style>
+     <link rel="stylesheet" href="http://css.freniz.com/login.css" type="text/css" media="screen" charset="utf-8" />
+   
+<script type="text/javascript" src="http://js.freniz.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/ajax.js"></script>
+<script type="text/javascript" src="http://js.freniz.com/bsn.AutoSuggest_c_2.0.js"></script>
+<link rel="stylesheet" href="http://css.freniz.com/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript">
+function displayinput(value,eid)
+{
+	switch(value){
+		case 'specific':
+			var e=document.getElementById(eid+'-specific');
+			var e1=document.getElementById(eid+'-restrict');
+			e.style.display='block';
+			var e2=document.getElementById(eid+'-restrict-display');
+			e2.style.display='none';
+			var e3=document.getElementById(eid+'-specific-display');
+			e3.style.display='block';
+			e1.style.display='none';
+			break;
+		case 'private':
+			var e=document.getElementById(eid+'-specific');
+			var e1=document.getElementById(eid+'-restrict');
+			e.style.display='none';
+			var e2=document.getElementById(eid+'-restrict-display');
+			e2.style.display='none';
+			var e3=document.getElementById(eid+'-specific-display');
+			e3.style.display='none';
+			e1.style.display='none';
+			break;
+		
+		default:
+			var e=document.getElementById(eid+'-specific');
+			var e1=document.getElementById(eid+'-restrict');
+			e.style.display='none';
+			var e3=document.getElementById(eid+'-specific-display');
+			e3.style.display='none';
+			var e2=document.getElementById(eid+'-restrict-display');
+			e2.style.display='block';
+			e1.style.display='block';
+		
+	}
+}
+
+
+</script>
+
+
+
+<script type="text/javascript">
+function updatePrivacy(type){
+	var postvisibility=$('#friends-updates').val();
+	var postviewspecific='';
+	$('#updates-specific-display td').children('div').each(function(){ postviewspecific += $(this).attr('name')+','; });
+	postviewspecific=postviewspecific.slice('0','-1');
+	var postviewhidden='';
+	$('#updates-restrict-display td').children('div').each(function(){ postviewhidden += $(this).attr('name')+',';});
+	postviewhidden=postviewhidden.slice('0','-1');
+	var postcomment=$('#friends-updates-post').val();
+	var postcommentspecific='';
+	$('#post-specific-display td').children('div').each(function(){ postcommentspecific += $(this).attr('name')+','; });
+	postcommentspecific=postcommentspecific.slice('0','-1');
+	var postcommentignore='';
+	$('#post-restrict-display td').children('div').each(function(){ postcommentignore += $(this).attr('name')+',';});
+	postcommentignore=postcommentignore.slice('0','-1');
+	
+	var staturevisibility=$('#friends-stature').val();
+	var statureviewspecific='';
+	$('#stature-specific-display td').children('div').each(function(){ statureviewspecific += $(this).attr('name')+','; });
+	statureviewspecific=statureviewspecific.slice('0','-1');
+	var statureviewhidden='';
+	$('#stature-restrict-display td').children('div').each(function(){ statureviewhidden += $(this).attr('name')+',';});
+	statureviewhidden=statureviewhidden.slice('0','-1');
+	var staturecomment=$('#stature1').val();
+	var staturecommentspecific='';
+	$('#stature1-specific-display td').children('div').each(function(){ staturecommentspecific += $(this).attr('name')+','; });
+	staturecommentspecific=staturecommentspecific.slice('0','-1');
+	var staturecommentignore='';
+	$('#stature1-restrict-display td').children('div').each(function(){ staturecommentignore += $(this).attr('name')+',';});
+	staturecommentignore=staturecommentignore.slice('0','-1');
+
+	var admirevisibility=$('#friends-admire').val();
+	var admireviewspecific='';
+	$('#admire-specific-display td').children('div').each(function(){ admireviewspecific += $(this).attr('name')+','; });
+	admireviewspecific=admireviewspecific.slice('0','-1');
+	var admireviewhidden='';
+	$('#admire-restrict-display td').children('div').each(function(){ admireviewhidden += $(this).attr('name')+',';});
+	admireviewhidden=admireviewhidden.slice('0','-1');
+	var admirecomment=$('#admire1').val();
+	var admirecommentspecific='';
+	$('#admire1-specific-display td').children('div').each(function(){ admirecommentspecific += $(this).attr('name')+','; });
+	admirecommentspecific=admirecommentspecific.slice('0','-1');
+	var admirecommentignore='';
+	$('#admire1-restrict-display td').children('div').each(function(){ admirecommentignore += $(this).attr('name')+',';});
+	admirecommentignore=admirecommentignore.slice('0','-1');
+	
+	var videovisibility=$('#friends-video').val();
+	var videoviewspecific='';
+	$('#video-specific-display td').children('div').each(function(){ videoviewspecific += $(this).attr('name')+','; });
+	videoviewspecific=videoviewspecific.slice('0','-1');
+	var videoviewhidden='';
+	$('#video-restrict-display td').children('div').each(function(){ videoviewhidden += $(this).attr('name')+',';});
+	videoviewhidden=videoviewhidden.slice('0','-1');
+	var videocomment=$('#video1').val();
+	var videocommentspecific='';
+	$('#video1-specific-display td').children('div').each(function(){ videocommentspecific += $(this).attr('name')+','; });
+	videocommentspecific=videocommentspecific.slice('0','-1');
+	var videocommentignore='';
+	$('#video1-restrict-display td').children('div').each(function(){ videocommentignore += $(this).attr('name')+',';});
+	videocommentignore=videocommentignore.slice('0','-1');
+	
+
+	var imagevisibility=$('#friends-image').val();
+	var imageviewspecific='';
+	$('#image-specific-display td').children('div').each(function(){ imageviewspecific += $(this).attr('name')+','; });
+	imageviewspecific=imageviewspecific.slice('0','-1');
+	var imageviewhidden='';
+	$('#image-restrict-display td').children('div').each(function(){ imageviewhidden += $(this).attr('name')+',';});
+	imageviewhidden=imageviewhidden.slice('0','-1');
+	var imagecomment=$('#image1').val();
+	var imagecommentspecific='';
+	$('#image1-specific-display td').children('div').each(function(){ imagecommentspecific += $(this).attr('name')+','; });
+	imagecommentspecific=imagecommentspecific.slice('0','-1');
+	var imagecommentignore='';
+	$('#image1-restrict-display td').children('div').each(function(){ imagecommentignore += $(this).attr('name')+',';});
+	imagecommentignore=imagecommentignore.slice('0','-1');
+	//alert(1);
+
+	var message=$('#friends-message').val();
+	var messagespecific='';
+	$('#message-specific-display td').children('div').each(function(){ messagespecific += $(this).attr('name')+','; });
+	messagespecific=messagespecific.slice('0','-1');
+	var messageignore='';
+	$('#message-restrict-display td').children('div').each(function(){ messageignore += $(this).attr('name')+',';});
+	messageignore=messageignore.slice('0','-1');
+		switch(type){
+		case 'scribbles':
+			 var parameters='types=scribbles&scribblesview='+postvisibility+'&scribblesviewspecific='+postviewspecific+'&scribblesviewhidden='+postviewhidden+
+				'&scribblescomment='+postcomment+'&scribblescommentspecific='+postcommentspecific+'&scribblescommentignore='+postcommentignore;
+			break;
+		case 'statures':
+			var parameters='types=statures&statureview='+staturevisibility+'&statureviewspecific='+statureviewspecific+'&statureviewhidden='+statureviewhidden+
+			'&staturecomment='+staturecomment+'&staturecommentspecific='+staturecommentspecific+'&staturecommentignore='+staturecommentignore;
+	
+			break;
+		case 'admires':
+			var parameters='types=admires&admireview='+admirevisibility+'&admireviewspecific='+admireviewspecific+'&admireviewhidden='+admireviewhidden+
+			'&admirecomment='+admirecomment+'&admirecommentspecific='+admirecommentspecific+'&admirecommentignore='+admirecommentignore;
+			break;
+		case 'videos':
+			 var parameters='types=videos&videoview='+videovisibility+'&videoviewspecific='+videoviewspecific+'&videoviewhidden='+videoviewhidden+
+				'&videocomment='+videocomment+'&videocommentspecific='+videocommentspecific+'&videocommentignore='+videocommentignore;
+			break;
+		case 'images':
+			var parameters='types=images&imageview='+imagevisibility+'&imageviewspecific='+imageviewspecific+'&imageviewhidden='+imageviewhidden+
+			'&imagecomment='+imagecomment+'&imageviewspecific='+imagecommentspecific+'&imagecommenthidden='+imagecommentignore;
+			break;
+		case 'messages':
+			var parameters='types=messages&message='+message+'&messagespecific='+messagespecific+'&messageignore='+messageignore;
+			break;
+
+		}
+	/* var parameters='types=scribbles&scribblesview='+postvisibility+'&scribblesviewspecific='+postviewspecific+'&scribblesviewhidden='+postviewhidden+
+	'&scribblescomment='+postcomment+'&scribblescommentspecific='+postcommentspecific+'&scribblescommentignore='+postcommentignore+
+	'&statureview='+staturevisibility+'&statureviewspecific='+statureviewspecific+'&statureviewhidden='+statureviewhidden+
+	'&staturecomment='+staturecomment+'&staturecommentspecific='+staturecommentspecific+'&staturecommentignore='+staturecommentignore+
+	'&admireview='+admirevisibility+'&admireviewspecific='+admireviewspecific+'&admireviewhidden='+admireviewhidden+
+	'&admirecomment='+admirecomment+'&admirecommentspecific='+admirecommentspecific+'&admirecommentignore='+admirecommentignore+
+	'&videoview='+videovisibility+'&videoviewspecific='+videoviewspecific+'&videoviewhidden='+videoviewhidden+
+	'&videocomment='+videocomment+'&videocommentspecific='+videocommentspecific+'&videocommentignore='+videocommentignore+
+	'&imageview='+imagevisibility+'&imageviewspecific='+imageviewspecific+'&imageviewhidden='+imageviewhidden+
+	'&imagecomment='+imagecomment+'&imageviewspecific='+imagecommentspecific+'&imagecommenthidden='+imagecommentignore+
+	'&message='+message+'&messagespecific='+messagespecific+'&messageignore='+messageignore; */
+	
+	
+	$.ajax({
+		url:"http://www.freniz.com/settings/updateprivacy",
+		data:parameters,
+		dataType:"json",
+		method:"post",
+		cache:false,
+		success:function(json){
+			alert(json.status);
+		}
+
+		});
+	
+
+	
+	
+	
+	/*alert('scribbles-view:'+postvisibility+' '+postviewspecific+' '+postviewhidden+'\n'+
+			'scribbles-comment:'+postcomment+' '+postcommentspecific+' '+postcommentignore+'\n'+
+			'stature-view:'+staturevisibility+' '+statureviewspecific+' '+statureviewhidden+'\n'+
+			'stature-comment:'+staturecomment+' '+staturecommentspecific+' '+staturecommentignore+'\n'+
+			'admire-view:'+admirevisibility+' '+admireviewspecific+' '+admireviewhidden+'\n'+
+			'admire-comment:'+admirecomment+' '+admirecommentspecific+' '+admirecommentignore+'\n'+
+			'video-view:'+videovisibility+' '+videoviewspecific+' '+videoviewhidden+'\n'+
+			'video-comment:'+videocomment+' '+videocommentspecific+' '+videocommentignore+'\n'+
+			'image-view:'+imagevisibility+' '+imageviewspecific+' '+imageviewhidden+'\n'+
+			'image-comment:'+imagecomment+' '+imagecommentspecific+' '+imagecommentignore+'\n'
+			
+			);*/
+	
+}
+function updateinfoprivacy(){
+		var dob=$('#friends-dob').val();
+		var status=$('#friends-rstatus').val();
+		var language=$('#friends-language').val();
+		var religion=$('#friends-religion').val();
+		var livingin=$('#friends-living').val();
+		var hometown=$('#friends-htown').val();
+		var friendslist=$('#friends-friendslist').val();
+		var about=$('#friends-about').val();
+		var education=$('#friends-education').val();
+		var occupation=$('#friends-occupation').val();
+		var favourites=$('#friends-favorites').val();
+
+var parameters="types=user&dob="+dob+"&status="+status+"&language="+language+"&religion="+religion+"&livingin="+livingin+"&hometown="+hometown+"&friendlist="+friendslist+"&education="+education+"&occupation="+occupation+"&fav="+favourites+"&aboutme="+about;		
+$.ajax({
+		url:"http://www.freniz.com/settings/updateinfoprivacy",
+		data:parameters,
+		dataType:"json",
+		method:"post",
+		cache:false,
+		success:function(json){
+			alert(json.status);
+		}
+
+		});
+}
+</script>
+
+
+
+
+ <!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style type="text/css">
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:18px;
+	color:#333333;
+	border-collapse: collapse;
+	
+}
+table.gridtable th {
+	padding: 8px;
+	background-color: #dedede;
+}
+table.gridtable td {
+	padding: 8px;
+	background-color: #ffffff;
+	float:left
+}
+nav ul {
+		  margin-top:0px;
+		  padding: 2px;
+		  list-style: none;
+		  position: relative;
+		  float: left;
+		  background: #eee;
+		  border-bottom: 1px solid #fff;
+		  -moz-border-radius: 3px;
+		  -webkit-border-radius: 3px;
+		  border-radius: 3px;    
+		}
+		
+		nav li {
+		  float: left;      
+			   border-left:solid 1px; 
+		}
+     
+      nav li:first-child  a{
+		   
+			border-left:solid 1px #eee; 
+		}
+		
+		nav #acountmenu a {
+		  display: inline-block;
+		  /*display: inline;
+		  *zoom: 1;  */
+		  height: 25px;
+		  line-height: 25px;
+		  font-weight: bold;
+		  padding: 0 8px;
+		  text-decoration: none;
+		  color: #444;
+		  text-shadow: 0 1px 0 #fff; 
+		}
+		
+		nav #acountmenu a {
+		  -moz-border-radius: 0 3px 3px 0;
+		  -webkit-border-radius: 0 3px 3px 0;
+		  border-radius: 0 3px 3px 0;
+		}
+		
+		
+			nav #acountmenu-trigger {
+		  -moz-border-radius: 3px 0 0 3px;
+		  -webkit-border-radius: 3px 0 0 3px;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		nav #acountmenu a:hover {
+		  background: #fff;
+		}
+.active {
+		  background: #fff;
+		}
+</style>
+
+
+</head>
+
+<body>
+ <div class="header-div-top" style="height:50px;">
+             <a href="/"><div class="headername-font" style="width:220px; float:left; background-image: url(images.freniz.com/freniz.png); margin-top: -10px; height:60px; "></div></a>
+     
+</div>
+        
+<div class="centered" style="">
+
+
+ <div style=" width:1000px; margin-left:auto; margin-right:auto; padding:10px; ">
+<div style="width:600px; height:30px;margin-left:auto;margin-right:auto;">
+<nav>
+	<img style="width:32px; float:left; height:32px; " src="http://images.freniz.com/32/32_<?php echo $session['propic_url'];?>"/>
+	<ul>
+			<li id="acountmenu" style="border-left:solid 1px #eee"><a  href="http://www.freniz.com/<?php echo $session['userid'];?>" ><?php echo $session['fname'];?></a></li>
+		<li id="acountmenu" ><a href="http://www.freniz.com/index/personalinfo?log_aug=finis" >Account Settings</a></li>
+		<li class="active" id="acountmenu"><a href="http://www.freniz.com/index/privacysettings" >Privacy Settings</a></li>
+		<li id="acountmenu"><a href="http://www.freniz.com/index/advancedsettings" >Advanced Privacy</a></li>
+	</ul>
+</nav>
+</div>
+ 
+ <div style="width:750px; padding:10px; margin-left:auto; margin-right:auto; ">
+
+ <div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Scribbles</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>Who can visit?</td><td><select  id="friends-updates" onchange="displayinput(document.getElementById('friends-updates').value,'updates')" style="width:100px;" ><option <?php if($this->privacy['postvisi']=='friends'){echo 'selected';};?> value="friends">Friends</option><option <?php if($this->privacy['postvisi']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['postvisi']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['postvisi']=='private'){echo 'selected';} ?> value="private">Private</option>
+<option <?php if($this->privacy['postvisi']=='specific') {echo 'selected';} ?> value="specific">Specific</option>
+</select></td></tr>
+<tr id="updates-specific"  style="display: <?php if($this->privacy['postvisi']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input type="text" id='updates-specific-input' placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="updates-restrict"  style="display: <?php if($this->privacy['postvisi']=='specific') {echo 'none';}else echo 'block'; ?>"><td>Restrict people</td><th><input type="text" id="updates-restrict-input" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="updates-specific-display" style="display: <?php if($this->privacy['postvisi']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['postspeci']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr><tr id="updates-restrict-display" style="display: <?php if($this->privacy['postvisi']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['posthidden']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr><td>Who can scribble?</td><td><select id="friends-updates-post"  onchange="displayinput(document.getElementById('friends-updates-post').value,'post')"  style="width:100px;" ><option <?php if($this->privacy['post']=='friends'){echo 'selected';};?> value="friends">Friends</option><option <?php if($this->privacy['post']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['post']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['post']=='private'){echo 'selected';} ?> value="private">Private</option>
+<option <?php if($this->privacy['post']=='specific') {echo 'selected';} ?> value="specific">Specific</option>
+</select></td></tr><tr id="post-specific" style="display:<?php if($this->privacy['post']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="post-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="post-restrict" style="display:<?php if($this->privacy['post']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="post-restrict-input" type="text"  placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="post-specific-display" style="display: <?php if($this->privacy['post']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['postspecificpeople']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr><tr id="post-restrict-display" style="display: <?php if($this->privacy['post']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['postignore']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+
+</table>
+
+
+</div>
+<div style="width:100%; padding:10px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updatePrivacy('scribbles');" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+
+ <div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Stature</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>Who can view?</td><td><select  id="friends-stature" onchange="displayinput(document.getElementById('friends-stature').value,'stature')" style="width:100px;" ><option <?php if($this->privacy['staturevisi']=='friends'){echo 'selected';}?> value="friends">Friends</option><option <?php if($this->privacy['staturevisi']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['staturevisi']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['staturevisi']=='private'){echo 'selected';}?> value="private">Private</option>
+<option <?php if($this->privacy['staturevisi']=='specific'){echo 'selected';}?> value="specific">Specific</option>
+</select></td></tr><tr id="stature-specific"  style="display: <?php if($this->privacy['staturevisi']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="stature-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="stature-restrict"  style="display: <?php if($this->privacy['staturevisi']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="stature-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="stature-specific-display" style="display: <?php if($this->privacy['staturevisi']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['staturespeci']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr id="stature-restrict-display" style="display: <?php if($this->privacy['staturevisi']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['staturehidden']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+
+<tr><td>Who can Stature?</td><td>
+
+<select id="stature1" onchange="displayinput(document.getElementById('stature1').value,'stature1')" style="width:100px;" ><option <?php if($this->privacy['stature']=='friends'){echo 'selected';}?> value="friends">Friends</option>
+<option <?php if($this->privacy['stature']=='private'){echo 'selected';}?> value="private">Private</option>
+<option <?php if($this->privacy['stature']=='specific'){echo 'selected';}?> value='specific'>Specific</option>
+</select></td></tr><tr id="stature1-specific" style="display:<?php if($this->privacy['stature']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="stature1-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="stature1-restrict" style="display:<?php if($this->privacy['stature']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="stature1-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="stature1-specific-display" style="display: <?php if($this->privacy['stature']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['staturespecificpeople']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr id="stature1-restrict-display" style="display: <?php if($this->privacy['stature']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['statureignore']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+
+</table>
+</div>
+<div style="width:100%; padding:10px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updatePrivacy('statures');" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+<div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Admiration</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>who can Visit?</td><td><select id="friends-admire" onchange="displayinput(document.getElementById('friends-admire').value,'admire')" style="width:100px;" ><option<?php if($this->privacy['testyvisi']=='friends'){echo 'selected';}?>  value="friends">Friends</option><option <?php if($this->privacy['testyvisi']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['testyvisi']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['testyvisi']=='private'){echo 'selected';}?> value="private">Private</option>
+<option <?php if($this->privacy['testyvisi']=='specific'){echo 'selected';}?> value="specific">Specific</option>
+</select></td></tr><tr id="admire-specific" style="display:<?php if($this->privacy['testyvisi']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="admire-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="admire-restrict" style="display:<?php if($this->privacy['testyvisi']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="admire-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="admire-specific-display" style="display: <?php if($this->privacy['testyvisi']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['testyspeci']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr id="admire-restrict-display" style="display: <?php if($this->privacy['testyvisi']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['testyhidden']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr><td>Who can admire?</td><td>
+
+<select id="admire1" onchange="displayinput(document.getElementById('admire1').value,'admire1')" style="width:100px;" ><option <?php if($this->privacy['testy']=='friends'){echo 'selected';};?> value="friends">Friends</option><option <?php if($this->privacy['testy']=='fof'){echo 'selected';}?>value="fof">FoF</option>
+<option <?php if($this->privacy['testy']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['testy']=='private'){echo 'selected';} ?> value="private">Private</option>
+<option <?php if($this->privacy['testy']=='specific') {echo 'selected';} ?> value="specific">Specific</option>
+</select></td></tr><tr id="admire1-specific" style="display:<?php if($this->privacy['testy']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="admire1-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="admire1-restrict" style="display:<?php if($this->privacy['testy']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="admire1-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="admire1-specific-display" style="display: <?php if($this->privacy['testy']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['testyspecificpeople']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr id="admire1-restrict-display" style="display: <?php if($this->privacy['testy']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['testyignore']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+
+</table>
+</div>
+<div style="width:100%; padding:10px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updatePrivacy('admires');" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+
+
+
+<div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Message</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>Who can message me?</td><td><select id="friends-message" onchange="displayinput(document.getElementById('friends-message').value,'message')" style="width:100px;" ><option <?php if($this->privacy['message']=='friends'){echo 'selected';}?> value="friends">Friends</option><option <?php if($this->privacy['message']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['message']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['message']=='private'){echo 'selected';}?> value="private">Private</option>
+<option <?php if($this->privacy['message']=='specific'){echo 'selected';}?> value="specific">Specific</option>
+</select></td></tr>
+<tr id="message-specific"  style="display: <?php if($this->privacy['message']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="message-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="message-restrict"  style="display: <?php if($this->privacy['message']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="message-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="message-specific-display" style="display: <?php if($this->privacy['message']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['messagespecificpeople']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr><tr id="message-restrict-display" style="display: <?php if($this->privacy['message']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['messageignore']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+</table>
+</div>
+<div style="width:100%; padding:10px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updatePrivacy('messages');" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+
+
+
+<div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Video</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>who can Visit?</td><td><select id="friends-video" onchange="displayinput(document.getElementById('friends-video').value,'video')" style="width:100px;" ><option<?php if($this->privacy['videovisi']=='friends'){echo 'selected';}?>  value="friends">Friends</option><option <?php if($this->privacy['videovisi']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['videovisi']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['videovisi']=='private'){echo 'selected';}?> value="private">Private</option>
+<option <?php if($this->privacy['staturevisi']=='specific'){echo 'selected';}?> value="specific">Specific</option>
+</select></td></tr><tr id="video-specific" style="display:<?php if($this->privacy['videovisi']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="video-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="video-restrict" style="display:<?php if($this->privacy['videovisi']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="video-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="video-specific-display" style="display: <?php if($this->privacy['videovisi']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['videospeci']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr id="video-restrict-display" style="display: <?php if($this->privacy['videovisi']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['videohidden']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr><td>Who can video?</td><td>
+
+<select id="video1" onchange="displayinput(document.getElementById('video1').value,'video1')" style="width:100px;" ><option <?php if($this->privacy['video']=='friends'){echo 'selected';};?> value="friends">Friends</option><option <?php if($this->privacy['video']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['video']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['video']=='private'){echo 'selected';} ?> value="private">Private</option>
+<option <?php if($this->privacy['video']=='specific') {echo 'selected';} ?> value="specific">Specific</option>
+</select></td></tr><tr id="video1-specific" style="display:<?php if($this->privacy['video']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="video1-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="video1-restrict" style="display:<?php if($this->privacy['video']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="video1-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="video1-specific-display" style="display: <?php if($this->privacy['video']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['videospecificpeople']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr id="video1-restrict-display" style="display: <?php if($this->privacy['video']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['videoignore']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+
+</table>
+</div>
+<div style="width:100%; padding:10px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updatePrivacy('videos');" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+
+
+<div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Images</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>who can Visit?</td><td><select id="friends-image" onchange="displayinput(document.getElementById('friends-image').value,'image')" style="width:100px;" ><option <?php if($this->privacy['albumvisi']=='friends'){echo 'selected';}?>  value="friends">Friends</option><option <?php if($this->privacy['albumvisi']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['albumvisi']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['albumvisi']=='private'){echo 'selected';}?> value="private">Private</option>
+<option <?php if($this->privacy['albumvisi']=='specific'){echo 'selected';}?> value="specific">Specific</option>
+</select></td></tr><tr id="image-specific" style="display:<?php if($this->privacy['albumvisi']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="image-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="image-restrict" style="display:<?php if($this->privacy['albumvisi']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="image-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="image-specific-display" style="display: <?php if($this->privacy['albumvisi']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['albumspeci']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr id="image-restrict-display" style="display: <?php if($this->privacy['albumvisi']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['albumhidden']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr><td>Who can image?</td><td>
+
+<select id="image1" onchange="displayinput(document.getElementById('image1').value,'image1')" style="width:100px;" ><option <?php if($this->privacy['album']=='friends'){echo 'selected';};?> value="friends">Friends</option><option <?php if($this->privacy['album']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['album']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['album']=='private'){echo 'selected';} ?> value="private">Private</option>
+<option <?php if($this->privacy['album']=='specific') {echo 'selected';} ?> value="specific">Specific</option>
+</select></td></tr><tr id="image1-specific" style="display:<?php if($this->privacy['album']=='specific') {echo 'block';}else echo 'none'; ?>"><td>Specific people</td><th><input id="image1-specific-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr><tr id="image1-restrict" style="display:<?php if($this->privacy['album']!='specific') {echo 'block';}else echo 'none'; ?>"><td>Restrict people</td><th><input id="image1-restrict-input" type="text" placeholder="select people" style="width:300px; outline:none; height:20px;" /></th></tr>
+<tr id="image1-specific-display" style="display: <?php if($this->privacy['album']=='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['albumspecificpeople']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+<tr id="image1-restrict-display" style="display: <?php if($this->privacy['album']!='specific') {echo 'block';}else echo 'none'; ?>" ><td><?php foreach(unserialize($this->privacy['albumignore']) as $userid){
+?><div class="usersname" name="<?php echo $userid;?>"><?php $user=$this->privacy['users_pro'][$userid]; echo $user['fname'].' '.$user['lname']; ?><a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="$(this).parent().remove();" href="javascript:void(0)">x</a></div>
+<?php 
+}?></td></tr>
+
+</table>
+</div>
+<div style="width:100%; padding:10px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updatePrivacy('images');" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+
+<div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Invites</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>Who can send invite?</td><td><select id="friends-invites" style="width:100px;" ><option <?php if($this->privacy['request']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['request']=='public'){echo 'selected';}?> value="public">Public</option>
+</select></td></tr>
+</table>
+</div>
+<div style="width:100%; padding:10px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updatePrivacy();" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+
+ <div style="width:100%; border-bottom:solid 1px;padding:10px; ">
+<label style="font-weight: bold; font-size:24px; border-bottom:solid 1px;">Info who can view?</label>
+<div style="width:100%;  ">
+<table class="gridtable">
+<tr><td>B'day</td><td><select id="friends-dob" style="width:100px;" ><option <?php if($this->privacy['dob']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['dob']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['dob']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['dob']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>Relationship status</td><td><select id="friends-rstatus" style="width:100px;" ><option <?php if($this->privacy['relationship']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['relationship']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['relationship']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['relationship']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>Language</td><td><select id="friends-language" style="width:100px;" ><option <?php if($this->privacy['languages']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['languages']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['languages']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['languages']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>Regilious views</td><td><select id="friends-religion" style="width:100px;" ><option <?php if($this->privacy['religion']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['religion']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['religion']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['religion']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>Living In</td><td><select id="friends-living" style="width:100px;" ><option <?php if($this->privacy['livingin']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['livingin']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['livingin']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['livingin']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>Home Town</td><td><select id="friends-htown" style="width:100px;" ><option <?php if($this->privacy['hometown']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['hometown']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['hometown']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['hometown']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>friendslist</td><td><select id="friends-friendslist" style="width:100px;" ><option <?php if($this->privacy['friendlist']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['friendlist']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['friendlist']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['friendlist']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>About me</td><td><select id="friends-about" style="width:100px;" ><option <?php if($this->privacy['aboutme']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['aboutme']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['aboutme']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['aboutme']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>Education</td><td><select id="friends-education" style="width:100px;" ><option <?php if($this->privacy['education']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['education']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['education']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['education']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>Occupation</td><td><select id="friends-occupation" style="width:100px;" ><option <?php if($this->privacy['occupation']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['occupation']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['occupation']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['occupation']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+<tr><td>favorites</td><td><select id="friends-favorites" style="width:100px;" ><option <?php if($this->privacy['fav']=='fof'){echo 'selected';}?> value="fof">FoF</option>
+<option <?php if($this->privacy['fav']=='public'){echo 'selected';}?> value="public">Public</option>
+<option <?php if($this->privacy['fav']=='friends'){echo 'selected';}?> value="friends">friends</option>
+<option <?php if($this->privacy['fav']=='private'){echo 'selected';}?> value="private">private</option>
+</select></td></tr>
+</table>
+</div>
+<div style="width:100%; padding:10px;  ">
+<div id="basic-details" style="width:700px;  height:20px;">
+<input onclick="updateinfoprivacy();" class="greenbutton" type="button" value="Update" />
+<span id="basicload" class="show-load">loading...</span>
+
+</div>
+
+</div>
+</div>
+ 
+ 
+ 
+
+</div>
+ 
+ 
+</div>
+
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+ 
+ 	
+     var options_xmlsearch = function(type,appendto){
+    	
+     if(!appendto)
+        appendto='body'; 
+     var options={
+                script:"http://www.freniz.com/search?type="+type+"&",
+		varname:"key",
+                type:type,
+                appendto:appendto,
+                callback:function(suggestion,fld){
+                    
+                    var fldid=fld.id.slice(0,-5);
+					if(!document.getElementById(fldid+suggestion.id)){
+	                    var e=document.createElement('div');
+						e.className='usersname';
+	                    $(e).attr('name',suggestion.id);
+	                    e.innerHTML=suggestion.name+'<a style="width:10px; height:10px; text-decoration:none; background-color:red; font-size:14px; margin-bottom:20px" onclick="alert(this.innerHTML);$(this).parent().remove();" href="javascript:void(0)">x</a>';
+						$('#'+fldid+'display td').append(e);
+                       }
+                }
+                
+            };
+            return options;
+	}
+	 var inputs=Array('updates','post','stature','admire','admire1','message','video','video1','image','image1');
+	 for(var i in inputs){
+		 var as_xmlsearch = new AutoSuggest(inputs[i]+'-specific-input', options_xmlsearch('friends'));
+	     var as_xmlsearch1 = new AutoSuggest(inputs[i]+'-restrict-input', options_xmlsearch('friends'));
+	 }
+        
+        
+</script>
+
+
+
+<div class="foot-tab" id="foot-tab">
+     <ul>
+ <li><a href="#">About</a></li>
+         <li><a href="http://www.freniz.com/search">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="http://www.freniz.com/createleaf">Create a leaf</a></li>
+          <li><a href="http://www.freniz.com/developers">Developers</a></li>
+         <li><a href="http://www.freniz.com/hireus">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+
+</body>
+</html>
+

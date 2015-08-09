@@ -1,0 +1,18 @@
+
+<?php header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+$session=(array)$this->mydetails;
+?>
+<users>
+<?php foreach ($this->results as $row){?>
+<user>
+<userid><?php echo $row['userid'];?></userid>
+<username><?php echo $row['username'];?></username>
+<url><?php echo  $row['url'];?></url>
+<suserpic><?php echo $row['propic_url'];?></suserpic>
+<mutual><?php echo $row['mutual'];?></mutual>
+<friend><?php echo $row['friend'];?></friend>
+</user>
+<?php }?>
+</users>

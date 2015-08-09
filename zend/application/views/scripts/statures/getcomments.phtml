@@ -1,0 +1,18 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+?>
+<comments>
+	<statureid><?php echo $this->statureid;?></statureid>
+	<?php foreach($this->results as $commentid=>$values){?>
+	<comment>
+		<id><?php echo $commentid; ?></id>
+		<username><?php echo $values['username']; ?></username>
+		<user_url><?php echo $values['url']; ?></user_url>
+		<imageurl><?php echo $values['imageurl']; ?></imageurl>
+		<comment-comment><?php echo $values['comment']; ?></comment-comment>
+		<date><?php echo $values['date'];?></date>
+	</comment>
+	<?php } ?>
+</comments>

@@ -1,0 +1,18 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate" );
+header("Pragma: no-cache" );
+header("Content-Type: text/xml; charset=utf-8");
+
+?>
+<users>
+<?php foreach ($this->results as $val){?>
+<user>
+<username><?php echo $val['username'];?></username>
+<userid><?php echo $val['userid'];?></userid>
+<mutual><?php echo $val['mutual'];?></mutual>
+<url><?php echo $val['url'];?></url>
+<type><?php echo $val['type'];?></type>
+<suserpic><?php echo $val['propic_url'];?></suserpic>
+</user>
+<?php }?>
+</users>

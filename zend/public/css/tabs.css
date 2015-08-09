@@ -1,0 +1,97 @@
+div.content {
+	border: #060 solid 3px;
+	clear: left;
+	padding: 1em;
+}
+
+div.content.inactive {
+	display: none;
+}
+
+ol#toc {
+    height: 2em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ol#toc a {
+	background: #fff url(tabs.png);
+	color: #CCC;
+	display: block;
+	float: left;
+	height: 2em;
+	padding-left: 10px;
+	text-decoration: none;
+}
+
+ol#toc a:hover {
+	background-color: #FFF;
+	background-position: 0 -120px;
+}
+
+ol#toc a:hover span {
+    background-position: 100% -120px;
+}
+
+ol#toc li {
+    float: left;
+    margin: 0 1px 0 0;
+}
+
+ol#toc li a.active {
+	background-color: #FFF;
+	background-position: 0 -60px;
+	color: #fff;
+	font-weight: bold;
+}
+
+ol#toc li a.active span {
+    background-position: 100% -60px;
+}
+
+ol#toc span {
+    background: url(tabs.png) 100% 0;
+    display: block;
+    line-height: 2em;
+    padding-right: 10px;
+}
+.roundbuttons {
+	position:absolute;
+	
+	width:200px;
+	height:40px;
+padding: 3px 0;
+
+font: bold 13px Verdana;
+list-style-type: none;
+text-align: center; 
+}
+
+.roundbuttons li{
+display: inline;
+
+}
+.roundbuttons li a:hover{
+color: black;
+}
+
+
+.roundbuttons li a{
+text-decoration: none;
+padding: 5px 7px;
+
+border: 1px solid #778;
+color: white;
+border:1px solid gray;
+border-radius: 8px; 
+box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+-moz-border-radius: 8px; 
+-moz-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+font-size:12px;
+background: green;
+-webkit-border-radius: 8px; 
+-webkit-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+ 
+}
+

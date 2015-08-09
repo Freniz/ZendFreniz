@@ -1,0 +1,394 @@
+.sendmessagewidth{
+			width:250px;
+                        left: 206px;
+	top: 175px;
+		}
+.roundbuttons li input:hover{
+color: black;
+}
+
+
+.roundbuttons li input{
+text-decoration: none;
+padding: 5px 20px;
+border: 1px solid #778;
+color: white;
+border:1px solid gray;
+border-radius: 8px; 
+box-shadow: 3px 3px 4px rgba(0,0,0,.5);
+-moz-border-radius: 8px;
+-moz-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+-webkit-border-radius: 8px;
+-webkit-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+ font-size:12px;
+background: green;
+
+}                
+.innername {
+	width:150px;
+	height:25px;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size:12px;
+	font-weight: bold;
+	color: #060;
+	line-height: 14px;
+	text-align: center;
+	overflow:hidden;
+	
+}
+
+
+.innerpic {
+	width:50px;
+	height:50px;
+	float:right;
+}
+.leftcoloumn {
+	height: 20px;
+	width: 80px;
+}
+.menu1 {
+	margin-left:20px;
+	background-color:#060;
+	height:40px;
+	display:inline; width:70px; float:left
+}
+.menu1:hover{
+	cursor:pointer;
+	background-color:#FFF;
+}
+
+.profilecontainer {
+	float: left;
+	height: 100%;
+	width: 624px;
+}
+.profiledetails {
+	font-family: "Comic Sans MS", cursive;
+	font-size: 32px;
+	font-style: normal;
+	font-weight: bold;
+	color: #060;
+	text-align: center;
+}
+
+.profiledetailsfontcolor
+{
+	font-family:"Comic Sans MS", cursive;
+	font-size:16px;
+	font-weight:bold;
+	color:#060;
+}
+
+
+
+#stature {
+	margin: 10px;
+	float: left;
+	height: 70px;
+	width: 604px;
+}
+.centerdiv {
+	float: none;
+	height: 300px;
+	width: 624px;
+}
+
+
+.profilepic{
+	float: left;
+	height: 200px;
+	width: 150px;
+	margin-top: 10px;
+	margin-left: 10px;
+        -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+        -webkit-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+        -ms-box-shadow:0px 0px 5px 5px rgba(68,68,68,0.6);
+	    box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+	
+	
+}
+
+.secondaryprofilepic{
+	float: left;
+	height: 200px;
+	width: 200px;
+	margin-top: 10px;
+	margin-left: 10px;
+	
+}
+.arrow {
+	background-image:url(../arrow1.png);
+	height:13px;
+	width:13px;
+	float:right;
+	margin-top:2px;
+	margin-right:8px;
+	
+}
+.arrow:hover{
+	background-image:url(../arrow1.png);
+	height:13px;
+	width:13px;
+	float:right;
+	margin-top:2px;
+	margin-right:8px;
+	-moz-box-shadow: 0px 0px 1px 1px rgba(255,255,255,0.6);
+        -webkit-box-shadow: 0px 0px 1px 1px rgba(255,255,255,0.6);
+        -ms-box-shadow:0px 0px 1px 1px rgba(255,255,255,0.6);
+	    box-shadow: 0px 0px 1px 1px rgba(255,255,255,0.6);
+	
+	
+}
+
+#pinnedpic {
+	float: right;
+	height: 150px;
+	width: 215px;
+	margin-top: 60px;
+	margin-right: 10px;
+
+}
+.borderbottom {
+	border-bottom:1px solid #080;
+}
+
+
+
+
+.shadow1 {
+        margin: 40px;
+        /* Needed for IEs */
+
+        -moz-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+        -webkit-box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+        -ms-box-shadow:0px 0px 5px 5px rgba(68,68,68,0.6);
+	    box-shadow: 0px 0px 5px 5px rgba(68,68,68,0.6);
+
+/* For IE 8 */
+-ms-filter: filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=315, Color='#444444',ShadowOpacity=0.30) ,
+progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=225, Color='#444444',ShadowOpacity=0.30),
+progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#444444',ShadowOpacity=0.30),
+progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=45, Color='#444444',ShadowOpacity=0.30);;
+/* For IE 5.5 â€" 7 */
+filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=315, Color='#444444',ShadowOpacity=0.30) ,
+progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=225, Color='#444444',ShadowOpacity=0.30),
+progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#444444',ShadowOpacity=0.30),
+progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=45, Color='#444444',ShadowOpacity=0.30);
+        zoom: 1;
+
+}
+.innersecondaryprofilepic_1 ,.innersecondaryprofilepic_2{
+	float: right;
+	height: 95px;
+	width: 200px;
+}
+.innersecondaryprofilepic_2{
+	margin-top:10px;
+	
+}
+
+.favorites
+{
+	display:block;
+	background-color:#060;
+	height:16px;
+	width:200px;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px; 
+   -moz-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+   -webkit-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+    box-shadow: 3px 3px 4px rgba(0,0,0,.5);
+	font-size:13px;
+	text-align:center;
+	color:white;
+		font-weight: bold;
+}
+
+
+.headerfont {
+	font-family: "Comic Sans MS", cursive;
+	font-size: 26px;
+	font-style: normal;
+	font-weight: bold;
+}
+        .subfont {
+	font-family: "Comic Sans MS", cursive;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+ .sublink{
+	 float:left;
+	font-family: "Comic Sans MS", cursive;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: bold;
+	margin-left:200px;
+ }
+
+
+ .profilerdwidth{
+	 width:600px;
+ }
+ 
+ .rdwidth
+ {
+	 width:200px;
+ }
+ .singlerdwidth
+ {
+	 width:80px;
+ }
+ 
+.roundbuttons {
+	position:absolute;
+		height:40px;
+padding: 3px 0;
+font: bold 13px Verdana;
+list-style-type: none;
+text-align: center; /*set to left, center, or right to align the menu as desired*/
+}
+
+.roundbuttons li{
+display: inline;
+
+
+}
+.roundbuttons li a:hover{
+color: black;
+}
+
+
+.roundbuttons li a{
+text-decoration: none;
+padding: 5px 10px;
+border: 1px solid #778;
+color: white;
+border:1px solid gray;
+border-radius: 8px; 
+box-shadow: 3px 3px 4px rgba(0,0,0,.5);
+-moz-border-radius: 8px;
+-moz-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+-webkit-border-radius: 8px;
+-webkit-box-shadow: 3px 3px 4px rgba(0,0,0,.5); 
+ font-size:12px;
+background: green;
+
+}
+#searchwrapper {
+width:200px; /*follow your image's size*/
+height:20px;/*follow your image's size*/
+background-image:url(searchbox2.png);
+background-repeat:no-repeat; /*important*/
+
+
+
+
+ /*important*/
+}
+ 
+#searchwrapper form { display:inline ; }
+ 
+.searchbox {
+	border:0px; /*important*/
+	background-color:transparent; /*important*/
+	/*important*/
+
+	color:#060;
+	font-size:14px;
+	
+	margin-left:10px;
+	
+	width:140px;
+	height:16px;
+}
+ 
+.searchbox_submit {
+/*important*/
+background-color:transparent; /*important*/
+ /*important*/
+ 
+ margin-left:4px;
+ 
+
+width:20px;
+height:15px;
+}
+
+.friendname{
+	float:left;margin-top:20px; margin-left:10px; height:20px;
+}
+
+.writtenon{
+	 height:20px; margin-top:10px; margin-left:20%; float:left; border:solid 1px; 
+	
+}
+.userpic{
+	width:50px; height:50px; margin-top:5px; margin-right:20px;float:right; border:solid 1px;
+}
+.username{
+	float:right; margin-top:20px; margin-right:10px; font-size: 14px; font-weight: bold; height:20px;
+}
+.frdpic{
+	width:50px; height:50px; margin-top:5px; margin-left:20px;float:left; border:solid 1px;
+}
+.dateitems{
+	width:150px; height:20px;float:right; 
+        font-size: 10px; font-weight: bold;
+}
+.statusitems{
+	width:100%; margin-top:10px; float:left;  
+       border-top: solid 2px #000; font-size: 12px; margin-left: -3px;
+font-weight: bold;
+padding-top: 3px;
+}
+.gap{
+	width:100%; height:1px; float:right;
+}
+.commentbar{
+	width:100%; height:20px; margin-top: 10px; margin-left: -3px; float:left; 
+     border-bottom: solid #000 2px; border-top: solid #000 2px;
+        font-size: 12px;
+        padding: 3px;
+}
+.privacyitems{
+	width:100px; margin-left:5px; height:20px;float:left; border:solid 1px; 
+}
+.closetag{
+	width:20px; height:20px;float:left; border:solid 1px; 
+}
+.maindiv{
+	width:100%; float:left;
+         border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px; 
+       -webkit-box-shadow: 3px 3px 4px rgba(0,0,0,.5);
+-moz-box-shadow: 3px 3px 4px rgba(0,0,0,.5);
+box-shadow: 3px 3px 4px rgba(0,0,0,.5);
+padding: 5px;
+margin-left: -3px;
+	
+         background-color: tan;
+}
+.subdiv{
+	width:100%; height:20px; float:left; 
+}
+
+
+@font-face {  
+  font-family: Bleeding Cowboys ;  
+  src: url(BleedingCowboys.ttf ) format("truetype");  
+} 
+.div-margin-gap{
+ width: 100%;height: 20px; float: left;
+}
+.album-seper{
+                  width:100px;
+                   height:100px;
+                   float:left;
+                  border: solid 2px #FFF;
+                       
+}

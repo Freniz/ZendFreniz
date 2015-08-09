@@ -1,0 +1,876 @@
+<?php $ud=$this->bodyContent; $session=$this->mydetails;?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta charset="UTF-8">
+<title>Freniz - <?php echo $ud['username']; ?></title>
+<link rel="stylesheet" href="css/default.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/theme.css" type="text/css" media="screen" charset="utf-8" />
+<link href="css/fileuploader.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="js/jquery-latest.js"></script> 
+<script src="js/ajax.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/unserialize.js"></script>
+<script type="text/javascript" src="js/accountsettings.js"></script>
+<script src="js/fileuploader.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.textarea-expander.js"></script>
+<script type="text/javascript" src="js/bsn.AutoSuggest_c_2.0.js"></script>
+<script src="js/php_serialize.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" src="js/ajax.js"></script>
+
+<script type="text/javascript">
+    function showBox(val) {
+                var sp=document.getElementById(val);
+                sp.style.display='block';
+			}
+
+    function hideBox(val) {
+    
+                var sp=document.getElementById(val);
+               sp.style.display='none';
+                        }
+       
+     function createUploader(albumid,multiple,drag){   
+            var uploader = new qq.FileUploader({
+                element: document.getElementById('file-uploader-demo1'),
+                action: 'ajax/uploadimage.php',
+                multiple:multiple,
+		    showMessage: function(message){alert(message);},
+                    params:{album : albumid},
+                    onComplete:function(id, fileName, responseJSON){ getimages(albumid);},
+                debug: true,
+                drag:drag
+            });
+            
+        }
+        
+        // in your app create uploader as soon as the DOM is ready
+        // don't wait for the window to load  
+ window.onload=function(){
+    document.getElementById("loading").style.display='none';
+}
+$(document).ready(function(){
+    $("#loading").css('display','block');
+});
+</script>
+
+<style>
+ 
+ </style>
+</head>
+<body><img id="loading" src="images/prettyGallery/loading-gif-animation.gif" style="position:absolute; display: none; margin-left: 45%" height="32" width="32"></img>
+<div class="headerdiv">
+<div id="freniz-logo" style="width:220px; float:left; height:60px; ">
+    <a style="text-decoration:none; cursor: pointer; "href="#"><img src="images/freniz.png"/></a>
+</div>
+<div id="smile-mood-change" style="width:40px; float:left; height:80px; ">
+   <div class="moody" style="width:40px; margin-top: 10px; float:left; height:40px; "><img style="cursor: pointer;marin-top:10px" src="images/mood/<?php echo $_SESSION['mood'];?>" width="40" height="40"/></div>
+<span-edit>
+Click to Change
+</span-edit>
+
+  <span-smiley id="mood-smile" >
+
+
+</span-smiley>
+    
+</div>
+<div id="top-menu-items" style=" float:left; height:80px; ">
+<div style="height:30px; margin-top: 15px; margin-left: 30px;  float:left; ">
+    
+<ul id="top-menu">
+	<li class="link-bord" id="top-underline"><a href="streams.php">Stream</a></li>
+	<li class="link-bord" id="top-underline"><a href="profile.php?userid=<?php echo $session['userid']; ?>">Bio</a></li>
+	<li class="link-bord" id="top-underline"><a href="message.php">Message</a></li>
+	<li class="link-bord" id="top-underline"><a href="profile.php?userid=<?php echo $session['userid']; ?>&tab=blogs">Blog</a></li>
+	
+	<li class="link-bord">
+		<a href="#">Alert</a>
+				<ul style=" margin-top: -5px;">
+					<li><a href="#">Notifications</a></li>
+					<li><a href="invitations.php">Invites</a></li>
+					<li><a href="#">Reviews</a></li>
+				</ul>				
+	</li>
+	<li class="link-bord">
+		<a href="#">Apps</a>	
+		<ul style=" margin-top: -5px;">
+					<li><a href="dairy.php">Diary</a></li>
+					<li><a href="slambook.php?userid=<?php echo $session['userid']; ?>">Slam book</a></li>
+					<li><a href="#">Musics</a></li>
+				</ul>		
+	</li>
+	
+</ul>
+
+
+</div>
+
+</div>
+<div style=" width: 250px; margin-right: 10px; float:right; height:80px; ">
+<div id="accout-name-settings" style=" float:right; font-weight: bold; color: #fff; height:40px;">
+   
+ <nav>
+           <ul>
+		<li id="settings">
+			<a id="acount-trigger-setting" href="#" class="active">
+				<?php echo  $ud['username']; ?> <span id="logspan">&#x25BC;</span>
+			</a>
+			<div id="acount-content-setting" >
+                            <ul>
+                                  <label style="color:#999; font-size: 18px; font-weight: bold">Freniz Account</label>
+                                <li><a href="accountsettings.php">Account Settings</a></li>
+                                 <li><a href="#">Privacy Setting</a> </li>
+                                 <li><a href="#">Help</a></li>
+                                 <li><a href="letmeout.php">Take Out</a> </li>
+                            </ul>
+			</div>                     
+		</li>
+                
+            </ul>
+        </nav>
+    <script type="text/javascript">
+$(document).ready(function(){
+
+
+$(".moody").toggle(function(){
+		
+              if (!$('span-smiley').hasClass('active'))   
+                 {
+                   
+                     $('span-smiley').addClass('active');
+                     
+                  $a='<ul class="mood"style="position:absolute"><li><img src="images/mood/32/6smiley_face.gif"onclick="updatemood(\'6smiley_face.gif.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/130.png"onclick="updatemood(\'130.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/22461291.png"onclick="updatemood(\'22461291.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/angel.png"onclick="updatemood(\'angel.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/att.png"onclick="updatemood(\'att.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/att2.png"onclick="updatemood(\'att2.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/cas.png"onclick="updatemood(\'cas.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/cry.gif"onclick="updatemood(\'2cry.gif\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/cry1.png"onclick="updatemood(\'cry1.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/cry2.png"onclick="updatemood(\'cry2.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/cry3.png"onclick="updatemood(\'cry3.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/irritate.png"onclick="updatemood(\'irritate.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/kiss.png"onclick="updatemood(\'kiss.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/love.png"onclick="updatemood(\'love.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/love2.png"onclick="updatemood(\'love2.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/love3.png"onclick="updatemood(\'love3.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/love4.png"onclick="updatemood(\'love4.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/love5.png"onclick="updatemood(\'love5.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/love.6png.png"onclick="updatemood(\'love.6png.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/nospeak.png"onclick="updatemood(\'nospeak.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/prirate.png"onclick="updatemood(\'prirate.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/resign.png"onclick="updatemood(\'resign.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sad.png"onclick="updatemood(\'sad.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sad1.png"onclick="updatemood(\'sad1.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sad2.png"onclick="updatemood(\'sad2.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sad3.png"onclick="updatemood(\'sad3.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sad4.png"onclick="updatemood(\'sad4.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sad5.png"onclick="updatemood(\'sad5.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/Sad06.gif"onclick="updatemood(\'Sad06.gif\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/shut.png"onclick="updatemood(\'shut.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/shut1.png"onclick="updatemood(\'shut1.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sleep.png"onclick="updatemood(\'sleep.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sleep2.png"onclick="updatemood(\'sleep2.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sm2.png"onclick="updatemood(\'sm2.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sm3.png"onclick="updatemood(\'sm3.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sm4.png"onclick="updatemood(\'sm4.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sm5.png"onclick="updatemood(\'sm5.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sm6.png"onclick="updatemood(\'sm6.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sm7.png"onclick="updatemood(\'sm7.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/happy.png"onclick="updatemood(\'happy.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/sm9.png"onclick="updatemood(\'sm9.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/smile.png"onclick="updatemood(\'smile.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/smile2.png"onclick="updatemood(\'smile2.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/smile3.png"onclick="updatemood(\'smile3.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/SmileyCoffeeTired.jpg"onclick="updatemood(\'SmileyCoffeeTired.jpg\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/smiley-sad.png"onclick="updatemood(\'smiley-sad.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li><li><img src="images/mood/32/stop.png"onclick="updatemood(\'stop.png\');document.getElementById(\'mood-smile\').style.display=\'none\'"/></li></ul>';   
+                     $('span-smiley').html($a);
+                 }
+                 
+                 
+                
+                $("span-smiley").css("display","block");
+		$("span-smiley").css("position","absolute");
+	  
+		
+	},
+	function(){ $("span-smiley").css("display","none"); });
+	
+	$("span-smiley").mouseover(function(){
+		$("span-smiley").css("display","block");
+		
+	});
+	
+	$(".moody").mouseover(function(){
+		$("span-edit").css("display","block");
+		
+	});
+	$(".moody").mouseout(function(){
+		$("span-edit").css("display","none");
+		
+	});
+
+	
+
+});
+</script>
+    <script type="text/javascript">
+$(document).ready(function(){     
+ $('#message-button').click(function(){
+    
+    $a='<div id="light"  class="white_content"><div style="width:500px; height:200px; margin-left:20px; margin-top:20px; "><div style="width:30px; height:30px; margin-top:5px; margin-left:5px; float:left; ">To:</div><form name="sendmessage" onsubmit="sendmsguser()"><div style="width:400px; height:30px; margin-top:6px; margin-left:5px; float:left; "><input size="40" type="text" disabled="disable" name="msgto" value="<?php echo $ud["username"]; ?>"/><input type="hidden" value="<?php echo $ud['userid']; ?>" name="to"/></div><div style="width:300px; height:100px; margin-top:10px; margin-left:60px; float:left;"><textarea rows="4" cols="50" name="msg" ></textarea></div><div style="width:300px; "><ul class="roundbuttons sendmessagewidth"><li><input type="button" name="cancel" value="cancel" onClick="document.getElementById(\'light\').style.display=\'none\';   document.getElementById(\'fade\').style.display=\'none\';"  /></li><li><input type="button" name="send" value="send" onclick="sendmsguser()" /></li></ul></div></form></div></div>';
+       
+     $('#normal').html($a); 
+              $('#light').css({'display':'block'});
+              $('#fade').css({'display':'block'});
+             
+         });
+                    
+                    $('#blog-button').click(function(){
+                       
+             
+        $b='<div id="light" class="white_content"><div style="width:500px; height:200px; margin-left:20px; margin-top:20px; "><form name="blogmessage" onsubmit="createblogstatus()"><div style="width:300px; height:20px; margin-top:10px; margin-left:60px; float:left;"><input type="text" id="blg_title" size="40" /></div><div style="width:300px; height:100px; margin-top:10px; margin-left:60px; float:left;"><textarea rows="4" cols="50" id="blg" ></textarea></div><div style="width:300px; height:20px; margin-top:10px; margin-left:60px; float:left;"><input type="file" id="blg_url" value="Upload" size="40" /></div><div style="width:300px;  margin-left:40px;"><ul class="roundbuttons sendmessagewidth" style="margin-left:40px;"><li><input type="button" name="cancel" value="cancel" onClick="document.getElementById(\'light\').style.display=\'none\';   document.getElementById(\'fade\').style.display=\'none\';"  /></li><li><input type="button" name="send" value="send" onclick="createblogstatus()" /></li></ul></div></form></div></div>';
+     
+                $('#normal').html($b); 
+                         $('#light').css({'display':'block'});
+                         $('#fade').css({'display':'block'});
+                        
+                    });
+                    
+                      $('#admire-button').click(function(){
+                       
+       $c='<div id="light" class="white_content"><div style="width:500px; height:200px; margin-left:20px; margin-top:20px; "><form name="admiremess"onsubmit="createadmirestatus()"><div style="width:300px; height:100px; margin-top:10px; margin-left:60px; float:left;"><textarea rows="4"cols="50"name="admr"></textarea></div><div style="width:300px; "><ul class="roundbuttons sendmessagewidth"><li><input type="button"name="admire-cancel"value="cancel"onClick="document.getElementById(\'light\').style.display=\'none\';   document.getElementById(\'fade\').style.display=\'none\';"/></li><li><input type="button"name="admire-send"value="send"onclick="createadmirestatus('<?php echo $ud['userid'] ?>')"/></li></ul></div></form></div></div>';
+ 
+                $('#normal').html($c); 
+                         $('#light').css({'display':'block'});
+                         $('#fade').css({'display':'block'});
+                        
+                    });
+                       $('#video-button').click(function(){
+                       
+        $d='<div id="light" class="white_content"><div style="width:500px; height:200px; margin-left:20px; margin-top:20px; "><form name="video-upd"onsubmit="addvideos()"><div style="width:300px; height:100px; margin-top:10px; margin-left:60px; float:left;"><textarea rows="4"cols="50"name="video-addr"></textarea></div><div style="width:300px; "><ul class="roundbuttons sendmessagewidth"><li><input type="button"name="video-cancel"value="cancel"onClick="document.getElementById(\'light\').style.display=\'none\';   document.getElementById(\'fade\').style.display=\'none\';"/></li><li><input type="button"name="video-send"value="send"onclick="addvideos()"/></li></ul></div></form></div></div>';
+   
+                $('#normal').html($d); 
+                         $('#light').css({'display':'block'});
+                         $('#fade').css({'display':'block'});
+                        
+                    });
+                    
+});      
+</script>
+ <script type="text/javascript">
+
+ 
+    $('#acount-trigger-setting').click(function(){
+        
+                $('#acount-trigger-setting').next('#acount-content-setting').slideToggle();
+					$('#acount-trigger-setting').addClass('active');
+                                     
+                                     
+					if ($('#acount-trigger-setting').hasClass('active')) $('#acount-trigger-setting').find('span').html('&#x25BC;')
+						else $('#acount-trigger-setting').find('span').html('&#x25B2;')  
+                                     
+                                     
+					});
+	 
+                               $(document).click(function(e){
+                                               
+                    if($(e.target).parents().index($('#settings')) == -1) {
+                        if($('#acount-content-setting').is(":visible")) {
+                            if (!$('#acount-content-trigger').hasClass('active')){ 
+                                 $('#acount-trigger-setting').next('#acount-content-setting').slideToggle();
+                                                }
+                            
+                        }
+                    }        
+               
+                                        });
+		   		
+        </script> 
+</div>
+<div id="search-option-items" style="width:200px; margin-top: -10px; float:right; height:20px; ">
+    <input class="search-box" id="searchusers"  type="text" placeholder="search" onfocusout="searchitemsout(this)" onfocus="searchitemsin(this)" style="width:200px; height:20px" ><span id="search-top-loading" style="margin-top:-18px; margin-left: 165px; color: #ffffff; display: none; position: absolute;"><img src="images/blackloading.gif" height="16" width="16"/></span></input>
+    <span style="color:#ccc; cursor: pointer; font-size: 12px; float: right; margin-top: -18px; margin-right:6px">&#x25BC;</span>
+</div>
+</div>
+
+
+</div>        
+
+<!-- main container begins  -->
+
+ 
+<div id='topcontainer' style="width:1000px; margin-left: auto; margin-right: auto;  ">
+   
+    <div id="sub-tab-menu-items" style="width: 1000px; margin-top: -18px; float: left; height: 40px; ">
+            <div id="account-name" >
+               <?php echo $ud['username']; ?>
+            </div>
+            <div id="account-tab" >
+
+                <ul id="sub-menu" style="width: 450px; ">
+                        <li ><a href="profile.php?userid=<?php echo $_REQUEST['userid']; ?>">Streams</a></li>
+                        <li ><a href="profile.php?userid=<?php echo $_REQUEST['userid']; ?>&tab=scribbles">Scribbles</a></li>
+                        <li ><a href="profile.php?userid=<?php echo $_REQUEST['userid']; ?>&tab=albums">Gallery</a></li>
+                        <li ><a href="profile.php?userid=<?php echo $_REQUEST['userid']; ?>&tab=videos">Videos</a></li>
+                        <li ><a href="profile.php?userid=<?php echo $_REQUEST['userid']; ?>&tab=admire">Admiration</a></li>
+                        <li ><a href="profile.php?userid=<?php echo $_REQUEST['userid']; ?>&tab=blogs">Blog</a></li>
+                         
+                </ul>
+               
+                <ul id="sub-menu" style="float: right;  margin-top: -15px; ">
+                         <?php if($session['userid']== $ud['userid']){ ?>
+                    <li><a href="#">Theme</a></li> <?php }?>
+                     <?php if($session['userid']!= $ud['userid']){ ?>
+                        <?php if($ud['privacy_request']) {?>  
+
+                        <li ><a title="Add Me" onclick="createinvitation('<?php echo $ud['userid'] ?>','<?php echo $ud['fname'].' '.$ud['lname'] ?>');document.getElementById('light1').style.display='block';document.getElementById('fade1').style.display='block';" href="#">Add Me</a></li><?php } ?>
+                        <?php if(in_array($ud['userid'], $session['sentrequest'])){ ?>
+                        <li ><a  onclick="cancelfrndreq('<?php echo $_REQUEST['userid']; ?>')" href="#">Cancel Req </a></li>
+                            <?php } ?>
+                         <?php if(in_array($ud['userid'], $session['bendingrequest'])){ ?>
+                        <li ><a title="Add to list" href="streams.php">Accept</a></li><?php } ?>
+                       <?php if($ud['privacy_message']) {?> 
+                        <li ><a title="Send Message to friends" id="message-button" href="#">Message</a></li><?php } ?>
+                                                <?php 
+                        if(in_array($session['userid'], $votes)){
+                        ?>
+                        <li ><a title="withdraw vote" onclick="withdrawuservote('<?php echo $_REQUEST['userid']; ?>')" href="#">Unvote</a></li>
+                        <?php }else{ ?>
+                        <li ><a title="Vote to friends"  onclick="voteuser('<?php echo $_REQUEST['userid']; ?>')" href="#">Vote</a></li>
+                        <?php } ?>
+                        <li style="position: relative" ><a href="streams.php">Options</a>
+                            <ul style=" margin-top: -15px;margin-left: -60px;">
+                                        <?php $frnds=$session['friends'];
+                                                if(in_array($ud['userid'], $frnds)){
+                                                ?>
+                                        <li><a onclick="removefrnd('<?php echo $_REQUEST['userid']; ?> ')" href="#">Unfriend</a></li><?php }?>
+					
+                                        <li><a href="#">Report</a></li>
+					<li><a href="#">Block</a></li>
+				</ul>	
+                           
+                        </li>
+                         <?php } ?>
+                         
+                </ul>
+            </div>
+            
+        </div> 
+ 
+<div id="maincontainer">
+
+  
+<div id="secondarydiv" style="width:200px; margin-top: 25px;  float:left; ">
+
+    <?php if(isset($ud['dob'])) {?>
+    <div class="smallheaderfont" style="width:200px;  float:left; ">
+B'day:
+<div style="width:200px; text-align: center;   ">
+    <?php echo $ud['dob']; ?>
+</div>
+ <div style=" width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+    <?php } ?>
+    
+<div class="smallheaderfont" style="width:200px;  float:left;">
+Gender:
+<div style="width:200px; text-align: center;  ">
+    <?php echo $ud['sex']; ?>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+   <?php if(isset($ud['rstatus'])) {?>
+   <div class="smallheaderfont" style="width:200px; float:left; ">
+R'status:
+<div style="width:200px; text-align: center;   ">
+    <?php echo $ud['rstatus']; ?>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+    <?php } ?>
+     <?php if(isset($ud['religion'])) {?>
+     <div class="smallheaderfont" style="width:200px;  float:left; ">
+Religion:
+<div style="width:200px; text-align: center;   ">
+    <?php echo $ud['religion']; ?>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+    <?php } ?>
+    <?php if(isset($ud['currentcity'])) {?>
+    <div class="smallheaderfont" style="width:200px; float:left; ">
+Currentcity:
+<div style="width:200px; text-align: center;   ">
+    <?php echo  $ud['currentcity_name']; ?>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+    <?php } ?>
+     <?php if(isset($ud['hometown'])) {?>
+     <div class="smallheaderfont" style="width:200px;  float:left; ">
+Hometown:
+<div style="width:200px; text-align: center;  ">
+    <a style=" text-decoration: none; cursor: pointer; color: green" href="#"><?php echo $ud['hometown_name']; ?></a>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+    <?php } ?>
+    <?php if(isset($ud['language'])) {?>
+    <div class="smallheaderfont" style="width:200px;  float:left; ">
+Language:
+<div style="width:200px; text-align: center;  ">
+<?php $languages=$ud['language'];
+foreach($languages as $language)
+echo $language.",";
+ ?>
+</div>
+<div style=" width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+    <?php } ?>
+    <?php if(isset($ud['school'])) {?>
+
+  <div class="smallheaderfont" style="width:200px; float:left; ">
+School:
+<div id="favorite" style="width:50px; ">
+    <ul >
+	
+		<?php
+		 $schools=$ud['school'];
+$i=0;
+foreach($schools as $school){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$school]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$school]['pagename'].'">'.$ud['fav_pages'][$school]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style=" width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc "></div> 
+</div>
+  <div class="smallheaderfont" style="width:200px; float:left; ">
+College:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		$colleges=$ud['college'];
+foreach($colleges as $college){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$college]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$school]['pagename'].'">'.$ud['fav_pages'][$college]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style=" width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc "></div> 
+</div>
+    <?php } ?>
+    <?php if(isset($ud['employer'])) {?>
+  <div class="smallheaderfont" style="width:200px; float:left; ">
+Worked:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		$employers=$ud['employer'];
+foreach($employers as $employer){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$college]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$employer]['pagename'].'">'.$ud['fav_pages'][$employer]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc "></div> 
+</div>
+    <?php } ?>
+    <?php if(isset($ud['privacy_fav'])) {?>
+    <div class="titleheaderfont" style="width:200px; height:20px; float:left;">
+Favourites:
+<div style=" width:105px; margin-top: 0px;  margin-left: 0px; border-bottom: solid #000; "></div> 
+</div>
+    <div class="smallheaderfont" style="width:200px; float:left; ">
+Book:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		
+ foreach($ud['books'] as $leaf){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$leaf]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$leaf]['pagename'].'">'.$ud['fav_pages'][$leaf]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style=" width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc "></div> 
+</div>
+<div class="smallheaderfont" style="width:200px;  float:left; ">
+Music Album:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		
+ foreach($ud['musics'] as $leaf){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$leaf]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$leaf]['pagename'].'">'.$ud['fav_pages'][$leaf]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px;border-bottom: solid #dddfdc; "></div> 
+</div>
+
+<div class="smallheaderfont" style="width:200px;  float:left; ">
+Movies:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		
+ foreach($ud['movies'] as $leaf){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$leaf]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$leaf]['pagename'].'">'.$ud['fav_pages'][$leaf]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style=" width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+<div class="smallheaderfont" style="width:200px;  float:left; ">
+Celebrities:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		
+ foreach($ud['celebrities'] as $leaf){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$leaf]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$leaf]['pagename'].'">'.$ud['fav_pages'][$leaf]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style=" width:200px; margin-top: 20px;   margin-left: 1px; border-bottom: solid #dddfdc; "></div> 
+</div>
+<div class="smallheaderfont" style="width:200px;  float:left; ">
+Games:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		
+ foreach($ud['games'] as $leaf){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$leaf]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$leaf]['pagename'].'">'.$ud['fav_pages'][$leaf]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+<div class="smallheaderfont" style="width:200px; float:left; ">
+Sports:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		
+ foreach($ud['sports'] as $leaf){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$leaf]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$leaf]['pagename'].'">'.$ud['fav_pages'][$leaf]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+<div class="smallheaderfont" style="width:200px; float:left; ">
+Extras:
+<div id="favorite" style="width:50px;  ">
+    <ul >
+	
+		<?php
+		$i=0;
+		
+ foreach($ud['other'] as $leaf){
+      if($i<2){
+          
+          echo '<li><img src="images/50/50_01645466486836024c4a00dcb763b0f5.jpg" width="45" height="45" alt="'.$ud['fav_pages'][$leaf]['pagename'].'" /><div style="width:150px;  position:absolute; margin-top:-40px; margin-left:48px"><a href="leaf.php?leafid='.$ud['fav_pages'][$leaf]['pagename'].'">'.$ud['fav_pages'][$leaf]['pagename'].'</a></div></li>';
+          
+           }
+           $i++;
+      }
+?>
+</ul>
+</div>
+<div style="  width:200px; margin-left: 1px; margin-top: 5px; border-bottom: solid #dddfdc; "></div> 
+</div>
+
+<?php } ?>
+
+
+</div>
+
+
+ 
+ <!-- center div  -->   
+  
+ <div id="tridiv" style="width:550px; margin-top: 0px; margin-left: 5px; float:left; ">
+
+<div style="width:450px; height:230px; float:left; ">
+<div onmouseout="hideBox('proic')" onmouseover="showBox('proic')" style="width:200px; margin:10px; height:200px; float:left; ">
+ <span class="span_edit" id="proic"><a href="#">Edit</a></span>   <img id="profilepic" height="200" src='images/200/200_<?php echo $ud['propic_url'] ?>' />
+</div>
+<div style="width:220px; margin-right:6px; height:230px; float:right; ">
+<div  onmouseout="hideBox('sp')" onmouseover="showBox('sp')"  id="secondarypic1" style="width:250px; height:100px; margin:5px; float:left; overflow: hidden; border:solid 1px">
+<span class="span_edit" id="sp"><a href="#">Edit</a></span><img id="secondarypic1-img" src='images/200/200_<?php $ud['secondarypic1_url'] ?>' />
+</div>
+
+  <div onmouseout="hideBox('sp1')" onmouseover="showBox('sp1')" id="secondarypic2" style="width:250px; height:100px; margin:5px; float:left; overflow: hidden; border:solid 1px">
+<span class="span_edit" id="sp1"><a href="#">Edit</a></span><img id="secondarypic2-img" src='images/200/200_<?php echo $ud['secondarypic2_url'] ?>'/>
+</div> 
+  
+
+</div>
+
+</div>
+
+<div style="width:99%; margin:5px; height:75px; float:right; border:solid 1px; overflow: hidden">
+
+<?php
+/* $pinnedpics=  unserialize($ud['pinnedpic']);
+    $i=0;
+    foreach($pinnedpics as $pic)
+    {
+        if($i<14)
+        {
+            $iprivacy=getimageprivacy($pic);
+            $minipro=getminipro($iprivacy['userid']);
+            if($iprivacy['pt']=='public' || ($iprivacy['pt']=='friends' && in_array($_SESSION['userid'], $minipro['friends'])) ||($iprivacy['pt']=='fof' && (count(array_intersect($_SESSION['friends'], $minipro['friends']))>=1 || in_array($_SESSION['userid'], $minipro['friends']))) || in_array($_REQUEST['userid'], $_SESSION['friends']) || $_SESSION['userid']==$_REQUEST['userid'] || $_SESSION['userid']==$minipro['userid'] ) {
+                echo "<img src='images/75/75_".$iprivacy['url']."' height='70' width='70' />";
+        }
+        $i++;
+        }
+        
+    }
+
+*/
+?>
+</div>
+
+<div id="stature-div" class="titleheaderfont" style="width:90%; padding: 3px; margin:5px;  float:left">
+    <b style="margin-left: 5px">Stature</b>
+<div style=" width:70px; margin-top: 0px;  margin-left: 3px; border-bottom: solid #000; "></div> 
+<?php if(isset($ud['stature'])){ ?>
+
+<div style="width:98%;overflow: hidden; margin-left: 10px; margin-top: 5px; font-family: cursive; font-size: 12px; font-weight: bold;">
+    <p ><?php echo htmlspecialchars($ud['stature']);
+    ?></p>
+</div>
+<?php } ?>
+</div>
+
+    <div id="main-content">
+        <?php if(isset($_REQUEST['tab'])) {
+    if($_REQUEST['tab']=='albums'){ ?>
+        getalbums('<?php echo $_REQUEST['userid']; ?>');
+<?php } else if($_REQUEST['tab']=='blogs'){ if($_SESSION['userid']==$_REQUEST['userid']) { ?>
+
+   <input id="blog-button" style="float:right" type="button" value="create"/>
+<?php } } else if($_REQUEST['tab']=='admire'){ if($_SESSION['userid']!=$_REQUEST['userid']) {?>
+    <input id="admire-button" style="float:right" type="button" value="create"/>
+
+<?php } }
+else if($_REQUEST['tab']=='videos'){ if($_SESSION['userid']==$_REQUEST['userid']) {?>
+    <input id="video-button" style="float:right" type="button" value="Add video"/>
+
+<?php } } } else { ?>
+    <div style="width:100%; float:left">
+        <form name="postform" >
+<div style="width:100%; margin-top: 10px; float:left; ">
+    <label>User Stream</label>
+<textarea id="message-content" placeholder="Write what's on your mind" name="post" style="resize:none; margin-top:0px; margin-left:0px; width:99%; height: 30px;" class="expand" onclick="expand()" ></textarea>
+</div>
+
+<div class="status-post-div">
+<ul>
+<li><a onclick="dopost('<?php echo $_REQUEST['userid'];?>','user')">Post</a></li></ul>
+
+<div style="width:200px; float:left">
+</div>
+
+<select style="float:right"><option value="-1">Select:</option><option value="1">Friends</option><option value="2">FOF</option><option value="3">Public</option><option value="4">Private</option><option value="5">Specific</option><option value="6">Hidden</option></select>
+</div>
+        </form>
+</div>
+
+
+<?php }
+?>
+<div id="userstream" style="width:100%; float:left;">
+   
+</div>
+    </div>
+    <script type="text/javascript">
+<?php if(isset($_REQUEST['tab'])) {
+    switch ($_REQUEST['tab']){
+    case 'albums': ?>
+        getalbums('<?php echo $_REQUEST['userid']; ?>');
+<?php break; case 'blogs': ?>
+    getblogs('<?php echo $_REQUEST['userid']; ?>'); 
+<?php break; case 'admire': ?>
+    getadmire('<?php echo $_REQUEST['userid']; ?>');
+<?php break; case 'scribbles':
+    echo "getmystreams('".$_REQUEST['userid']."','scribbles');";
+    break;
+default:
+    echo "getmystreams('".$_REQUEST['userid']."','posts');";
+    break;
+    }
+    
+    } else {?>
+    getmystreams('<?php echo $_REQUEST['userid']; ?>','posts');
+<?php }
+?>
+</script>
+</div>
+
+<!-- center div end  -->    
+    
+    <!-- right side begin  -->
+    <div id="fourthdiv" style="width:20%; margin-top: 25px; float:right;  ">
+   
+<div id="friends-div" style="width:190px; font-size: 18px; font-weight: bold; margin-top:0px;  max-height: 340px;   float:right; ">
+My Freniz
+<div style="width:32px; height:32px; margin-right: 5px; margin-top: 5px; float:right;"><img src="images/mood/<?php echo $ud['mood']; ?>" height="32" width="32"/></div>
+<?php if($session['userid']!=$ud['userid']) { ?>
+<div style="width:150px; font-size: 12px; height:20px; float:left;"> Mutual : <?php echo count(array_intersect($_SESSION['friends'], unserialize($fv['friendlist']))) ; ?></div>
+<?php } ?>
+<?php if(isset($ud['friends_profiles'])) {?>  
+<div id="boxscroll" >
+<?php 
+foreach($ud['friends_profiles'] as $userid=> $values){
+    ?>
+       <div style="height:50px; width:190px;">
+<div style="height:32px; float:right; margin:5px; width:32px; border:solid 1px">
+    <img src="images/32/32_<?php echo $values['imageurl']; ?>" height="32" width="32" />
+</div>
+<div style="height:50px; float:right; width:110px">
+<div style=" font-size: 12px; font-weight: bold;  width:110px; ">
+    <a class="user-navigate" href="<?php echo $values['userid']; ?>"><?php echo $values['fname'].' '.$values['lname']; ?></a>
+</div>
+<div style="height:25px; font-size: 12px; width:120px;">
+    <?php if($values['userid']!=$session['userid']){ ?>
+        <div style="height:25px; width:60px; float: left">
+            <a>Mutual : <?php echo count(array_intersect($session['friends'], unserialize($values['friendlist']))); ?></a>
+</div>
+    <?php } ?>
+    <div style="height:25px; width:60px; float: left ">
+     <a>votes : <?php echo count(unserialize($values['vote'])); ?></a>
+</div>
+</div>
+</div>
+<div id="simley"style='height:30px; width:30px; margin:3px; ' >
+    <img src="images/mood/<?php echo $values['mood']; ?>" height="30" width="30"/>
+</div>
+        <div style=" width:180px; margin-top: 15px; margin-left: 10px; border-bottom: solid 1px; "></div>    
+</div>
+<?php }
+?>
+</div>
+<?php } ?>
+</div>
+
+
+</div>
+    
+    <!-- right side end  -->
+    
+    
+    
+    
+   
+<div id="footer" style="width: 100%; height: 100px; float: left; border: solid 1px">
+    
+    
+    
+</div>
+ 
+        
+
+</div>
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+      
+        
+    </div>
+    
+
+
+
+  
+  
+  <div id="musictab">
+
+ <div class="foot-tab">
+     <ul>
+         <li><a href="#">About</a></li>
+         <li><a href="#">Search</a></li>
+         <li><a href="#">Terms</a></li>
+         <li><a href="#">Privacy</a></li>
+         <li><a href="#">Help</a></li>
+         <li><a href="#">Create a leaf</a></li>
+          <li><a href="#">Developers</a></li>
+         <li><a href="#">Hire Us</a></li>
+     </ul>
+     
+ </div> 
+       
+</div>
+
+<script type="text/javascript">
+     var options_xmlsearch = function(type,appendto){
+     if(!appendto)
+        appendto='body'; 
+                
+     var options={
+                script:"ajax/search.php?type="+type+"&",
+		varname:"key",
+                type:type,
+                appendto:appendto
+            };
+            return options;
+	}
+        var as_xmlsearch = new AutoSuggest('searchusers', options_xmlsearch('all'));
+        
+        
+        
+</script>
+<div id="light1" class="white_content"></div>
+<div id="fade" onClick="document.getElementById('light').style.display='none';  document.getElementById('fade').style.display='none'" class="black_overlay">
+        </div>
+<div id="normal"></div>
+
+</body>
+</html>

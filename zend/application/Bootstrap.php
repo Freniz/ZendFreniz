@@ -8,7 +8,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	/** Zend Db Initialization */
 	$registry=Zend_Registry::getInstance();
 	$config=array(
-				'username'	=>'nizam',
+				'username'	=>'nizam1',
 				'password'  =>'ajith786',
 				'dbname'	=>'fztest1'
                );

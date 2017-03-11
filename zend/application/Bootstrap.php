@@ -8,8 +8,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	/** Zend Db Initialization */
 	$registry=Zend_Registry::getInstance();
 	$config=array(
-				'username'	=>'nizam',
-				'password'  =>'ajith786',
+				'username'	=>'XXXX',
+				'password'  =>'XXXX',
 				'dbname'	=>'fztest1'
                );
 	$DB=new Zend_Db_Adapter_Pdo_Mysql($config);

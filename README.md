@@ -1,2 +1,2 @@
 # zend-freniz
-Freniz social network with zend framework
+Social Network with zend framework
